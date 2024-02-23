@@ -1,29 +1,39 @@
 "use client";
+import { signIn } from "@/api/signIn";
 import Button from "../atoms/Button";
-import Input from "../atoms/Input";
+import { useState } from "react";
+import LabeledInput from "../molecules/LabeledInput";
+import TwoOptionsInput from "../molecules/TwoOptionsInput";
 
 const SignInForm = () => {
-  function handleSubmit() {
-    console.log("Signing in...");
+  const [emailOrUsername, setEmailOrUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleSubmit() {
+    await signIn({ body: { emailOrUsername, password } });
   }
 
   return (
     <div>
-      <form action="" className="flex flex-col items-center">
-        <div className="py-2">
-          <label className="px-2" htmlFor="">
-            Email
-          </label>
-          <Input type="email" />
-        </div>
-        <div className="py-2">
-          <label htmlFor="">Senha</label>
-          <Input type="password" />
-        </div>
-        <div>
-          <Button content="Enviar" onSubmit={handleSubmit} />
-        </div>
-      </form>
+      <div>Entre na sua conta</div>
+      <div>
+        <form action="" className="flex flex-col items-center">
+          <LabeledInput
+            inputValue={emailOrUsername}
+            onInputChange={setEmailOrUsername}
+            labelContent="Email/Usuário"
+          />
+          <LabeledInput
+            inputValue={password}
+            onInputChange={setPassword}
+            inputType="password"
+            labelContent="Senha"
+          />
+          <div>
+            <Button content="Enviar" onSubmit={handleSubmit} />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
