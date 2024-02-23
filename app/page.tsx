@@ -1,11 +1,12 @@
-import AddItemForm from "@/components/forms/AddItemForm";
-import SignInForm from "@/components/forms/SignInForm";
+import Header from "@/components/UI/Header";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SignInForm />
-      <AddItemForm />
-    </main>
+    <>
+      <Header />
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        Teste
+      </main>
+    </>
   );
 }
