@@ -21,7 +21,11 @@ const Button = ({
     }
   };
   if (children) {
-    return <button disabled={disabled}>{children}</button>;
+    return (
+      <button className={className} disabled={disabled}>
+        {children}
+      </button>
+    );
   }
 
   return (

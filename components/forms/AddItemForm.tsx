@@ -34,7 +34,7 @@ const AddItemForm = () => {
           <LabeledInput
             inputValue={description}
             onInputChange={setDescription}
-            labelContent="Email/Usuário"
+            labelContent="Descrição"
           />
           <LabeledInput
             inputValue={quantity}
