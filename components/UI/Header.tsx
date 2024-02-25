@@ -3,15 +3,12 @@ import LinkItem from "../atoms/LinkItem";
 
 const Header = () => {
   return (
-    <header>
+    <header className="flex justify-around items-center pt-4 px-4">
       <h1>Gerenciador de fazenda</h1>
-      <nav>
+      <nav className="px-32">
         <ul className="flex flex-row px-8">
           <LinkItem path="/">
             <LiItem content="Início" />
-          </LinkItem>
-          <LinkItem path="/dashboard">
-            <LiItem content="Dashboard" />
           </LinkItem>
         </ul>
       </nav>

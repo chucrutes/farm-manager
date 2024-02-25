@@ -15,7 +15,7 @@ const LabeledInput = ({
   onInputChange,
 }: ILabeledInput) => {
   return (
-    <div className="flex flex-col py-2">
+    <div className="flex flex-col px-4 pt-2 align-bottom">
       <Label content={labelContent} />
       <Input type={inputType} value={inputValue} onChange={onInputChange} />
     </div>

@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 
 type IInput = {
   onChange: (value: any) => void;
@@ -18,12 +17,13 @@ const Input = ({
   type = "text",
 }: IInput) => {
   const placeholder = type == "password" ? "••••••••" : "Digite aqui";
-  const className = `bg-brown rounded px-4 py-2 text-neutral-400 ${classNameProperties}`;
+  const className = `bg-brown rounded px-4 py-2 text-white-400 ${classNameProperties}`;
 
   return (
     <input
       className={className}
       placeholder={placeholder}
+      height={40}
       //   size={640}
       value={value}
       type={type}

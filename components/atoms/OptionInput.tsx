@@ -6,8 +6,9 @@ type IChooseBetweenButton = {
 
 const OptionInput = ({ checked, content, onChange }: IChooseBetweenButton) => {
   return (
-    <label>
+    <label className="px-2">
       <input
+        className="m-2"
         type="radio"
         value={content}
         checked={checked}
