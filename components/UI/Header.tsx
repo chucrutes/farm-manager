@@ -3,10 +3,10 @@ import LinkItem from "../atoms/LinkItem";
 
 const Header = () => {
   return (
-    <header className="flex justify-around items-center pt-4 px-4">
-      <h1>Gerenciador de fazenda</h1>
-      <nav className="px-32">
-        <ul className="flex flex-row px-8">
+    <header className="flex flex-col md:flex-row justify-around items-center pt-4 px-4">
+      <h1 className="text-center md:text-left">Gerenciador de fazenda</h1>
+      <nav className="px-4 md:px-32 mt-4 md:mt-0">
+        <ul className="flex flex-row justify-center md:justify-end">
           <LinkItem path="/">
             <LiItem content="Início" />
           </LinkItem>
