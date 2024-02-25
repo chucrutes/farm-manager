@@ -1,5 +1,9 @@
 const Footer = () => {
-  return <footer>&copy; 2024 por Thiago Melo. Direitos reservados.</footer>;
+  return (
+    <footer className="flex justify-center">
+      &copy; 2024 por Thiago Melo. Direitos reservados.
+    </footer>
+  );
 };
 
 export default Footer;
