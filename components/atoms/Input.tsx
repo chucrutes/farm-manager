@@ -7,6 +7,7 @@ type IInput = {
   children?: React.ReactNode;
   disabled?: boolean;
   type?: string;
+  hidden?: boolean;
 };
 
 const Input = ({
@@ -15,6 +16,7 @@ const Input = ({
   classNameProperties,
   disabled = false,
   type = "text",
+  hidden = false,
 }: IInput) => {
   const placeholder = type == "password" ? "••••••••" : "Digite aqui";
   const className = `bg-brown rounded px-4 py-2 text-white-400 ${classNameProperties}`;
@@ -24,6 +26,7 @@ const Input = ({
       className={className}
       placeholder={placeholder}
       height={40}
+      hidden={hidden}
       //   size={640}
       value={value}
       type={type}
