@@ -1,9 +1,8 @@
 "use client";
 import { signIn } from "@/api/signIn";
-import Button from "../atoms/Button";
+import Button from "../../atoms/Button";
 import { useState } from "react";
-import LabeledInput from "../molecules/LabeledInput";
-import TwoOptionsInput from "../molecules/TwoOptionsInput";
+import LabeledInput from "../../molecules/LabeledInput";
 
 const SignInForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState("");

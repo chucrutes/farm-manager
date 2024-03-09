@@ -7,7 +7,6 @@ import Label from "../atoms/Label";
 export type IOption = {
   label: string;
   value: string;
-  type: string;
 };
 type OptionsProps = {
   mainLabel: string;

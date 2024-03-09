@@ -1,8 +1,11 @@
-import AddItemForm from "@/components/organisms/forms/AddItemForm";
-import { useState } from "react";
-import { IItem } from "../entitities/item.schema";
+"use client";
 
-const DashboardPage = () => {
+import { IItem } from "@/app/entitities/item.schema";
+import { useState } from "react";
+import AddItemForm from "./forms/AddItemForm";
+import { ItemsTable } from "./tables/ItemsTable";
+
+export const DashboardComponent = () => {
   const [items, setItems] = useState<IItem[]>([]);
 
   const saveItem = (item: IItem) => {
@@ -12,8 +15,10 @@ const DashboardPage = () => {
   return (
     <div className="flex flex-col items-center">
       <AddItemForm saveItem={saveItem} />
+
+      <div>
+        <ItemsTable items={items} />
+      </div>
     </div>
   );
 };
-
-export default DashboardPage;

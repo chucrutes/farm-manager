@@ -1,5 +1,6 @@
 type IButton = {
-  onSubmit?: () => Promise<void>;
+  type?: "button" | "submit";
+  onClick?: () => Promise<void>;
   classNameProperties?: string;
   content: string;
   children?: React.ReactNode;
@@ -7,7 +8,8 @@ type IButton = {
 };
 
 const Button = ({
-  onSubmit,
+  type = "button",
+  onClick,
   classNameProperties,
   content,
   children,
@@ -16,20 +18,30 @@ const Button = ({
   const className = `bg-brown rounded inline-flex items-center px-4 py-2 ${classNameProperties}`;
 
   const handleSubmit = () => {
-    if (onSubmit) {
-      onSubmit();
+    if (onClick) {
+      onClick();
     }
   };
   if (children) {
     return (
-      <button className={className} disabled={disabled}>
+      <button
+        className={className}
+        type={type}
+        disabled={disabled}
+        onClick={handleSubmit}
+      >
         {children}
       </button>
     );
   }
 
   return (
-    <button className={className} disabled={disabled} onClick={handleSubmit}>
+    <button
+      className={className}
+      type={type}
+      disabled={disabled}
+      onClick={handleSubmit}
+    >
       {content}
     </button>
   );

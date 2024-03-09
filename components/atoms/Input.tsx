@@ -27,7 +27,6 @@ const Input = ({
       placeholder={placeholder}
       height={40}
       hidden={hidden}
-      //   size={640}
       value={value}
       type={type}
       onChange={(e) => onChange(e.target.value)}
