@@ -29,7 +29,7 @@ const SignInForm = () => {
             labelContent="Senha"
           />
           <div>
-            <Button content="Enviar" onSubmit={handleSubmit} />
+            <Button content="Enviar" onClick={handleSubmit} />
           </div>
         </form>
       </div>
