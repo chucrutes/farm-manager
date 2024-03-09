@@ -6,9 +6,7 @@ type TdProps = {
 export const Td = ({ content, colSpan = 1 }: TdProps) => {
   return (
     <td
-      className={`px-6 py-4 whitespace-nowrap ${
-        colSpan > 1 ? "text-center" : "text-left"
-      } text-black`}
+      className={`px-6 py-4 whitespace-nowrap text-center text-black`}
       colSpan={colSpan}
     >
       {content}

@@ -100,7 +100,7 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
     <div className="flex flex-col justify-center items-center">
       <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
       <form className="">
-        <div className="flex md:flex-row justify-start md:items-end flex-col">
+        <div className="flex md:flex-row justify-between md:items-end flex-col">
           <LabeledSelectInput
             mainLabel="Tipo"
             options={optionItems}
@@ -117,21 +117,18 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
           <LabeledInput
             inputValue={quantity.toString()}
             onInputChange={(value: any) => handleQuantityChange(value)}
-            inputType="text"
             labelContent="Quantidade"
           />
         </div>
-        <div className="flex md:flex-row justify-start md:items-end flex-col">
+        <div className="flex md:flex-row md:justify-between md:items-end flex-col">
           <LabeledInput
             inputValue={price.toString()}
             onInputChange={(value: any) => handlePriceChange(value)}
-            inputType="text"
             labelContent="Preço"
           />
           <LabeledInput
             inputValue={totalValue.toString()}
             onInputChange={(value: any) => handleTotalChange(value)}
-            inputType="text"
             labelContent="Valor total"
           />
         </div>

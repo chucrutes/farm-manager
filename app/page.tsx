@@ -1,6 +1,6 @@
 import Footer from "@/components/UI/Footer";
 import Header from "@/components/UI/Header";
-import { DashboardComponent } from "@/components/organisms/dash";
+import { DashboardComponent } from "@/components/organisms/dashboard";
 
 export default function Home() {
   return (
