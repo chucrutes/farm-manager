@@ -22,16 +22,22 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-200">
-        {items.map((item, index) => (
-          <tr key={index}>
-            <Td content={item.description} />
-            <Td content={item.type.name} />
-            <Td content={getCategory[item.type.category]()} />
-            <Td content={item.quantity.toString()} />
-            <Td content={item.price.toString()} />
-            <Td content={item.total.toString()} />
+        {items && items.length > 0 ? (
+          items.map((item, index) => (
+            <tr key={index}>
+              <Td content={item.description} />
+              <Td content={item.type.name} />
+              <Td content={getCategory[item.type.category]()} />
+              <Td content={item.quantity.toString()} />
+              <Td content={item.price.toString()} />
+              <Td content={item.total.toString()} />
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <Td content="Nenhum registro" colSpan={6} />
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );
