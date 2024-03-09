@@ -3,43 +3,55 @@ import { Categories } from "./categories.enum";
 export type IType = {
   name: string;
   key: string;
-  type: Categories;
+  category: Categories;
 };
 
 export const types: IType[] = [
   {
     name: "Venda de Gado",
     key: "cattle_sale",
-    type: Categories.PROFIT,
+    category: Categories.PROFIT,
   },
   {
     name: "Compra de gado",
     key: "buy_cattle",
-    type: Categories.PROFIT,
+    category: Categories.PROFIT,
   },
   {
     name: "Remédio",
     key: "medicine",
-    type: Categories.EXPENSE,
+    category: Categories.EXPENSE,
   },
   {
     name: "Veneno",
     key: "pesticide",
-    type: Categories.EXPENSE,
+    category: Categories.EXPENSE,
   },
   {
     name: "Ração",
     key: "feed",
-    type: Categories.EXPENSE,
+    category: Categories.EXPENSE,
   },
   {
     name: "Funcionário",
     key: "staff",
-    type: Categories.EXPENSE,
+    category: Categories.EXPENSE,
   },
   {
     name: "Investimento",
     key: "investment",
-    type: Categories.ASSET,
+    category: Categories.ASSET,
   },
 ];
+
+export const getCategory = {
+  expense: () => {
+    return "Dívida";
+  },
+  profit: () => {
+    return "Lucro";
+  },
+  asset: () => {
+    return "Patrimônio";
+  },
+};

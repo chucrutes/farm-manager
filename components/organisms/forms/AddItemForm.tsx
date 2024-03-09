@@ -46,6 +46,12 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
     };
 
     saveItem(product);
+
+    setDescription("");
+    setQuantity(0);
+    setPrice(0);
+    setTotalValue(0);
+    setSelectedOption(mapItemToOption(types[0], "name", "key"));
   };
 
   const handleQuantityChange = (value: any) => {
