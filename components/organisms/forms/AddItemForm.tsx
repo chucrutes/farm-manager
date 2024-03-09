@@ -8,13 +8,14 @@ import { types } from "@/app/entitities/types.enum";
 import { mapItemToOption } from "@/app/utlis/formatTypesToSelect";
 import { IItem } from "@/app/entitities/item.schema";
 import { parseNum } from "@/app/utlis/numberUtils";
+import { toast } from "react-toastify";
 
 type AddItemFormProps = {
   saveItem: (product: IItem) => void;
 };
 
 const AddItemForm = ({ saveItem }: AddItemFormProps) => {
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
 
   const [price, setPrice] = useState<number>(0.0);
@@ -23,6 +24,10 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
     mapItemToOption(types[0], "name", "key")
   );
   const optionItems = types.map((type) => mapItemToOption(type, "name", "key"));
+
+  const handleSetDescription = (value: any) => {
+    setDescription(value);
+  };
 
   const handleSelectedOption = (value: any) => {
     const selectedOption = optionItems.find((option) => option.value === value);
@@ -52,6 +57,7 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
     setPrice(0);
     setTotalValue(0);
     setSelectedOption(mapItemToOption(types[0], "name", "key"));
+    toast.success("Item salvo com sucesso.");
   };
 
   const handleQuantityChange = (value: any) => {
@@ -61,9 +67,9 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 
     setQuantity(parsedNumber);
 
-    if (price !== null && totalValue !== null) {
+    if (price !== 0 && totalValue !== 0) {
       setTotalValue(price * parsedNumber);
-    } else if (totalValue !== null) {
+    } else if (totalValue !== 0) {
       setPrice(totalValue / parsedNumber);
     }
   };
@@ -75,9 +81,9 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 
     setPrice(parsedNumber);
 
-    if (quantity !== null && totalValue !== null) {
+    if (quantity !== 0 && totalValue !== 0) {
       setTotalValue(parsedNumber * quantity);
-    } else if (totalValue !== null) {
+    } else if (totalValue !== 0) {
       setQuantity(totalValue / parsedNumber);
     }
   };
@@ -89,9 +95,7 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 
     setTotalValue(parsedNumber);
 
-    if (quantity !== null && price !== null) {
-      setPrice(parsedNumber / quantity);
-    } else if (quantity !== null) {
+    if (quantity !== 0 && price !== 0) {
       setPrice(parsedNumber / quantity);
     }
   };
@@ -111,10 +115,11 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
           />
           <LabeledInput
             inputValue={description}
-            onInputChange={setDescription}
+            onInputChange={(value) => handleSetDescription(value)}
             labelContent="Descrição"
           />
           <LabeledInput
+            requiredInput={false}
             inputValue={quantity.toString()}
             onInputChange={(value: any) => handleQuantityChange(value)}
             labelContent="Quantidade"
@@ -122,18 +127,20 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
         </div>
         <div className="flex md:flex-row md:justify-between md:items-end flex-col">
           <LabeledInput
+            requiredInput={false}
             inputValue={price.toString()}
             onInputChange={(value: any) => handlePriceChange(value)}
             labelContent="Preço"
           />
           <LabeledInput
+            requiredInput={false}
             inputValue={totalValue.toString()}
             onInputChange={(value: any) => handleTotalChange(value)}
             labelContent="Valor total"
           />
         </div>
         <div className="flex justify-center py-4">
-          <Button content="Enviar" onClick={handleSubmit} />
+          <Button content="Salvar" onClick={handleSubmit} />
         </div>
       </form>
     </div>

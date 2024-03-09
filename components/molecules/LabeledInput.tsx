@@ -2,6 +2,7 @@ import Input from "../atoms/Input";
 import Label from "../atoms/Label";
 
 type ILabeledInput = {
+  requiredInput?: boolean;
   labelContent: string;
   inputValue: string;
   inputType?: string;
@@ -10,6 +11,7 @@ type ILabeledInput = {
 };
 
 const LabeledInput = ({
+  requiredInput = true,
   labelContent,
   inputValue,
   inputType,
@@ -20,6 +22,8 @@ const LabeledInput = ({
     <div hidden={hidden} className="flex flex-col px-4 pt-2 align-bottom">
       <Label hidden={hidden} content={labelContent} />
       <Input
+        required={requiredInput}
+        label={labelContent}
         hidden={hidden}
         type={inputType}
         value={inputValue}

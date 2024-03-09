@@ -1,3 +1,4 @@
+import Toast from "@/components/Toast";
 import Footer from "@/components/UI/Footer";
 import Header from "@/components/UI/Header";
 
@@ -9,6 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
+      <Toast />
       <main className="">{children}</main>
       <Footer />
     </>
