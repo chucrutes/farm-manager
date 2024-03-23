@@ -35,6 +35,6 @@ const Select = forwardRef(
 	},
 );
 
-Select.displayName = "Input";
+Select.displayName = "Select";
 
 export default Select;
