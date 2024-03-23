@@ -12,6 +12,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          
       },
       colors: {
         green: {
@@ -19,8 +20,8 @@ const config: Config = {
           // Add more shades of green if needed
         },
         brown: {
-          DEFAULT: "#a5694f", // Default shade of brown
-          // Add more shades of brown if needed
+          DEFAULT: "rgb(227, 186, 125)", // Default shade of brown
+          dark: 'rgb(167, 118, 65)'
         },
         blue: {
           DEFAULT: "#3498db", // Default shade of blue

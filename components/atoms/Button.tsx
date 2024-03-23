@@ -1,50 +1,34 @@
-type IButton = {
-  type?: "button" | "submit";
-  onClick?: () => Promise<void>;
-  classNameProperties?: string;
-  content: string;
-  children?: React.ReactNode;
-  disabled?: boolean;
+import { ComponentProps } from "react";
+import MuiButton from "@mui/material/Button";
+
+type ButtonProps = Omit<ComponentProps<"button">, "color"> & {
+	color?: "success" | "inherit" | "primary";
 };
 
 const Button = ({
-  type = "button",
-  onClick,
-  classNameProperties,
-  content,
-  children,
-  disabled = false,
-}: IButton) => {
-  const className = `bg-brown rounded inline-flex items-center px-4 py-2 ${classNameProperties}`;
+	color = "success",
+	type = "submit",
+	onClick,
+	disabled = false,
+	children,
+}: ButtonProps) => {
+	const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+		onClick?.(e);
+	};
 
-  const handleSubmit = () => {
-    if (onClick) {
-      onClick();
-    }
-  };
-  if (children) {
-    return (
-      <button
-        className={className}
-        type={type}
-        disabled={disabled}
-        onClick={handleSubmit}
-      >
-        {children}
-      </button>
-    );
-  }
-
-  return (
-    <button
-      className={className}
-      type={type}
-      disabled={disabled}
-      onClick={handleSubmit}
-    >
-      {content}
-    </button>
-  );
+	return (
+		<MuiButton
+			type={type}
+			disabled={disabled}
+			className="inline-flex items-center px-4 py-2 text-white"
+			variant="contained"
+			size="large"
+			color={color}
+			onClick={handleSubmit}
+		>
+			{children}
+		</MuiButton>
+	);
 };
 
 export default Button;

@@ -1,24 +1,36 @@
 "use client";
 
-import { IItem } from "@/app/entitities/item.schema";
 import { useState } from "react";
-import AddItemForm from "./forms/AddItemForm";
 import { ItemsTable } from "./tables/ItemsTable";
+import { IItem } from "@/app/entities/IItem";
+import AddItemForm from "./forms/AddItemForm";
+import { IAddItem } from "./forms/AddItemForm/@types/types";
+import { findTypeByType } from "@/app/entities/types.enum";
 
 export const DashboardComponent = () => {
-  const [items, setItems] = useState<IItem[]>([]);
+	const [items, setItems] = useState<IItem[]>([]);
 
-  const saveItem = (item: IItem) => {
-    setItems((prev) => [item, ...prev]);
-  };
+	const saveItem = ({ type, ...item }: IAddItem) => {
+		const typeFound = findTypeByType(type);
+		if (!typeFound) return;
 
-  return (
-    <div className="flex flex-col items-center">
-      <AddItemForm saveItem={saveItem} />
+		const itemToSave: IItem = {
+			createdAt: new Date(),
+			updateAt: new Date(),
+			type: typeFound,
+			...item,
+		};
 
-      <div>
-        <ItemsTable items={items} />
-      </div>
-    </div>
-  );
+		setItems((prev) => [itemToSave, ...prev]);
+	};
+
+	return (
+		<div className="flex flex-col items-center">
+			<AddItemForm saveItem={saveItem} />
+
+			<div>
+				<ItemsTable items={items} />
+			</div>
+		</div>
+	);
 };

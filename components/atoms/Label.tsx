@@ -1,10 +1,9 @@
-type ILabel = {
-  content: string;
-  hidden?: boolean;
-};
+import { ComponentProps } from "react";
 
-const Label = ({ content, hidden }: ILabel) => {
-  return <label hidden={hidden}>{content}</label>;
+type ILabel = ComponentProps<"label">;
+
+const Label = ({ children, hidden }: ILabel) => {
+	return <label hidden={hidden}>{children}</label>;
 };
 
 export default Label;

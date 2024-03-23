@@ -1,36 +1,11 @@
 "use client";
 
-import React from "react";
-import SelectInput from "../atoms/SelectInput";
-import Label from "../atoms/Label";
-
-export type IOption = {
-  label: string;
-  value: string;
-};
-type OptionsProps = {
-  mainLabel: string;
-  options: Array<IOption>;
-  selectedOption: IOption;
-  onChange: (value: string) => void;
+type LabeledSelectInputProps = {
+	children: React.ReactNode;
 };
 
-const LabeledSelectInput = ({
-  mainLabel,
-  options,
-  selectedOption,
-  onChange,
-}: OptionsProps) => {
-  return (
-    <div className="flex flex-col px-4 pt-2 align-bottom">
-      <Label content={mainLabel} />
-      <SelectInput
-        options={options}
-        onChange={onChange}
-        selectedOption={selectedOption}
-      />
-    </div>
-  );
+const LabeledSelectInput = ({ children }: LabeledSelectInputProps) => {
+	return <div className="flex flex-col px-4 pt-2 align-bottom">{children}</div>;
 };
 
 export default LabeledSelectInput;

@@ -3,7 +3,7 @@ import env from "@/config/env";
 const { BASE_URL } = env;
 type ISignIn = {
   body: {
-    emailOrUsername: string;
+    user: string;
     password: string;
   };
 };

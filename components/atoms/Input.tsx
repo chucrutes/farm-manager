@@ -1,52 +1,33 @@
 "use client";
 
-import { toast } from "react-toastify";
+import React from "react";
+import { ComponentProps } from "react";
+import TextField from "@mui/material/TextField";
 
-type IInput = {
-  label: string;
-  onChange: (value: any) => void;
-  value: string;
-  classNameProperties?: string;
-  children?: React.ReactNode;
-  disabled?: boolean;
-  type?: string;
-  hidden?: boolean;
-  required?: boolean;
+type InputProps = Omit<ComponentProps<"input">, "id" | "color"> & {
+	id?: string;
+	label: string;
 };
 
-const Input = ({
-  label,
-  required = true,
-  value,
-  onChange,
-  classNameProperties,
-  disabled = false,
-  type = "text",
-  hidden = false,
-}: IInput) => {
-  const placeholder = type == "password" ? "••••••••" : "Digite aqui";
-  const className = `bg-brown rounded px-4 py-2 text-white-400 ${classNameProperties}`;
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+	({ id, size, label, value, type = "text", ...props }, ref) => {
+		const placeholder = type === "password" ? "••••••••" : "Digite aqui";
 
-  const onInputChange = (value: any) => {
-    if (required && value == "") {
-      toast.error(`O campo ${label} não pode ser vazio`);
-    }
-
-    onChange(value);
-  };
-
-  return (
-    <input
-      className={className}
-      placeholder={placeholder}
-      height={40}
-      hidden={hidden}
-      value={value}
-      type={type}
-      onChange={(e) => onInputChange(e.target.value)}
-      disabled={disabled}
-    />
-  );
-};
+		return (
+			<TextField
+				{...props}
+				type={type}
+				color="primary"
+				value={value}
+				placeholder={placeholder}
+				id={id}
+				label={label}
+				variant="outlined"
+				className=" text-white"
+				ref={ref}
+			/>
+		);
+	},
+);
 
 export default Input;
