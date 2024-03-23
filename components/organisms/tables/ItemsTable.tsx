@@ -1,8 +1,8 @@
+import React from "react";
+import { Th } from "@/components/atoms/Th";
+import { Td } from "@/components/atoms/Td";
 import { IItem } from "@/app/entities/IItem";
 import { getCategory } from "@/app/entities/types.enum";
-import { Td } from "@/components/atoms/Td";
-import { Th } from "@/components/atoms/Th";
-import React from "react";
 
 type TableProps = {
 	items: IItem[];

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Types, types } from "@/app/entities/types.enum";
+import { Types } from "@/app/entities/types.enum";
 import { itemSchema } from "@/app/entities/IItem";
 
 export const addItemSchema = itemSchema.omit({ createdAt: true, updateAt: true, category: true, type: true }).merge(z.object({
