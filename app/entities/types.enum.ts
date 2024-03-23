@@ -3,6 +3,7 @@ import { Categories, categoriesSchema } from "./categories.enum";
 
 
 export enum Types {
+  INVESTMENT_EXPENSE = "Dívida de investimento",
   CATTLE_SALE = 'Venda de Gado',
   BUY_CATTLE = 'Compra de Gado',
   MEDICINE = 'Remédio',
@@ -56,9 +57,14 @@ export const types: IType[] = [
     key: "investment",
     category: Categories.ASSET,
   },
+  {
+    name: Types.INVESTMENT_EXPENSE,
+    key: "investment_expense",
+    category: Categories.EXPENSE,
+  },
 ];
 
-export const findTypeByType = (type: Types): IType | null => {
+export const findTypeByType = (type: string): IType | null => {
   const itemFound = types.find(item => item.name === type)
 
   if(!itemFound) return null

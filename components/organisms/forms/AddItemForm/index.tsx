@@ -105,7 +105,11 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 					</LabeledInput>
 					<LabeledSelectInput>
 						<Label>Tipo</Label>
-						<Select options={typesForSelect} {...register("type")} />
+						<Select
+							setValue={setValue}
+							options={typesForSelect}
+							{...register("type")}
+						/>
 					</LabeledSelectInput>
 				</div>
 				<div className="flex justify-center py-4">
