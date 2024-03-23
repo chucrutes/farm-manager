@@ -34,8 +34,8 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 		resolver: zodResolver(addItemSchema),
 	});
 
-	const price = watch("price") || 0;
-	const quantity = watch("quantity") || 0;
+	const price = watch("price", 0);
+	const quantity = watch("quantity", 0);
 
 	const submitAddItem = (data: IAddItem) => {
 		console.log(data);
