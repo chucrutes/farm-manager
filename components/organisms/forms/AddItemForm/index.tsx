@@ -92,6 +92,8 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 					</LabeledInput>
 					<LabeledInput>
 						<Input
+							InputLabelProps={{ shrink: true }}
+							placeholder="total"
 							label="Total"
 							id={totalTagId}
 							type="number"
