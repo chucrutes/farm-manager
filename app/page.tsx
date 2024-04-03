@@ -4,14 +4,14 @@ import Header from "@/components/UI/Header";
 import { DashboardComponent } from "@/components/organisms/dashboard";
 
 export default function Home() {
-  return (
-    <>
-      <Header />
-      <main className="flex min-h-screen flex-col items-center p-24 bg-brown">
-        {/* <Toast /> */}
-        <DashboardComponent />
-      </main>
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<main className="flex min-h-screen overflow-auto flex-col items-center p-24 bg-brown">
+				{/* <Toast /> */}
+				<DashboardComponent />
+			</main>
+			<Footer />
+		</>
+	);
 }
