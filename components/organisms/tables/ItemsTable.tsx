@@ -38,6 +38,8 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 									day: "2-digit",
 									month: "short",
 									year: "2-digit",
+									hour: "2-digit",
+									minute: "2-digit",
 								})}
 							/>
 							<Td content={"dsadsad"} />
