@@ -23,7 +23,7 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 					<Th content="Editar" />
 				</tr>
 			</thead>
-			<tbody className="bg-white divide-y divide-gray-200">
+			<tbody className="min-w-full bg-white divide-y divide-gray-200">
 				{items && items.length > 0 ? (
 					items.map((item, index) => (
 						<tr key={index}>
@@ -33,7 +33,13 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 							<Td content={item.quantity.toString()} />
 							<Td content={item.price.toString()} />
 							<Td content={item.total.toString()} />
-							<Td content={item.createdAt.toLocaleDateString("pt-BR")} />
+							<Td
+								content={item.updateAt.toLocaleDateString("pt-BR", {
+									day: "2-digit",
+									month: "short",
+									year: "2-digit",
+								})}
+							/>
 							<Td content={"dsadsad"} />
 						</tr>
 					))

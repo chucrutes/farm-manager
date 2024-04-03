@@ -74,19 +74,6 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 					</LabeledInput>
 					<LabeledInput>
 						<Input
-							label="Preço"
-							id={priceTagId}
-							type="number"
-							{...register("price", { valueAsNumber: true })}
-						/>
-						{errors.price && (
-							<Alert icon={<ErrorIcon />} severity="error">
-								Preço inválido
-							</Alert>
-						)}
-					</LabeledInput>
-					<LabeledInput>
-						<Input
 							label="Quantidade"
 							id={quantityTagId}
 							type="number"
@@ -95,6 +82,19 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 						{errors.quantity && (
 							<Alert icon={<ErrorIcon />} severity="error">
 								Quantidade inválida {errors.quantity.message}
+							</Alert>
+						)}
+					</LabeledInput>
+					<LabeledInput>
+						<Input
+							label="Preço"
+							id={priceTagId}
+							type="number"
+							{...register("price", { valueAsNumber: true })}
+						/>
+						{errors.price && (
+							<Alert icon={<ErrorIcon />} severity="error">
+								Preço inválido
 							</Alert>
 						)}
 					</LabeledInput>
