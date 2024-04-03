@@ -20,7 +20,7 @@ const Button = ({
 		<MuiButton
 			type={type}
 			disabled={disabled}
-			className="inline-flex items-center px-4 py-2 text-white"
+			className="inline-flex bg-green items-center px-4 py-2 text-white"
 			variant="contained"
 			size="large"
 			color={color}

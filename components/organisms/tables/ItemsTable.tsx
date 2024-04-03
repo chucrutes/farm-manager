@@ -19,6 +19,8 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 					<Th content="Quantidade" />
 					<Th content="Preço" />
 					<Th content="Total" />
+					<Th content="Atualizado em" />
+					<Th content="Editar" />
 				</tr>
 			</thead>
 			<tbody className="bg-white divide-y divide-gray-200">
@@ -31,11 +33,13 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 							<Td content={item.quantity.toString()} />
 							<Td content={item.price.toString()} />
 							<Td content={item.total.toString()} />
+							<Td content={item.createdAt.toLocaleDateString("pt-BR")} />
+							<Td content={"dsadsad"} />
 						</tr>
 					))
 				) : (
 					<tr>
-						<Td content="Nenhum registro" colSpan={6} />
+						<Td content="Nenhum registro" colSpan={8} />
 					</tr>
 				)}
 			</tbody>

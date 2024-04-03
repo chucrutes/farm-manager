@@ -52,6 +52,14 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 			<h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
 			<form onSubmit={handleSubmit(submitAddItem)}>
 				<div className="flex md:flex-row justify-between md:items-end flex-col">
+					<LabeledSelectInput>
+						<Label>Tipo</Label>
+						<Select
+							setValue={setValue}
+							options={typesForSelect}
+							{...register("type")}
+						/>
+					</LabeledSelectInput>
 					<LabeledInput>
 						<Input
 							label="Descricão"
@@ -105,14 +113,6 @@ const AddItemForm = ({ saveItem }: AddItemFormProps) => {
 							</Alert>
 						)}
 					</LabeledInput>
-					<LabeledSelectInput>
-						<Label>Tipo</Label>
-						<Select
-							setValue={setValue}
-							options={typesForSelect}
-							{...register("type")}
-						/>
-					</LabeledSelectInput>
 				</div>
 				<div className="flex justify-center py-4">
 					<Button type="submit">Adicionar</Button>
