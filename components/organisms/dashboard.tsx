@@ -51,7 +51,7 @@ export const DashboardComponent = () => {
 		<div className="flex flex-col items-center">
 			<AddItemForm saveItem={saveItem} />
 
-			<div className="p-8">
+			<div className="p-8 overflow-x-auto">
 				<ItemsTable items={items} />
 			</div>
 		</div>
