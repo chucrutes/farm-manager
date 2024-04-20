@@ -6,6 +6,7 @@ import AddItemForm from "./forms/AddItemForm";
 import { ItemsTable } from "./tables/ItemsTable";
 import { IAddItem } from "./forms/AddItemForm/@types/types";
 import { Types, findTypeByType, types } from "@/app/entities/types.enum";
+import LiveCattleFrame from "../molecules/LiveCattleFrame";
 
 export const DashboardComponent = () => {
 	const [items, setItems] = useState<IItem[]>([]);
@@ -48,12 +49,14 @@ export const DashboardComponent = () => {
 	};
 
 	return (
-		<div className="flex flex-col items-center">
-			<AddItemForm saveItem={saveItem} />
+		<>
+			<div className="flex flex-col items-center">
+				<AddItemForm saveItem={saveItem} />
 
-			<div className="p-8 overflow-x-auto">
-				<ItemsTable items={items} />
+				<div className="p-8 overflow-x-auto">
+					<ItemsTable items={items} />
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };

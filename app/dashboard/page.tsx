@@ -1,9 +1,12 @@
+import { DashboardComponent } from "@/components/organisms/dashboard";
+
 const DashboardPage = () => {
-  return (
-    <div className="flex flex-col items-center">
-      <p>Dashboard</p>
-    </div>
-  );
+	return (
+		<>
+			{/* <Toast /> */}
+			<DashboardComponent />
+		</>
+	);
 };
 
 export default DashboardPage;
