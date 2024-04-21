@@ -11,7 +11,7 @@ export default function GuestLayout({ children }: GuestayoutProps) {
 		<>
 			<main className="flex min-h-screen overflow-auto flex-col bg-brown">
 				<Toast />
-				<div className="flex justify-end">
+				<div className="flex justify-center overflow-x-visible md:justify-end">
 					<LiveCattleFrame />
 				</div>
 				{children}
