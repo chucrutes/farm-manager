@@ -1,5 +1,4 @@
 import { envs } from "../../../config/envs";
-import { IItem } from "../../../entities/IItem";
 
 const { API_URL } = envs;
 

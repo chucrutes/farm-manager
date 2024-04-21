@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AddItemForm from "./forms/AddItemForm";
 import { ItemsTable } from "./tables/ItemsTable";
 import { IAddItem } from "./forms/AddItemForm/@types/types";
@@ -28,25 +28,21 @@ export const DashboardComponent = () => {
 		setItems(response.body.dto);
 	};
 
-	const saveItem = async ({ type, ...item }: IAddItem) => {
-		const typeFound = findTypeByType(type);
-		if (!typeFound) return;
-		if (type === Types.INVESTMENT) {
-			await createEntry({ body: { type: typeFound, ...item } });
-			await createEntry({ body: { type: types[7], ...item } });
-			listEntries(); // Refresh items after saving
-			return;
-		}
+	const saveItem = useCallback(
+		async ({ type, ...item }: IAddItem) => {
+			const typeFound = findTypeByType(type);
+			if (!typeFound) return;
+			if (type === Types.INVESTMENT) {
+				await createEntry({ body: { type: typeFound, ...item } });
+				await createEntry({ body: { type: types[7], ...item } });
+				listEntries(); // Refresh items after saving
+				return;
+			}
 
-		const itemToSave = {
-			createdAt: new Date(),
-			updatedAt: new Date(),
-			type: typeFound,
-			...item,
-		};
-		await createEntry({ body: { type: typeFound, ...item } });
-		listEntries(); // Refresh items after saving
-	};
+			await createEntry({ body: { type: typeFound, ...item } });
+		},
+		[listEntries],
+	);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {

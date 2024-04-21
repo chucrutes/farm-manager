@@ -37,7 +37,17 @@ export const ItemsTable: React.FC<TableProps> = ({ items }) => {
 								<Td content={item.quantity.toString()} />
 								<Td content={item.price.toString()} />
 								<Td content={item.total.toString()} />
-								<Td content={item.updatedAt} />
+								<Td
+									content={new Date(item.updatedAt).toLocaleDateString(
+										"pt-BR",
+										{
+											day: "2-digit",
+											month: "2-digit",
+											hour: "2-digit",
+											minute: "2-digit",
+										},
+									)}
+								/>
 								<Td content={<EditIcon />} />
 							</tr>
 						);
