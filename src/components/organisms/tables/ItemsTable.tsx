@@ -10,6 +10,8 @@ import { DtoItem } from "../dashboard";
 import { EditIcon } from "../../Icons/EditIcon";
 import { IAddItem } from "../forms/AddItemForm/@types/types";
 import Button from "../../atoms/Button";
+import { DeleteIcon } from "../../Icons/DeleteIcon";
+import { brDateFormatter } from "../../../utils/formatters";
 
 type TableProps = {
 	items: DtoItem[];
@@ -38,59 +40,65 @@ export const ItemsTable: React.FC<TableProps> = ({
 	}
 
 	return (
-		<table className="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
-			<thead className="bg-gray-50">
-				<tr>
-					<Th content="Descrição" />
-					<Th content="Tipo" />
-					<Th content="Categoria" />
-					<Th content="Quantidade" />
-					<Th content="Preço" />
-					<Th content="Total" />
-					<Th content="Atualizado em" />
-					<Th content="Editar" />
-				</tr>
-			</thead>
-			<tbody className="min-w-full bg-white divide-y divide-gray-200">
-				{items && items.length > 0 ? (
-					items.map((item, index) => {
-						const typeFound = findTypeByKey(item.key);
-						const category = getCategory[typeFound?.category || "expense"]();
-						return (
-							<tr key={item._id}>
-								<Td>{item.description}</Td>
-								<Td>{typeFound?.name || "dsadasda"}</Td>
-								<Td>{category}</Td>
-								<Td>{item.quantity.toString()}</Td>
-								<Td>{item.price.toString()}</Td>
-								<Td>{item.total.toString()}</Td>
-								<Td>
-									{new Date(item.updatedAt).toLocaleDateString("pt-BR", {
-										day: "2-digit",
-										month: "2-digit",
-										hour: "2-digit",
-										minute: "2-digit",
-									})}
-								</Td>
-								<Td>
-									<Button onClick={() => handleEditItem(item)}>
-										<EditIcon />
-									</Button>
-								</Td>
-							</tr>
-						);
-					})
-				) : (
+		<div className="overflow-x-auto">
+			<table className="divide-y divide-gray-200 relative">
+				<thead className="bg-gray-50 sticky">
 					<tr>
-						<Td content="Nenhum registro" colSpan={8} />
+						<Th content="Descrição" />
+						<Th content="Tipo" />
+						<Th content="Categoria" />
+						<Th content="Quantidade" />
+						<Th content="Preço" />
+						<Th content="Total" />
+						<Th content="Atualizado em" />
+						<Th content="Ações" />
 					</tr>
-				)}
-				<tr>
-					<Td>Total</Td>
-					<Td colSpan={6} />
-					<Td>{total}</Td>
-				</tr>
-			</tbody>
-		</table>
+				</thead>
+				<tbody className="bg-white divide-y divide-gray-200">
+					{items && items.length > 0 ? (
+						items.map((item) => {
+							const typeFound = findTypeByKey(item.key);
+							const category = getCategory[typeFound?.category || "expense"]();
+							const date = brDateFormatter(new Date(item.updatedAt));
+							return (
+								<tr key={item._id}>
+									<Td>{item.description}</Td>
+									<Td>{typeFound?.name || "dsadasda"}</Td>
+									<Td>{category}</Td>
+									<Td>{item.quantity.toString()}</Td>
+									<Td>{item.price.toString()}</Td>
+									<Td>{item.total.toString()}</Td>
+									<Td>{date}</Td>
+									<Td>
+										<div className="py-2">
+											<Button onClick={() => handleEditItem(item)}>
+												<EditIcon />
+											</Button>
+										</div>
+										<div className="py-2">
+											<Button
+												color="error"
+												onClick={() => handleEditItem(item)}
+											>
+												<DeleteIcon />
+											</Button>
+										</div>
+									</Td>
+								</tr>
+							);
+						})
+					) : (
+						<tr>
+							<Td content="Nenhum registro" colSpan={8} />
+						</tr>
+					)}
+					<tr>
+						<Td>Total</Td>
+						<Td colSpan={6} />
+						<Td>{total}</Td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	);
 };

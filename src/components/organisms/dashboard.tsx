@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddItemForm from "./forms/AddItemForm";
 import { ItemsTable } from "./tables/ItemsTable";
+import { TestTable } from "./tables/GerericTableTest";
 import { listEntry } from "../../pages/api/entry/list";
 import { createEntry } from "../../pages/api/entry/create";
 import { IAddItem } from "./forms/AddItemForm/@types/types";
@@ -15,7 +16,7 @@ export type DtoItem = {
 	total: number;
 	type: string;
 	category: string;
-	createdAt: Date;
+	createdAt: string;
 	updatedAt: string;
 	key: string;
 };
@@ -24,9 +25,7 @@ export const DashboardComponent = () => {
 	const [items, setItems] = useState<DtoItem[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [itemToEdit, setItemToEdit] = useState<IAddItem | null>(null);
-	console.log("dashboard");
 	console.log(itemToEdit);
-	console.log(total);
 
 	const listEntries = async () => {
 		const response = await listEntry();
@@ -96,8 +95,15 @@ export const DashboardComponent = () => {
 					item={itemToEdit}
 				/>
 
-				<div className="p-8 overflow-x-auto">
+				{/* <div className="p-8 overflow-x-auto">
 					<ItemsTable
+						items={items}
+						editItem={(item: IAddItem) => setItemToEdit(item)}
+						total={total}
+					/>
+				</div> */}
+				<div className="p-8 overflow-x-auto">
+					<TestTable
 						items={items}
 						editItem={(item: IAddItem) => setItemToEdit(item)}
 						total={total}

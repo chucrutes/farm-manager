@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 	return (
 		<>
 			<Header />
-			<main className="flex min-h-screen overflow-auto flex-col bg-brown">
+			<main className="flex flex-col min-h-screen overflow-auto bg-brown">
 				<Toast />
 				<div className="flex justify-center overflow-x-visible md:justify-end">
 					<LiveCattleFrame />

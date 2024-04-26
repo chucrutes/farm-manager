@@ -1,6 +1,5 @@
 import { envs } from "../../config/envs";
-
-const { API_URL } = envs;
+const { REACT_APP_API_URL } = envs;
 
 type ISignIn = {
   body: {
@@ -10,22 +9,22 @@ type ISignIn = {
 };
 
 type IResponse = {
-  status: number
+  status: number;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-body: any
-}
+  body: any;
+};
 
 const signIn = async ({ body }: ISignIn): Promise<IResponse> => {
-    const response: Response = await fetch(`${API_URL}/auth/sign-in`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...body }),
-    });
-    const data = await response.json();
+  const response: Response = await fetch(`${REACT_APP_API_URL}/auth/sign-in`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...body }),
+  });
+  const data = await response.json();
 
-    return {status: response.status, body: data}
+  return { status: response.status, body: data };
 };
 
 export { signIn };

@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 import MuiButton from "@mui/material/Button";
 
 type ButtonProps = Omit<ComponentProps<"button">, "color"> & {
-	color?: "success" | "inherit" | "primary";
+	color?: "success" | "inherit" | "primary" | "error";
 };
 
 const Button = ({

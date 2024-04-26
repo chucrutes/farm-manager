@@ -1,6 +1,6 @@
 import { envs } from "../../../config/envs";
 
-const { API_URL } = envs;
+const { REACT_APP_API_URL } = envs;
 
 type IResponse = {
   status: number;
@@ -15,7 +15,7 @@ const getTokenFromLocalStorage = (): string | null => {
 export const listEntry = async (): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${API_URL}/entries`, {
+  const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

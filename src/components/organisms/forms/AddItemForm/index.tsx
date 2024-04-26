@@ -67,8 +67,6 @@ const AddItemForm = ({
 	};
 
 	const resetForm = () => {
-		console.log("resetting form");
-
 		reset();
 		cleanItem();
 	};
