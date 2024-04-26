@@ -86,7 +86,8 @@ export const ItemsTable: React.FC<TableProps> = ({
 					</tr>
 				)}
 				<tr>
-					<Td colSpan={7}>Total</Td>
+					<Td>Total</Td>
+					<Td colSpan={6} />
 					<Td>{total}</Td>
 				</tr>
 			</tbody>
