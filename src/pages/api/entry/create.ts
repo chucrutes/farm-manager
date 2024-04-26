@@ -21,8 +21,6 @@ export const createEntry = async ({
   body,
 }: ICreateEntry): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
-  console.log("token");
-  console.log(token);
 
   const response: Response = await fetch(`${API_URL}/entries`, {
     method: "POST",
@@ -33,7 +31,6 @@ export const createEntry = async ({
     body: JSON.stringify({ ...body }),
   });
   const data = await response.json();
-  console.log(data);
 
   return { status: response.status, body: data };
 };

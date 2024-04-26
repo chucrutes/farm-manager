@@ -14,8 +14,6 @@ const getTokenFromLocalStorage = (): string | null => {
 
 export const listEntry = async (): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
-  console.log("token");
-  console.log(token);
 
   const response: Response = await fetch(`${API_URL}/entries`, {
     method: "GET",

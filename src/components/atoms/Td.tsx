@@ -1,15 +1,14 @@
-type TdProps = {
-	content: string | React.ReactNode;
-	colSpan?: number;
-};
+import { ComponentProps } from "react";
 
-export const Td = ({ content, colSpan = 1 }: TdProps) => {
+type TdProps = ComponentProps<"td">;
+
+export const Td = ({ colSpan = 1, children }: TdProps) => {
 	return (
 		<td
 			className="px-6 py-4 whitespace-nowrap text-center text-black"
 			colSpan={colSpan}
 		>
-			{content}
+			{children}
 		</td>
 	);
 };

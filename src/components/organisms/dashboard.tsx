@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddItemForm from "./forms/AddItemForm";
 import { ItemsTable } from "./tables/ItemsTable";
+import { listEntry } from "../../pages/api/entry/list";
+import { createEntry } from "../../pages/api/entry/create";
 import { IAddItem } from "./forms/AddItemForm/@types/types";
 import { Types, findTypeByType, types } from "../../entities/types.enum";
-import { createEntry } from "../../pages/api/entry/create";
-import { listEntry } from "../../pages/api/entry/list";
 
 export type DtoItem = {
 	_id: string;
@@ -22,33 +22,86 @@ export type DtoItem = {
 
 export const DashboardComponent = () => {
 	const [items, setItems] = useState<DtoItem[]>([]);
+	const [total, setTotal] = useState<number>(0);
+	const [itemToEdit, setItemToEdit] = useState<IAddItem | null>(null);
+	console.log("dashboard");
+	console.log(itemToEdit);
+	console.log(total);
 
 	const listEntries = async () => {
 		const response = await listEntry();
 		setItems(response.body.dto);
+		setTotal(response.body.total);
 	};
 
-	const saveItem = async ({ type, ...item }: IAddItem) => {
+	const saveItem = async ({
+		type,
+		total,
+		price,
+		fee,
+		quantity,
+		...item
+	}: IAddItem) => {
 		const typeFound = findTypeByType(type);
 		if (!typeFound) return;
 		if (type === Types.INVESTMENT) {
-			await createEntry({ body: { type: typeFound, ...item } });
-			await createEntry({ body: { type: types[7], ...item } });
-			listEntries(); // Refresh items after saving
+			await createEntry({
+				body: { type: typeFound, total, price, quantity, ...item },
+			});
+			await createEntry({
+				body: { type: types[7], total, price, quantity, ...item },
+			});
+			listEntries();
 			return;
 		}
 
-		await createEntry({ body: { type: typeFound, ...item } });
-		listEntries(); // Refresh items after saving
+		let newPrice = price;
+		let newTotal = total;
+
+		if (fee) {
+			newPrice = parseFloat((price * (1 - fee / 100)).toFixed(2));
+			newTotal = quantity * newPrice;
+			newTotal = parseFloat((quantity * newPrice).toFixed(2));
+		}
+
+		await createEntry({
+			body: {
+				type: typeFound,
+				price: newPrice,
+				quantity,
+				total: newTotal,
+				...item,
+			},
+		});
+		listEntries();
 	};
+
+	const handleEditItem = async (item: IAddItem) => {
+		setItemToEdit(null);
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		listEntries();
+	}, []);
 
 	return (
 		<>
 			<div className="flex flex-col items-center">
-				<AddItemForm saveItem={saveItem} />
+				<AddItemForm
+					cleanItem={() => setItemToEdit(null)}
+					key={itemToEdit?.id || "new"}
+					saveItem={saveItem}
+					editItem={handleEditItem}
+					item={itemToEdit}
+				/>
 
 				<div className="p-8 overflow-x-auto">
-					<ItemsTable items={items} />
+					<ItemsTable
+						items={items}
+						editItem={(item: IAddItem) => setItemToEdit(item)}
+						total={total}
+					/>
 				</div>
 			</div>
 		</>

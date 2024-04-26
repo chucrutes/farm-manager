@@ -5,15 +5,16 @@ import { TextFieldProps } from "@mui/material";
 type InputProps = TextFieldProps;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-	({ id, size, label, value, type = "text", ...props }, ref) => {
-		const placeholder = type === "password" ? "••••••••" : "Digite aqui";
+	({ id, size, label, value, placeholder, type = "text", ...props }, ref) => {
+		let placeholderText = type === "password" ? "••••••••" : "Digite aqui";
+		placeholderText = placeholder ? placeholder : placeholderText;
 		return (
 			<TextField
 				{...props}
 				type={type}
 				color="primary"
 				value={value}
-				placeholder={placeholder}
+				placeholder={placeholderText}
 				id={id}
 				label={label}
 				variant="outlined"
