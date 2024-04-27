@@ -23,12 +23,14 @@ export type StickyHeadTableProps<T> = {
   columns: Column<T>[];
   rows: Row<T>[];
   pk: keyof T;
+  totalChildren?: React.ReactNode;
 };
 
 export default function StickyHeadTable<T>({
   columns,
   rows,
   pk,
+  totalChildren,
 }: StickyHeadTableProps<T>) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -83,11 +85,12 @@ export default function StickyHeadTable<T>({
                   </TableRow>
                 );
               })}
+            {totalChildren}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 15, 20]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

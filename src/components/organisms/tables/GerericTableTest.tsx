@@ -1,25 +1,34 @@
-import React, { useEffect, useState } from "react";
 import { DtoItem } from "../dashboard";
 import Button from "../../atoms/Button";
+import { useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import StickyHeadTable, { Column, Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
 import { IAddItem } from "../forms/AddItemForm/@types/types";
+
 import {
   Types,
   findTypeByKey,
   getCategory,
 } from "../../../entities/types.enum";
+import { TotalRow } from "./TotalRow";
+import { deleteEntry } from "../../../pages/api/entry/delete";
 
 type TableProps = {
   items: DtoItem[];
   total: number;
   editItem: (item: IAddItem) => void;
+  listEntries: () => void;
 };
 
 type Item = Row<DtoItem>;
-const TestTable = ({ items, total, editItem }: TableProps) => {
+const ItemsTableGeneric = ({
+  items,
+  total,
+  editItem,
+  listEntries,
+}: TableProps) => {
   const columns: Column<DtoItem>[] = [
     {
       id: "description",
@@ -30,7 +39,8 @@ const TestTable = ({ items, total, editItem }: TableProps) => {
       id: "type",
       label: "Tipo",
       format: (value: string) => {
-        const typeFound = findTypeByKey(value);
+        const typeFound = findTypeByKey(value.toLowerCase());
+
         return typeFound?.name || "dasdsa";
       },
     },
@@ -94,12 +104,12 @@ const TestTable = ({ items, total, editItem }: TableProps) => {
       fee: 0,
     };
 
-    console.log("edit item");
     editItem(data);
   };
-  const handleDeleteItem = (item: DtoItem) => {
-    console.log("item");
-    console.log(item);
+  const handleDeleteItem = async (itemId: string) => {
+    await deleteEntry({ entryId: itemId });
+
+    listEntries();
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -107,25 +117,32 @@ const TestTable = ({ items, total, editItem }: TableProps) => {
     const rows: Item[] = items.map((item) => ({
       ...item,
       actions: () => (
-        <>
-          <div className="py-2">
+        <div className="flex flex-row">
+          <div className="px-2">
             <Button onClick={() => handleEditItem(item)}>
               <EditIcon />
             </Button>
           </div>
-          <div className="py-2">
-            <Button color="error" onClick={() => handleDeleteItem(item)}>
+          <div className="px-2">
+            <Button color="error" onClick={() => handleDeleteItem(item._id)}>
               <DeleteIcon />
             </Button>
           </div>
-        </>
+        </div>
       ),
     }));
 
     setRows(rows);
   }, [items]);
 
-  return <StickyHeadTable columns={columns} rows={rows} pk={"_id"} />;
+  return (
+    <StickyHeadTable
+      columns={columns}
+      rows={rows}
+      pk={"_id"}
+      totalChildren={<TotalRow total={total} />}
+    />
+  );
 };
 
-export { TestTable };
+export { ItemsTableGeneric };
