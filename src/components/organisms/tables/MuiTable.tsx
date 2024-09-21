@@ -12,7 +12,7 @@ export type Column<T> = {
   id: keyof T | "actions";
   label: string;
   minWidth?: number;
-  align?: "center";
+  align?: "center" | "left" | "center";
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   format?: (value: any) => string | React.JSX.Element;
 };
@@ -47,13 +47,14 @@ export default function StickyHeadTable<T>({
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper className="w-full">
+      <TableContainer className="max-h-440">
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
+                  className="min-w-fit"
                   key={column.id as string}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
@@ -90,6 +91,7 @@ export default function StickyHeadTable<T>({
         </Table>
       </TableContainer>
       <TablePagination
+        labelRowsPerPage="Itens por página"
         rowsPerPageOptions={[10, 15, 20]}
         component="div"
         count={rows.length}

@@ -8,12 +8,12 @@ type TotalRowProps = {
 const TotalRow = ({ total }: TotalRowProps) => {
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={"total"}>
-      <TableCell key={"total"} align={"center"}>
+      <TableCell key={"total"} align={"left"}>
         {"Total"}
       </TableCell>
       <TableCell colSpan={6} />
-      <TableCell key={"total-value"} align={"center"}>
-        {total ? total : 0}
+      <TableCell key={"total-value"} align={"left"}>
+        <p className={total < 0 ? "text-red-600" : "text-green-600"}>{total}</p>
       </TableCell>
     </TableRow>
   );

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import AddItemForm from "./forms/AddItemForm";
 import { listEntry } from "../../pages/api/entry/list";
 import { createEntry } from "../../pages/api/entry/create";
-import { IAddItem } from "./forms/AddItemForm/@types/types";
-import { Types, findTypeByType, types } from "../../entities/types.enum";
+import type { IAddItem } from "./forms/AddItemForm/@types/types";
+import { findTypeByType } from "../../entities/types.enum";
 import { ItemsTableGeneric } from "./tables/GerericTableTest";
+import Button from "../atoms/Button";
+import { closeRegister } from "../../pages/api/entry/closeRegister";
 
 export type DtoItem = {
   _id: string;
@@ -41,24 +43,14 @@ export const DashboardComponent = () => {
   }: IAddItem) => {
     const typeFound = findTypeByType(type);
     if (!typeFound) return;
-    if (type === Types.INVESTMENT) {
-      await createEntry({
-        body: { type: typeFound, total, price, quantity, ...item },
-      });
-      await createEntry({
-        body: { type: types[7], total, price, quantity, ...item },
-      });
-      listEntries();
-      return;
-    }
 
     let newPrice = price;
     let newTotal = total;
 
     if (fee) {
-      newPrice = parseFloat((price * (1 - fee / 100)).toFixed(2));
+      newPrice = Number.parseFloat((price * (1 - fee / 100)).toFixed(2));
       newTotal = quantity * newPrice;
-      newTotal = parseFloat((quantity * newPrice).toFixed(2));
+      newTotal = Number.parseFloat((quantity * newPrice).toFixed(2));
     }
 
     await createEntry({
@@ -86,6 +78,11 @@ export const DashboardComponent = () => {
     listEntries();
   };
 
+  const handleCloseRegister = async () => {
+    await closeRegister();
+    listEntries();
+  };
+
   return (
     <>
       <div className="flex flex-col items-center">
@@ -104,6 +101,11 @@ export const DashboardComponent = () => {
             total={total}
             listEntries={handleListEntries}
           />
+          <div className="flex justify-end">
+            <Button color="primary" onClick={() => handleCloseRegister()}>
+              Fechar caixa
+            </Button>
+          </div>
         </div>
       </div>
     </>

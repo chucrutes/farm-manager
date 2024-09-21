@@ -1,11 +1,11 @@
 import {
-  AddItemFormProps,
-  IAddItem,
+  type AddItemFormProps,
+  type IAddItem,
   addItemSchema,
   typesForSelect,
 } from "./@types/types";
 import Alert from "../../../atoms/Span";
-import { useId } from "react";
+import { useEffect, useId } from "react";
 import Label from "../../../atoms/Label";
 import Input from "../../../atoms/Input";
 import { useForm } from "react-hook-form";
@@ -66,6 +66,12 @@ const AddItemForm = ({
     reset();
   };
 
+  useEffect(() => {
+    if (type !== "Venda de Gado") {
+      setValue("fee", 0);
+    }
+  }, [type, setValue]);
+
   const resetForm = () => {
     reset();
     cleanItem();
@@ -75,21 +81,28 @@ const AddItemForm = ({
     if (!quantity) return;
 
     const value = (price * quantity).toFixed(2);
-    setValue("total", parseFloat(value));
+    setValue("total", Number.parseFloat(value));
   };
 
   const handleTotalBlur = () => {
     if (!quantity) return;
 
     const value = (total / quantity).toFixed(2);
-    setValue("price", parseFloat(value));
+    setValue("price", Number.parseFloat(value));
   };
 
   const handleQuantityBlur = () => {
     if (!price) return;
 
     const value = (price * quantity).toFixed(2);
-    setValue("total", parseFloat(value));
+    setValue("total", Number.parseFloat(value));
+  };
+
+  const handleFeeBlur = () => {
+    if (!fee || !price || !quantity) return;
+
+    const value = (price * quantity).toFixed(2);
+    setValue("total", Number.parseFloat(value));
   };
 
   return (
@@ -127,11 +140,14 @@ const AddItemForm = ({
                 label="Comissão"
                 id={feeTagId}
                 type="number"
-                {...register("fee", { valueAsNumber: true })}
+                {...register("fee", {
+                  valueAsNumber: true,
+                  onBlur: handleFeeBlur,
+                })}
               />
               {errors.quantity && (
                 <Alert icon={<ErrorIcon />} severity="error">
-                  Comissão inválida {errors.quantity.message}
+                  Comissão inválida
                 </Alert>
               )}
             </LabeledInput>
@@ -149,7 +165,7 @@ const AddItemForm = ({
             />
             {errors.quantity && (
               <Alert icon={<ErrorIcon />} severity="error">
-                Quantidade inválida {errors.quantity.message}
+                Quantidade inválida
               </Alert>
             )}
           </LabeledInput>

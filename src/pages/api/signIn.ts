@@ -15,6 +15,8 @@ type IResponse = {
 };
 
 const signIn = async ({ body }: ISignIn): Promise<IResponse> => {
+  console.log("signing in");
+
   const response: Response = await fetch(`${REACT_APP_API_URL}/auth/sign-in`, {
     method: "POST",
     headers: {

@@ -1,11 +1,11 @@
-import { DtoItem } from "../dashboard";
+import type { DtoItem } from "../dashboard";
 import Button from "../../atoms/Button";
 import { useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
-import StickyHeadTable, { Column, Row } from "./MuiTable";
+import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
-import { IAddItem } from "../forms/AddItemForm/@types/types";
+import type { IAddItem } from "../forms/AddItemForm/@types/types";
 
 import {
   Types,
@@ -33,11 +33,13 @@ const ItemsTableGeneric = ({
     {
       id: "description",
       label: "Descrição",
+      align: "left",
       format: (value: string) => value,
     },
     {
       id: "type",
       label: "Tipo",
+      align: "left",
       format: (value: string) => {
         const typeFound = findTypeByKey(value.toLowerCase());
 
@@ -47,6 +49,7 @@ const ItemsTableGeneric = ({
     {
       id: "category",
       label: "Categoria",
+      align: "left",
       format: (value: string) => {
         const newValue = value.toLowerCase() as "expense" | "profit" | "asset";
         return getCategory[newValue]();
@@ -55,6 +58,7 @@ const ItemsTableGeneric = ({
     {
       id: "quantity",
       label: "Quantidade",
+      align: "left",
       format: (value: number) => {
         return value.toString();
       },
@@ -62,6 +66,7 @@ const ItemsTableGeneric = ({
     {
       id: "price",
       label: "Preço",
+      align: "left",
       format: (value: number) => {
         return value.toString();
       },
@@ -69,6 +74,7 @@ const ItemsTableGeneric = ({
     {
       id: "total",
       label: "Total",
+      align: "left",
       format: (value: number) => {
         return value.toString();
       },
@@ -76,6 +82,7 @@ const ItemsTableGeneric = ({
     {
       id: "updatedAt",
       label: "Atualizado em",
+      align: "left",
       format: (value: string) => {
         return brDateFormatter(new Date(value));
       },
@@ -83,6 +90,7 @@ const ItemsTableGeneric = ({
     {
       id: "actions",
       label: "Ações",
+      align: "left",
       format: (value) => {
         return value();
       },

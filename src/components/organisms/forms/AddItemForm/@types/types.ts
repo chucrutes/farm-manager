@@ -17,8 +17,8 @@ export type IAddItem = z.infer<typeof addItemSchema>;
 export type AddItemFormProps = {
   cleanItem: () => void;
   item?: IAddItem | null;
-  editItem: (item: IAddItem) => void;
-  saveItem: (item: IAddItem) => void;
+  editItem: (item: IAddItem) => Promise<void>;
+  saveItem: (item: IAddItem) => Promise<void>;
 };
 
 export const typesForSelect = [
