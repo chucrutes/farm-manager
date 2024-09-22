@@ -8,13 +8,13 @@ import Toast from "../../components/Toast";
 type AuthLayoutProps = {
   children: React.ReactNode;
 };
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({ children }: Readonly<AuthLayoutProps>) {
   useRequireAuth();
 
   return (
     <>
       <Header />
-      <main className="flex flex-col min-h-screen overflow-x-auto bg-brown">
+      <main className="flex flex-col h-[calc(100vh-24px)] overflow-x-auto bg-brown">
         <Toast />
         <div className="flex justify-center overflow-x-visible md:justify-end">
           <LiveCattleFrame />

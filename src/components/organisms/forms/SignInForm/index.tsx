@@ -44,34 +44,39 @@ const SignInForm = () => {
   const userTagId = useId();
   const passwordTagId = useId();
   return (
-    <div className="flex flex-col justify-center md:w-64 lg:w-96">
-      <h1 className="text-center">Entre na sua conta</h1>
+    <div className="flex flex-col md:w-64 lg:w-96 min-h-full p-5 gap-4">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-left text-4xl font-semibold">Bem-vindo</h1>
+        <h1 className="text-left">Insira seus dados para acessar sua conta</h1>
+      </div>
       <div>
         <form
           onSubmit={handleSubmit(submitSignIn)}
-          className="flex flex-col items-center"
+          className="flex flex-col gap-4"
         >
-          <LabeledInput>
-            <Input label="Usuário" id={userTagId} {...register("user")} />
-            {errors.user && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Usuário inválido
-              </Alert>
-            )}
-          </LabeledInput>
-          <LabeledInput>
-            <Input
-              label="Senha"
-              id={passwordTagId}
-              {...register("password")}
-              type="password"
-            />
-            {errors.password && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Senha inválida
-              </Alert>
-            )}
-          </LabeledInput>
+          <div className="flex flex-col gap-2">
+            <LabeledInput>
+              <Input label="Usuário" id={userTagId} {...register("user")} />
+              {errors.user && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  Usuário inválido
+                </Alert>
+              )}
+            </LabeledInput>
+            <LabeledInput>
+              <Input
+                label="Senha"
+                id={passwordTagId}
+                {...register("password")}
+                type="password"
+              />
+              {errors.password && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  Senha inválida
+                </Alert>
+              )}
+            </LabeledInput>
+          </div>
           <div className="flex justify-center py-4">
             <Button type="submit">Entrar</Button>
           </div>

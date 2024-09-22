@@ -33,6 +33,9 @@ export default {
           DEFAULT: "#e74c3c",
         },
       },
+      fontFamily: {
+        sans: ["Sora", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -6,8 +6,8 @@ type ButtonProps = Omit<ComponentProps<"button">, "color"> & {
 };
 
 const Button = ({
-  color = "success",
   type = "submit",
+  color = "success",
   onClick,
   disabled = false,
   children,
@@ -20,11 +20,16 @@ const Button = ({
     <MuiButton
       type={type}
       disabled={disabled}
-      className="inline-flex bg-green items-center px-4 py-2 text-white"
       variant="contained"
       size="large"
       color={color}
       onClick={handleSubmit}
+      sx={{
+        fontFamily: "Sora, sans-serif",
+        marginX: "15px",
+        width: "100%",
+        textTransform: "none",
+      }}
     >
       {children}
     </MuiButton>

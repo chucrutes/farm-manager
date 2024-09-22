@@ -3,13 +3,13 @@ import Footer from "../../components/UI/Footer";
 import LiveCattleFrame from "../../components/molecules/LiveCattleFrame";
 import Toast from "../../components/Toast";
 
-type GuestayoutProps = {
+type GuestLayoutProps = {
   children: React.ReactNode;
 };
-export default function GuestLayout({ children }: GuestayoutProps) {
+export default function GuestLayout({ children }: Readonly<GuestLayoutProps>) {
   return (
     <>
-      <main className="flex flex-col min-h-screen overflow-auto bg-brown">
+      <main className="flex flex-col h-[calc(100vh-24px)] overflow-auto bg-[#fff4f0]">
         <Toast />
         <div className="flex justify-center overflow-x-visible md:justify-end">
           <LiveCattleFrame />
