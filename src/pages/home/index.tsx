@@ -5,7 +5,7 @@ import ImageBackground from "../../assets/signInBackground.jpg";
 export default function Home() {
   return (
     <GuestLayout>
-      <div className="flex items-center justify-center p-24">
+      <div className="flex items-center justify-center p-10">
         <div className="flex items-center max-h-[460px] rounded-2xl shadow-lg">
           <div className="relative flex justify-center max-[1120px]:hidden">
             <img

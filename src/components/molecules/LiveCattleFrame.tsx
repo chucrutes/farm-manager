@@ -3,9 +3,10 @@ const LiveCattleInfo = () => {
     <div className="px-8 py-4">
       <iframe
         src="/live-cattle-frame.html"
-        width="410"
-        height="130"
+        width="415"
+        height="110"
         title="CEPEA Widget"
+        style={{ borderRadius: "32px" }}
       />
     </div>
   );
