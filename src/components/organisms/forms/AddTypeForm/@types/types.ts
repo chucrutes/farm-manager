@@ -1,24 +1,25 @@
 import { z } from "zod";
 import { Types } from "../../../../../entities/types.enum";
 import { itemSchema } from "../../../../../entities/IItem";
+import { Categories } from "../../../../../entities/categories.enum";
 
-export const addItemSchema = itemSchema
+export const addTypeSchema = itemSchema
   .omit({ createdAt: true, updatedAt: true, type: true })
   .merge(
     z.object({
       id: z.string().nullish(),
-      type: z.string(),
-      fee: z.number().nullish(),
+      name: z.string(),
+      category: z.nativeEnum(Categories),
     })
   );
 
-export type IAddItem = z.infer<typeof addItemSchema>;
+export type IAddType = z.infer<typeof addTypeSchema>;
 
-export type AddItemFormProps = {
+export type AddTypeFormProps = {
   cleanItem: () => void;
-  item?: IAddItem | null;
-  editItem: (item: IAddItem) => Promise<void>;
-  saveItem: (item: IAddItem) => Promise<void>;
+  item?: IAddType | null;
+  editItem: (item: IAddType) => Promise<void>;
+  saveItem: (item: IAddType) => Promise<void>;
 };
 
 export const typesForSelect = [

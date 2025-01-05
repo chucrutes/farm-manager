@@ -29,39 +29,39 @@ export const DashboardComponent = () => {
 
   const listEntries = async () => {
     const response = await listEntry();
-    setItems(response.body.dto);
-    setTotal(response.body.total);
+    setItems(response.body.dto.entries);
+    setTotal(response.body.dto.total);
   };
 
   const saveItem = async ({
     type,
-    total,
-    price,
+    // total,
+    // price,
     fee,
-    quantity,
+    // quantity,
     ...item
   }: IAddItem) => {
     const typeFound = findTypeByType(type);
     if (!typeFound) return;
 
-    let newPrice = price;
+    // let newPrice = price;
     let newTotal = total;
 
     if (fee) {
-      newPrice = Number.parseFloat((price * (1 - fee / 100)).toFixed(2));
-      newTotal = quantity * newPrice;
-      newTotal = Number.parseFloat((quantity * newPrice).toFixed(2));
+      // newPrice = Number.parseFloat((price * (1 - fee / 100)).toFixed(2));
+      // newTotal = quantity * newPrice;
+      // newTotal = Number.parseFloat((quantity * newPrice).toFixed(2));
     }
 
-    await createEntry({
-      body: {
-        type: typeFound,
-        price: newPrice,
-        quantity,
-        total: newTotal,
-        ...item,
-      },
-    });
+    // await createEntry({
+      // body: {
+      //   type: typeFound,
+      //   price: newPrice,
+      //   quantity,
+      //   total: newTotal,
+      //   ...item,
+      // },
+    // });
     listEntries();
   };
 

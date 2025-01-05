@@ -58,7 +58,8 @@ export const ItemsTable: React.FC<TableProps> = ({
           {items && items.length > 0 ? (
             items.map((item) => {
               const typeFound = findTypeByKey(item.key);
-              const category = getCategory[typeFound?.category || "expense"]();
+              // const category = getCategory[typeFound?.category || "expense"]();
+              const category = 'cascageaf';
               const date = brDateFormatter(new Date(item.updatedAt));
               return (
                 <tr key={item._id}>
