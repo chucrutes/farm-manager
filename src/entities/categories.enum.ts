@@ -1,12 +1,11 @@
 import { z } from "zod";
-import OptionInput from "../components/atoms/OptionInput";
 import { Option } from "../components/atoms/GenericSelect";
 
 export enum Categories {
-  EXPENSE = "expense",
-  PROFIT = "profit",
-  ASSET = "asset",
-  INVESTMENT = "investment",
+  EXPENSE = "EXPENSE",
+  PROFIT = "PROFIT",
+  ASSET = "ASSET",
+  INVESTMENT = "INVESTMENT",
 }
 
 

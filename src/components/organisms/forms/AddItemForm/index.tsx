@@ -108,10 +108,7 @@ const AddItemForm = ({
   return (
     <div className="flex flex-col justify-center">
       <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
-      <form
-        onSubmit={handleSubmit(submitAddItem)}
-        onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-      >
+      <form onSubmit={handleSubmit(submitAddItem)}>
         <div className="flex md:flex-row justify-between md:items-end flex-col">
           <LabeledSelectInput>
             <Label>Tipo</Label>

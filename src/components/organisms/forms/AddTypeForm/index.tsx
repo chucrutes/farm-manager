@@ -4,7 +4,6 @@ import {
   addTypeSchema,
 } from "./@types/types";
 import Alert from "../../../atoms/Span";
-import { useId } from "react";
 import Input from "../../../atoms/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import Button from "../../../atoms/Button";
@@ -20,32 +19,33 @@ const AddTypeForm = ({
   cleanItem,
   item,
 }: AddTypeFormProps) => {
-  const descriptionTagId = useId();
+  const methods = useForm<IAddType>();
 
   const {
-    register,
     reset,
-    handleSubmit,
     formState: { errors },
   } = useForm<IAddType>({
     defaultValues: {
+      name: item?.name,
+      category: item?.category,
     },
     resolver: zodResolver(addTypeSchema),
   });
 
-    const methods = useForm<IAddType>()
-
-
   const submitAddType = (data: IAddType) => {
+    console.log("submitAddType");
+    console.log(JSON.stringify(data));
+
     if (item?.id) {
       editItem(data);
       reset();
       return;
     }
+    console.log("reach save 1");
+
     saveItem(data);
     reset();
   };
-
 
   const resetForm = () => {
     reset();
@@ -54,28 +54,19 @@ const AddTypeForm = ({
 
   return (
     <FormProvider {...methods}>
-
       <div className="flex flex-col justify-center">
         <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
-        <form
-          onSubmit={handleSubmit(submitAddType)}
-          onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-        >
-          <div className="flex md:flex-row justify-between md:items-end flex-col">
-            <GenericSelect options={categoryOptions} name="teste" />
+        <form onSubmit={methods.handleSubmit(submitAddType)}>
+          <div className="flex md:flex-row justify-center md:items-end flex-col">
             <LabeledInput>
-              <Input
-                label="Nome"
-                id={descriptionTagId}
-                {...register("name")}
-              />
-              {errors.description && (
+              <Input label="Nome" {...methods.register("name")} />
+              {errors.name && (
                 <Alert icon={<ErrorIcon />} severity="error">
                   É necessário fornecer um nome
                 </Alert>
               )}
             </LabeledInput>
-
+            <GenericSelect options={categoryOptions} name="category" />
           </div>
           <div className="flex justify-center py-4">
             {item?.id ? (
