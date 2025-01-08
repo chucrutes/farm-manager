@@ -12,10 +12,10 @@ const getTokenFromLocalStorage = (): string | null => {
   return localStorage.getItem("token");
 };
 
-export const listEntry = async (): Promise<IResponse> => {
+export const listEntryTypes = async (): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
+  const response: Response = await fetch(`${REACT_APP_API_URL}/entry-types`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LabeledInput from "../../../molecules/LabeledInput";
 import { categoryOptions } from "../../../../entities/categories.enum";
 import GenericSelect from "../../../atoms/GenericSelect";
+import { handleResponseToast } from "../../../../utils/handleToast";
 
 const AddTypeForm = ({
   saveItem,
@@ -19,36 +20,24 @@ const AddTypeForm = ({
   cleanItem,
   item,
 }: AddTypeFormProps) => {
-  const methods = useForm<IAddType>();
-
-  const {
-    reset,
-    formState: { errors },
-  } = useForm<IAddType>({
-    defaultValues: {
-      name: item?.name,
-      category: item?.category,
-    },
+  const methods = useForm<IAddType>({
     resolver: zodResolver(addTypeSchema),
   });
 
-  const submitAddType = (data: IAddType) => {
-    console.log("submitAddType");
-    console.log(JSON.stringify(data));
-
+  const submitAddType = async (data: IAddType) => {
     if (item?.id) {
       editItem(data);
-      reset();
+      methods.reset();
       return;
     }
-    console.log("reach save 1");
 
-    saveItem(data);
-    reset();
+    const res = await saveItem(data);
+    handleResponseToast(res);
+    methods.reset();
   };
 
   const resetForm = () => {
-    reset();
+    methods.reset();
     cleanItem();
   };
 
@@ -60,7 +49,7 @@ const AddTypeForm = ({
           <div className="flex md:flex-row justify-center md:items-end flex-col">
             <LabeledInput>
               <Input label="Nome" {...methods.register("name")} />
-              {errors.name && (
+              {methods.formState.errors.name && (
                 <Alert icon={<ErrorIcon />} severity="error">
                   É necessário fornecer um nome
                 </Alert>
