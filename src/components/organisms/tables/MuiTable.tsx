@@ -13,7 +13,6 @@ export type Column<T> = {
   label: string;
   minWidth?: number;
   align?: "center" | "left" | "center";
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   format?: (value: any) => string | React.JSX.Element;
 };
 
@@ -54,7 +53,6 @@ export default function StickyHeadTable<T>({
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  className="min-w-fit"
                   key={column.id as string}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
@@ -69,14 +67,12 @@ export default function StickyHeadTable<T>({
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 return (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    {columns.map((column, index) => {
+                    {columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell
-                          // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                          key={index}
+                          key={column.id as string}
                           align={column.align}
                         >
                           {column.format?.(value)}

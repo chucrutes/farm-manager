@@ -1,4 +1,4 @@
-import { Controller, useFormContext, RegisterOptions } from 'react-hook-form';
+import { Controller, useFormContext, RegisterOptions } from "react-hook-form";
 
 export type Option = {
   label: string;
@@ -22,25 +22,23 @@ const GenericSelect = ({
 }: GenericSelectProps) => {
   const { control } = useFormContext();
 
+  const defaultValue = options.length > 0 ? options[0].value : "";
+
   return (
     <div className="form-group">
       {label && <label htmlFor={name}>{label}</label>}
       <Controller
         name={name}
         control={control}
+        defaultValue={defaultValue}
         rules={rules}
         render={({ field, fieldState: { error } }) => (
           <>
             <select
               id={name}
               {...field}
-              className={`form-select ${error ? 'is-invalid' : ''}`}
+              className={`form-select ${error ? "is-invalid" : ""}`}
             >
-              {placeholder && (
-                <option value="" disabled>
-                  {placeholder}
-                </option>
-              )}
               {options.map((option) => (
                 <option key={String(option.value)} value={String(option.value)}>
                   {option.label}

@@ -3,11 +3,11 @@ import Button from "../../atoms/Button";
 import { useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
-import { IEntryType } from "../../../entities/entry-type";
-import { IAddType } from "../forms/AddTypeForm/@types/types";
+import type { IEntryType } from "../../../entities/entry-type";
+import type { IAddType } from "../forms/AddTypeForm/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
-import { Categories, findLabel } from "../../../entities/categories.enum";
+import { type Categories, findLabel } from "../../../entities/categories.enum";
 
 export type DtoEntryType = Omit<IEntryType, "id"> & {
   _id: string;
@@ -27,19 +27,27 @@ const EntryTypeTable = ({ items, total }: TableProps) => {
     {
       id: "name",
       label: "Nome",
-      align: "left",
+      align: "center",
       format: (value: string) => value,
     },
     {
       id: "category",
-      label: "Nome",
-      align: "left",
+      label: "Categoria",
+      align: "center",
       format: (value: Categories) => findLabel(value),
+    },
+    {
+      id: "commission",
+      label: "% de comissão",
+      align: "center",
+      format: (value?: number) => {
+        return (value ? value : 0).toString();
+      },
     },
     {
       id: "updatedAt",
       label: "Atualizado em",
-      align: "left",
+      align: "center",
       format: (value: string) => {
         return brDateFormatter(new Date(value));
       },
@@ -47,7 +55,7 @@ const EntryTypeTable = ({ items, total }: TableProps) => {
     {
       id: "actions",
       label: "Ações",
-      align: "left",
+      align: "center",
       format: (value) => {
         return value();
       },

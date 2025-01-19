@@ -1,5 +1,4 @@
 import { envs } from "../../../config/envs";
-import { IItem } from "../../../entities/IItem";
 
 const { REACT_APP_API_URL } = envs;
 
@@ -9,7 +8,6 @@ type IParams = {
 
 type IResponse = {
   status: number;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   body: any;
 };
 

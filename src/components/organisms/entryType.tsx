@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Button from "../atoms/Button";
 import { closeRegister } from "../../pages/api/entry/closeRegister";
-import { DtoEntryType, EntryTypeTable } from "./tables/EntryTypeTable";
+import { type DtoEntryType, EntryTypeTable } from "./tables/EntryTypeTable";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createEntryType } from "../../pages/api/entry-types/create";
 import AddTypeForm from "./forms/AddTypeForm";
-import { IAddType } from "./forms/AddTypeForm/@types/types";
+import type { IAddType } from "./forms/AddTypeForm/@types/types";
 
 export const EntryTypeComponent = () => {
   const [items, setItems] = useState<DtoEntryType[]>([]);
@@ -48,7 +48,7 @@ export const EntryTypeComponent = () => {
       <div className="flex flex-col items-center">
         <AddTypeForm
           cleanItem={() => console.log("clean")}
-          editItem={async () => console.log("edit")}
+          editItem={async (item) => handleEditItem(item)}
           saveItem={saveItem}
         />
 
@@ -58,11 +58,11 @@ export const EntryTypeComponent = () => {
             editItem={(item: IAddType) => setItemToEdit(item)}
             listEntries={handleListEntries}
           />
-          <div className="flex justify-end">
+          {/* <div className="flex justify-end">
             <Button color="primary" onClick={() => handleCloseRegister()}>
               Fechar caixa
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

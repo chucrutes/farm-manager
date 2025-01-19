@@ -9,7 +9,7 @@ type InputProps = TextFieldProps & {
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ id, label, type = "text", ...props }, ref) => {
-    const [isVisible, setIsVisible] = useState(type === "text");
+    const [isVisible, setIsVisible] = useState(type !== "password");
 
     const togglePassword = () => {
       setIsVisible((prev) => !prev);

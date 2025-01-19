@@ -10,7 +10,10 @@ import Button from "../../../atoms/Button";
 import { ErrorIcon } from "../../../Icons/ErrorIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LabeledInput from "../../../molecules/LabeledInput";
-import { categoryOptions } from "../../../../entities/categories.enum";
+import {
+  type Categories,
+  categoryOptions,
+} from "../../../../entities/categories.enum";
 import GenericSelect from "../../../atoms/GenericSelect";
 import { handleResponseToast } from "../../../../utils/handleToast";
 
@@ -22,6 +25,9 @@ const AddTypeForm = ({
 }: AddTypeFormProps) => {
   const methods = useForm<IAddType>({
     resolver: zodResolver(addTypeSchema),
+    defaultValues: {
+      category: item?.category || (categoryOptions[0].value as Categories),
+    },
   });
 
   const submitAddType = async (data: IAddType) => {
@@ -52,6 +58,23 @@ const AddTypeForm = ({
               {methods.formState.errors.name && (
                 <Alert icon={<ErrorIcon />} severity="error">
                   É necessário fornecer um nome
+                </Alert>
+              )}
+            </LabeledInput>
+            <LabeledInput>
+              <Input
+                label="Valor da comissão"
+                type="string"
+                {...methods.register("commission", {
+                  valueAsNumber: true,
+                  setValueAs: (value) =>
+                    Number.isNaN(value) ? undefined : value,
+                })}
+              />
+              {methods.formState.errors.commission && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  {methods.formState.errors.commission.message}É necessário
+                  fornecer um valor para comissão
                 </Alert>
               )}
             </LabeledInput>

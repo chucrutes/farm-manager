@@ -10,7 +10,6 @@ type ISignIn = {
 
 type IResponse = {
   status: number;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   body: any;
 };
 

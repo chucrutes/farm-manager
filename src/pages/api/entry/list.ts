@@ -4,7 +4,6 @@ const { REACT_APP_API_URL } = envs;
 
 type IResponse = {
   status: number;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   body: any;
 };
 
