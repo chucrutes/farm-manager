@@ -1,4 +1,8 @@
-import { Controller, useFormContext, RegisterOptions } from "react-hook-form";
+import {
+  Controller,
+  useFormContext,
+  type RegisterOptions,
+} from "react-hook-form";
 
 export type Option = {
   label: string;
@@ -37,7 +41,9 @@ const GenericSelect = ({
             <select
               id={name}
               {...field}
-              className={`form-select ${error ? "is-invalid" : ""}`}
+              className={`form-select w-full p-2 border rounded-md ${
+                error ? "border-red-500" : "border-gray-300"
+              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
             >
               {options.map((option) => (
                 <option key={String(option.value)} value={String(option.value)}>

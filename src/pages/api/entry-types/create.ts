@@ -1,6 +1,6 @@
 import { envs } from "../../../config/envs";
-import { IEntryType } from "../../../entities/entry-type";
-import { ResponseCreation } from "../@types";
+import type { IEntryType } from "../../../entities/entry-type";
+import type { ResponseCreation } from "../@types";
 
 const { REACT_APP_API_URL } = envs;
 

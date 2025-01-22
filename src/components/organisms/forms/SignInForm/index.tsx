@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import { toast } from "react-toastify";
 import Alert from "../../../atoms/Span";
 import Input from "../../../atoms/Input";
@@ -15,6 +15,7 @@ import { type IUser, signInSchema } from "../../../../entities/IUser";
 const SignInForm = () => {
   const navigate = useNavigate();
   const context = useAuth();
+  const [loading, setLoading] = useState<boolean>(false);
   if (!context) {
     throw new Error("no provider was given");
   }
@@ -28,15 +29,18 @@ const SignInForm = () => {
   });
 
   async function submitSignIn(body: IUser) {
+    setLoading(true);
     const res = await signIn({ body });
 
     if (res.status !== 200) {
       toast.error("Usuário ou senha incorretos");
+      setLoading(false);
 
       return;
     }
 
     context.updateToken(res.body.token);
+    setLoading(false);
 
     navigate("/dashboard");
   }
@@ -78,7 +82,9 @@ const SignInForm = () => {
             </LabeledInput>
           </div>
           <div className="flex justify-center py-4">
-            <Button type="submit">Entrar</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Carregando" : "Entrar"}
+            </Button>
           </div>
         </form>
       </div>

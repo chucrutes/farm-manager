@@ -1,6 +1,6 @@
-import { z } from "zod";
+import type { z } from "zod";
 import { EntryTypeSchema } from "../../../../../entities/entry-type";
-import { ResponseCreation } from "../../../../../pages/api/@types";
+import type { ResponseCreation } from "../../../../../pages/api/@types";
 
 export const addTypeSchema = EntryTypeSchema.omit({
   createdAt: true,

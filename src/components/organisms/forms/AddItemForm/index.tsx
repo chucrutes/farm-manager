@@ -8,7 +8,7 @@ import Alert from "../../../atoms/Span";
 import { useEffect, useId } from "react";
 import Label from "../../../atoms/Label";
 import Input from "../../../atoms/Input";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import Button from "../../../atoms/Button";
 import Select from "../../../atoms/Select";
 import { ErrorIcon } from "../../../Icons/ErrorIcon";
@@ -34,9 +34,9 @@ const AddItemForm = ({
     reset,
     watch,
     setValue,
-
     handleSubmit,
-    formState: { errors },
+    formState: { errors, ...restFormState },
+    ...methods
   } = useForm<IAddItem>({
     defaultValues: {
       id: item?.id,
@@ -106,157 +106,169 @@ const AddItemForm = ({
   };
 
   return (
-    <div className="flex flex-col justify-center">
-      <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
-      <form onSubmit={handleSubmit(submitAddItem)}>
-        <div className="flex md:flex-row justify-between md:items-end flex-col">
-          <LabeledSelectInput>
-            <Label>Tipo</Label>
-            <Select
-              setValue={setValue}
-              options={typesForSelect}
-              {...register("type")}
-            />
-          </LabeledSelectInput>
-          <LabeledInput>
-            <Input
-              label="Descricão"
-              id={descriptionTagId}
-              {...register("description")}
-            />
-            {errors.description && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                É necessário fornecer uma descrição
-              </Alert>
+    <FormProvider
+      {...{
+        handleSubmit,
+        setValue,
+        register,
+        reset,
+        watch,
+        formState: { errors, ...restFormState },
+        ...methods,
+      }}
+    >
+      <div className="flex flex-col justify-center">
+        <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
+        <form onSubmit={handleSubmit(submitAddItem)}>
+          <div className="flex md:flex-row justify-between md:items-end flex-col">
+            <LabeledSelectInput>
+              <Label>Tipo</Label>
+              <Select
+                setValue={setValue}
+                options={typesForSelect}
+                {...register("type")}
+              />
+            </LabeledSelectInput>
+            <LabeledInput>
+              <Input
+                label="Descricão"
+                id={descriptionTagId}
+                {...register("description")}
+              />
+              {errors.description && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  É necessário fornecer uma descrição
+                </Alert>
+              )}
+            </LabeledInput>
+            {type === "Venda de Gado" && (
+              <LabeledInput>
+                <Input
+                  InputProps={{ inputProps: { step: 0.01 } }}
+                  label="Comissão"
+                  id={feeTagId}
+                  type="number"
+                  {...register("fee", {
+                    valueAsNumber: true,
+                    onBlur: handleFeeBlur,
+                  })}
+                />
+                {errors.quantity && (
+                  <Alert icon={<ErrorIcon />} severity="error">
+                    Comissão inválida
+                  </Alert>
+                )}
+              </LabeledInput>
             )}
-          </LabeledInput>
-          {type === "Venda de Gado" && (
             <LabeledInput>
               <Input
                 InputProps={{ inputProps: { step: 0.01 } }}
-                label="Comissão"
-                id={feeTagId}
+                label="Quantidade"
+                id={quantityTagId}
                 type="number"
-                {...register("fee", {
+                {...register("quantity", {
                   valueAsNumber: true,
-                  onBlur: handleFeeBlur,
+                  onBlur: handleQuantityBlur,
                 })}
               />
               {errors.quantity && (
                 <Alert icon={<ErrorIcon />} severity="error">
-                  Comissão inválida
+                  Quantidade inválida
                 </Alert>
               )}
             </LabeledInput>
-          )}
-          <LabeledInput>
-            <Input
-              InputProps={{ inputProps: { step: 0.01 } }}
-              label="Quantidade"
-              id={quantityTagId}
-              type="number"
-              {...register("quantity", {
-                valueAsNumber: true,
-                onBlur: handleQuantityBlur,
-              })}
-            />
-            {errors.quantity && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Quantidade inválida
-              </Alert>
-            )}
-          </LabeledInput>
-          <LabeledInput>
-            {type === "Venda de Gado" &&
-              price !== 0 &&
-              fee !== 0 &&
-              fee !== undefined &&
-              fee !== null && (
-                <div className="py-4">
-                  <Input
-                    disabled={true}
-                    label="Preço corrigido"
-                    type="number"
-                    value={calculateFee(price, fee)}
-                  />
-                </div>
-              )}
+            <LabeledInput>
+              {type === "Venda de Gado" &&
+                price !== 0 &&
+                fee !== 0 &&
+                fee !== undefined &&
+                fee !== null && (
+                  <div className="py-4">
+                    <Input
+                      disabled={true}
+                      label="Preço corrigido"
+                      type="number"
+                      value={calculateFee(price, fee)}
+                    />
+                  </div>
+                )}
 
-            <Input
-              InputProps={{ inputProps: { step: 0.01 } }}
-              InputLabelProps={{ shrink: true }}
-              label="Preço"
-              id={priceTagId}
-              type="number"
-              {...register("price", {
-                valueAsNumber: true,
-                onBlur: handlePriceBlur,
-              })}
-            />
-            {errors.price && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Preço inválido
-              </Alert>
-            )}
-          </LabeledInput>
-          <LabeledInput>
-            {type === "Venda de Gado" &&
-              price !== 0 &&
-              fee !== 0 &&
-              fee !== undefined &&
-              fee !== null && (
-                <div className="py-4">
-                  <Input
-                    disabled={true}
-                    label="Total corrigido"
-                    type="number"
-                    value={calculateFee(quantity * price, fee)}
-                  />
-                </div>
+              <Input
+                InputProps={{ inputProps: { step: 0.01 } }}
+                InputLabelProps={{ shrink: true }}
+                label="Preço"
+                id={priceTagId}
+                type="number"
+                {...register("price", {
+                  valueAsNumber: true,
+                  onBlur: handlePriceBlur,
+                })}
+              />
+              {errors.price && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  Preço inválido
+                </Alert>
               )}
-            <Input
-              InputProps={{ inputProps: { step: 0.01 } }}
-              InputLabelProps={{ shrink: true }}
-              placeholder="total"
-              label="Total"
-              id={totalTagId}
-              type="number"
-              {...register("total", {
-                valueAsNumber: true,
-                onBlur: handleTotalBlur,
-              })}
-            />
-            {errors.total && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Total inválido
-              </Alert>
+            </LabeledInput>
+            <LabeledInput>
+              {type === "Venda de Gado" &&
+                price !== 0 &&
+                fee !== 0 &&
+                fee !== undefined &&
+                fee !== null && (
+                  <div className="py-4">
+                    <Input
+                      disabled={true}
+                      label="Total corrigido"
+                      type="number"
+                      value={calculateFee(quantity * price, fee)}
+                    />
+                  </div>
+                )}
+              <Input
+                InputProps={{ inputProps: { step: 0.01 } }}
+                InputLabelProps={{ shrink: true }}
+                placeholder="total"
+                label="Total"
+                id={totalTagId}
+                type="number"
+                {...register("total", {
+                  valueAsNumber: true,
+                  onBlur: handleTotalBlur,
+                })}
+              />
+              {errors.total && (
+                <Alert icon={<ErrorIcon />} severity="error">
+                  Total inválido
+                </Alert>
+              )}
+            </LabeledInput>
+          </div>
+          <div className="flex justify-center py-4">
+            {item?.id ? (
+              <>
+                <div className="px-4">
+                  <Button type="submit">
+                    {item?.id ? "Editar" : "Adicionar"}
+                  </Button>
+                </div>
+                <div className="px-4">
+                  <Button
+                    color="primary"
+                    onClick={() => resetForm()}
+                    type="button"
+                  >
+                    Limpar
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <Button type="submit">Adicionar</Button>
             )}
-          </LabeledInput>
-        </div>
-        <div className="flex justify-center py-4">
-          {item?.id ? (
-            <>
-              <div className="px-4">
-                <Button type="submit">
-                  {item?.id ? "Editar" : "Adicionar"}
-                </Button>
-              </div>
-              <div className="px-4">
-                <Button
-                  color="primary"
-                  onClick={() => resetForm()}
-                  type="button"
-                >
-                  Limpar
-                </Button>
-              </div>
-            </>
-          ) : (
-            <Button type="submit">Adicionar</Button>
-          )}
-        </div>
-      </form>
-    </div>
+          </div>
+        </form>
+      </div>
+    </FormProvider>
   );
 };
 

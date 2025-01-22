@@ -23,12 +23,32 @@ const AddTypeForm = ({
   cleanItem,
   item,
 }: AddTypeFormProps) => {
-  const methods = useForm<IAddType>({
+  const { watch, setValue, ...methods } = useForm<IAddType>({
     resolver: zodResolver(addTypeSchema),
     defaultValues: {
       category: item?.category || (categoryOptions[0].value as Categories),
     },
   });
+
+  const commission = watch("commission");
+  console.log("commission", commission);
+  console.log("commission", typeof commission);
+
+  const handleFeeBlur = ({
+    target: { value },
+  }: React.FocusEvent<HTMLInputElement>) => {
+    console.log(value);
+    if (value === "") return undefined;
+
+    const regex = new RegExp(/^\d*,?\d*$/);
+
+    const isValid = regex.test(value);
+    console.log(isValid);
+
+    if (!isValid) return;
+
+    setValue("commission", Number(value));
+  };
 
   const submitAddType = async (data: IAddType) => {
     if (item?.id) {
@@ -48,7 +68,7 @@ const AddTypeForm = ({
   };
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...{ watch, setValue, ...methods }}>
       <div className="flex flex-col justify-center">
         <h1 className="mb-4 md:mr-4 text-center">Cadastrar Item</h1>
         <form onSubmit={methods.handleSubmit(submitAddType)}>
@@ -66,15 +86,23 @@ const AddTypeForm = ({
                 label="Valor da comissão"
                 type="string"
                 {...methods.register("commission", {
-                  valueAsNumber: true,
-                  setValueAs: (value) =>
-                    Number.isNaN(value) ? undefined : value,
+                  setValueAs: (value: string) => {
+                    if (value === "") return undefined;
+                    const brToEn = value.replace(",", ".");
+                    const valueToNum = Number.parseFloat(brToEn);
+                    if (Number.isNaN(valueToNum)) return undefined;
+                    return valueToNum;
+                  },
+                  pattern: {
+                    value: /^\d*,?\d*$/,
+                    message: "Not valid input",
+                  },
                 })}
               />
               {methods.formState.errors.commission && (
                 <Alert icon={<ErrorIcon />} severity="error">
-                  {methods.formState.errors.commission.message}É necessário
-                  fornecer um valor para comissão
+                  {methods.formState.errors.commission.message} É necessário
+                  fornecer um valor válido para comissão
                 </Alert>
               )}
             </LabeledInput>
