@@ -12,7 +12,7 @@ const getTokenFromLocalStorage = (): string | null => {
   return localStorage.getItem("token");
 };
 
-export const createEntryType = async ({
+export const createOrUpdateEntryType = async ({
   body,
 }: ICreateEntryType): Promise<ResponseCreation> => {
   const token = getTokenFromLocalStorage();

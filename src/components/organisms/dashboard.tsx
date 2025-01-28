@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AddItemForm from "./forms/AddItemForm";
+// import AddItemForm from "./forms/AddItemForm";
 import { listEntry } from "../../pages/api/entry/list";
 import { createEntry } from "../../pages/api/entry/create";
 import type { IAddItem } from "./forms/AddItemForm/@types/types";
@@ -45,7 +45,7 @@ export const DashboardComponent = () => {
     if (!typeFound) return;
 
     // let newPrice = price;
-    let newTotal = total;
+    // let newTotal = total;
 
     if (fee) {
       // newPrice = Number.parseFloat((price * (1 - fee / 100)).toFixed(2));
@@ -54,13 +54,13 @@ export const DashboardComponent = () => {
     }
 
     // await createEntry({
-      // body: {
-      //   type: typeFound,
-      //   price: newPrice,
-      //   quantity,
-      //   total: newTotal,
-      //   ...item,
-      // },
+    // body: {
+    //   type: typeFound,
+    //   price: newPrice,
+    //   quantity,
+    //   total: newTotal,
+    //   ...item,
+    // },
     // });
     listEntries();
   };
@@ -86,13 +86,13 @@ export const DashboardComponent = () => {
   return (
     <>
       <div className="flex flex-col items-center">
-        <AddItemForm
+        {/* <AddItemForm
           cleanItem={() => setItemToEdit(null)}
           key={itemToEdit?.id || "new"}
           saveItem={saveItem}
           editItem={handleEditItem}
-          item={itemToEdit}
-        />
+          item={itemToEdit} */}
+        {/* /> */}
 
         <div className="p-8 overflow-x-auto">
           <ItemsTableGeneric

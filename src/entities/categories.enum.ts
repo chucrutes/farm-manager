@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Option } from "../components/atoms/GenericSelect";
+import type { Option } from "../components/atoms/GenericSelect";
 
 export enum Categories {
   EXPENSE = "EXPENSE",

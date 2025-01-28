@@ -60,7 +60,7 @@ const SignInForm = () => {
         >
           <div className="flex flex-col gap-2">
             <LabeledInput>
-              <Input label="Usuário" id={userTagId} {...register("user")} />
+              <Input label="Usuário" id={"user"} />
               {errors.user && (
                 <Alert icon={<ErrorIcon />} severity="error">
                   Usuário inválido
@@ -68,12 +68,7 @@ const SignInForm = () => {
               )}
             </LabeledInput>
             <LabeledInput>
-              <Input
-                label="Senha"
-                id={passwordTagId}
-                {...register("password")}
-                type="password"
-              />
+              <Input label="Senha" id={"password"} type="password" />
               {errors.password && (
                 <Alert icon={<ErrorIcon />} severity="error">
                   Senha inválida

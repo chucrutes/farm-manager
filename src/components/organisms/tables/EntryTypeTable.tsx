@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import type { IEntryType } from "../../../entities/entry-type";
-import type { IAddType } from "../forms/AddTypeForm/@types/types";
+import type { IType } from "../forms/AddOrUpdateTypeForm/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
 import { type Categories, findLabel } from "../../../entities/categories.enum";
@@ -17,12 +17,12 @@ export type DtoEntryType = Omit<IEntryType, "id"> & {
 type TableProps = {
   items: DtoEntryType[];
   total?: number;
-  editItem: (item: IAddType) => void;
+  editItem: (item: IType) => void;
   listEntries: () => void;
 };
 
 type Item = Row<DtoEntryType>;
-const EntryTypeTable = ({ items, total }: TableProps) => {
+const EntryTypeTable = ({ items, total, editItem }: TableProps) => {
   const columns: Column<DtoEntryType>[] = [
     {
       id: "name",
@@ -41,7 +41,10 @@ const EntryTypeTable = ({ items, total }: TableProps) => {
       label: "% de comissão",
       align: "center",
       format: (value?: number) => {
-        return (value ? value : 0).toString();
+        return `${(value ? value : 0)
+          .toFixed(2)
+          .toString()
+          .replace(".", ",")}%`;
       },
     },
     {
@@ -62,7 +65,9 @@ const EntryTypeTable = ({ items, total }: TableProps) => {
     },
   ];
   const [rows, setRows] = useState<Item[]>([]);
-  const handleEditItem = (item: DtoEntryType) => {};
+  const handleEditItem = (item: DtoEntryType) => {
+    editItem(item);
+  };
   const handleDeleteItem = async (itemId: string) => {};
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
