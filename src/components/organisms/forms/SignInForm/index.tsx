@@ -55,7 +55,7 @@ const SignInForm = () => {
           className="flex flex-col gap-4"
         >
           <div className="flex flex-col gap-2">
-            <LabeledInput className="px-0">
+            <LabeledInput>
               <Input
                 label="Usuário"
                 id={userTagId}
@@ -67,7 +67,7 @@ const SignInForm = () => {
                 errorMessage={errors.user?.message}
               />
             </LabeledInput>
-            <LabeledInput className="px-0">
+            <LabeledInput>
               <Input
                 label="Senha"
                 id={passwordTagId}
