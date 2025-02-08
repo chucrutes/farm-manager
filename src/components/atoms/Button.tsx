@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import MuiButton from "@mui/material/Button";
 
 type ButtonProps = Omit<ComponentProps<"button">, "color"> & {
-  color?: "success" | "inherit" | "primary" | "error";
+  color?: string;
 };
 
 const Button = ({
@@ -22,13 +22,18 @@ const Button = ({
       disabled={disabled}
       variant="contained"
       size="large"
-      color={color}
       onClick={handleSubmit}
       sx={{
         fontFamily: "Sora, sans-serif",
         marginX: "15px",
         width: "100%",
         textTransform: "none",
+        fontSize: "14px",
+        borderRadius: "8px",
+        backgroundColor: color,
+        "&:hover": {
+          backgroundColor: color,
+        },
       }}
     >
       {children}
