@@ -32,8 +32,6 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     ref
   ) => {
     const [currentValue, setCurrentValue] = useState<string>(`${value}`);
-    console.log(currentValue);
-
     useEffect(() => {
       const valueString = `${value}`;
       if (/\D/.test(valueString.replace(".", ""))) return;
@@ -42,9 +40,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     }, [value]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(event.target.value);
       const valueParsedToNum = event.target.value.replace(",", "");
-      console.log(valueParsedToNum);
       const sizeSlice = valueParsedToNum.length - DECIMAL_SIZE;
 
       const newValue = [
@@ -52,9 +48,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
         ".",
         valueParsedToNum.slice(sizeSlice),
       ].join("");
-      console.log(newValue);
       const numParsed = Number.parseFloat(newValue);
-      console.log(numParsed);
 
       onChange(numParsed);
     };
