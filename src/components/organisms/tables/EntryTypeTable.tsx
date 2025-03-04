@@ -1,6 +1,6 @@
 import { TotalRow } from "./TotalRow";
 import Button from "../../atoms/Button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import type { IEntryType } from "../../../entities/entry-type";
@@ -8,6 +8,7 @@ import type { IType } from "../forms/AddOrUpdateTypeForm/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
 import { type Categories, findLabel } from "../../../entities/categories.enum";
+import { deleteEntryType } from "../../../pages/api/entry-types/delete";
 
 export type DtoEntryType = Omit<IEntryType, "id"> & {
   _id: string;
@@ -18,11 +19,11 @@ type TableProps = {
   items: DtoEntryType[];
   total?: number;
   editItem: (item: IType) => void;
-  listEntries: () => void;
+  listItems: () => void;
 };
 
 type Item = Row<DtoEntryType>;
-const EntryTypeTable = ({ items, total, editItem }: TableProps) => {
+const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
   const columns: Column<DtoEntryType>[] = [
     {
       id: "name",
@@ -65,7 +66,13 @@ const EntryTypeTable = ({ items, total, editItem }: TableProps) => {
   const handleEditItem = (item: DtoEntryType) => {
     editItem(item);
   };
-  const handleDeleteItem = async (itemId: string) => {};
+  const handleDeleteItem = useCallback(
+    async (itemId: string) => {
+      await deleteEntryType({ ids: itemId });
+      listItems();
+    },
+    [listItems]
+  );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {

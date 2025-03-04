@@ -59,7 +59,7 @@ export const EntryTypeComponent = () => {
           <EntryTypeTable
             items={items}
             editItem={(item: IType) => setItemToEdit(item)}
-            listEntries={listEntries}
+            listItems={listEntries}
           />
         </div>
       </div>
