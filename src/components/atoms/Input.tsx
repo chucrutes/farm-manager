@@ -23,7 +23,7 @@ function Input({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       <TextField
         value={value}
         {...props}
