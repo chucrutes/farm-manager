@@ -16,17 +16,14 @@ import {
 } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
 import { validateData, verifyError } from "../../../../core/validator";
-import { handleResponseToast } from "../../../../utils/handleToast";
 import { ZodError } from "zod";
 import CheckBox from "../../../atoms/CheckBox";
-import { stringifier } from "../../../../@utils/stringifier";
 
 const AddTypeForm = ({
   saveItem,
   cleanItem,
   item,
 }: AddOrUpdateTypeFormProps) => {
-  stringifier(item);
   const id = item?._id;
   const [name, setName] = useState<IType["name"]>("");
   const [category, setCategory] = useState<Option>(categoryOptions[0]);

@@ -11,7 +11,7 @@ export type SelectProps = ComponentProps<"select"> & {
   placeholder?: string;
 };
 
-const GenericSelect = ({
+const Select = ({
   name,
   label,
   placeholder,
@@ -49,4 +49,4 @@ const GenericSelect = ({
   );
 };
 
-export default GenericSelect;
+export default Select;
