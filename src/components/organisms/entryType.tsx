@@ -25,8 +25,20 @@ export const EntryTypeComponent = () => {
     }
 
     handleResponseToast(res);
-    const newItems = [res.body.dto as DtoEntryType, ...items];
-    setItems(newItems);
+
+    const typeSaved = res.body.dto as DtoEntryType;
+    if (res.status === 201) {
+      const newItems = [typeSaved, ...items];
+      setItems(newItems);
+      setItemToEdit(null);
+      return;
+    }
+    setItems((previousItems) =>
+      previousItems.map((entry) =>
+        entry._id === typeSaved._id ? typeSaved : entry
+      )
+    );
+    setItemToEdit(null);
   };
 
   useEffect(() => {

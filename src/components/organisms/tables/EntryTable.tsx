@@ -1,5 +1,5 @@
 import Button from "../../atoms/Button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
@@ -7,13 +7,13 @@ import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./TotalRow";
 import { deleteEntry } from "../../../pages/api/entry/delete";
 import { DtoEntry } from "../dashboard";
-import { IAddEntry } from "../forms/AddEntryForm/@types/types";
+import { IAddOrUpdateEntry } from "../forms/AddOrUpdateEntryForm/@types/types";
 import { IEntryType } from "../../../entities/entry-type";
 
 type EntryTableProps = {
   items: DtoEntry[];
   total: number;
-  editEntry: (item: IAddEntry) => void;
+  editEntry: (item: IAddOrUpdateEntry) => void;
   listEntries: () => void;
 };
 
@@ -89,27 +89,33 @@ const EntryTable = ({
     },
   ];
   const [rows, setRows] = useState<Entry[]>([]);
-  const handleEditEntry = (item: DtoEntry) => {
-    if (!item) {
-      return;
-    }
-    const data: IAddEntry = {
-      id: item._id,
-      description: item.description,
-      price: item.price,
-      quantity: item.quantity,
-      total: item.total,
-      type: "dasdasdas",
-      fee: 0,
-    };
+  const handleEditEntry = useCallback(
+    (item: DtoEntry) => {
+      if (!item) {
+        return;
+      }
+      const data: IAddOrUpdateEntry = {
+        id: item._id,
+        description: item.description,
+        price: item.price,
+        quantity: item.quantity,
+        total: item.total,
+        type: "dasdasdas",
+        fee: 0,
+      };
 
-    editEntry(data);
-  };
-  const handleDeleteEntry = async (itemId: string) => {
-    await deleteEntry({ entryId: itemId });
+      editEntry(data);
+    },
+    [editEntry]
+  );
 
-    listEntries();
-  };
+  const handleDeleteEntry = useCallback(
+    async (itemId: string) => {
+      await deleteEntry({ entryId: itemId });
+      listEntries();
+    },
+    [listEntries]
+  );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -132,7 +138,7 @@ const EntryTable = ({
     }));
 
     setRows(rows);
-  }, [items]);
+  }, [items, handleEditEntry, handleDeleteEntry]);
 
   return (
     <StickyHeadTable

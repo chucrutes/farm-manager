@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { signIn } from "../../../../pages/api/signIn";
 import { useAuth } from "../../../../contexts/AuthContext";
 import LabeledInput from "../../../molecules/LabeledInput";
-import { type IUser, signInSchema } from "../../../../entities/IUser";
+import { type IUser, signInSchema } from "../../../../entities/user";
 import { validateData, verifyError } from "../../../../core/validator";
 import { ZodError } from "zod";
 import { Alert } from "@mui/material";

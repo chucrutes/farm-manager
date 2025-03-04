@@ -3,7 +3,7 @@ import {
   AddOrUpdateTypeSchema,
   type IType,
 } from "./@types/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Alert from "../../../atoms/Span";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
@@ -19,19 +19,25 @@ import { validateData, verifyError } from "../../../../core/validator";
 import { handleResponseToast } from "../../../../utils/handleToast";
 import { ZodError } from "zod";
 import CheckBox from "../../../atoms/CheckBox";
+import { stringifier } from "../../../../@utils/stringifier";
 
 const AddTypeForm = ({
   saveItem,
   cleanItem,
   item,
 }: AddOrUpdateTypeFormProps) => {
+  stringifier(item);
   const id = item?._id;
-  const [name, setName] = useState<IType["name"]>(item?.name ? item.name : "");
+  const [name, setName] = useState<IType["name"]>("");
   const [category, setCategory] = useState<Option>(categoryOptions[0]);
-  const [commission, setCommission] = useState<IType["commission"]>(
-    item?.commission ? item.commission : false
-  );
+  const [commission, setCommission] = useState<IType["commission"]>(false);
   const [error, setError] = useState<ZodError<IType> | null>();
+  useEffect(() => {
+    if (!item) return;
+    setName(item.name);
+    setCategory(findCategoryByValue(item.category));
+    setCommission(item.commission);
+  }, [item]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -51,12 +57,21 @@ const AddTypeForm = ({
     }
 
     await saveItem(isValid.data);
+    resetForm();
   }
+
+  const resetForm = () => {
+    cleanItem();
+
+    setCommission(false);
+    setCategory(categoryOptions[0]);
+    setName("");
+    setError(null);
+  };
 
   const handleSelect = ({
     target: { value },
   }: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(value);
     setCategory(findCategoryByValue(value));
   };
 
@@ -83,6 +98,7 @@ const AddTypeForm = ({
             name="category"
             onChange={handleSelect}
             label="Categoria"
+            value={category.value}
           />
           <LabeledInput>
             <CheckBox
@@ -103,7 +119,7 @@ const AddTypeForm = ({
               <div className="px-4">
                 <Button
                   color="primary"
-                  onClick={() => cleanItem()}
+                  onClick={() => resetForm()}
                   type="button"
                 >
                   Limpar

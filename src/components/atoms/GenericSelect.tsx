@@ -17,6 +17,7 @@ const GenericSelect = ({
   placeholder,
   options,
   onChange,
+  value,
 }: SelectProps) => {
   return (
     <div className="form-group">
@@ -28,6 +29,7 @@ const GenericSelect = ({
         <select
           id={name}
           onChange={onChange}
+          value={value}
           className={`form-select w-full p-2 border rounded-md
            border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500`}
         >
