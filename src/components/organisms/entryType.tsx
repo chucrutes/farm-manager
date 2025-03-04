@@ -5,6 +5,7 @@ import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntryType } from "../../pages/api/entry-types/create";
 import AddTypeForm from "./forms/AddOrUpdateTypeForm";
 import type { IType } from "./forms/AddOrUpdateTypeForm/@types/types";
+import { handleResponseToast } from "../../utils/handleToast";
 
 export const EntryTypeComponent = () => {
   const [items, setItems] = useState<DtoEntryType[]>([]);
@@ -17,26 +18,20 @@ export const EntryTypeComponent = () => {
 
   const saveItem = async (item: IType) => {
     const res = await createOrUpdateEntryType({ body: item });
+    if (![200, 201].includes(res.status)) {
+      handleResponseToast(res);
 
+      return;
+    }
+
+    handleResponseToast(res);
     const newItems = [res.body.dto as DtoEntryType, ...items];
     setItems(newItems);
-
-    return res;
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     listEntries();
   }, []);
-
-  const handleListEntries = () => {
-    listEntries();
-  };
-
-  // const handleCloseRegister = async () => {
-  //   await closeRegister();
-  //   listEntries();
-  // };
 
   return (
     <>
@@ -44,7 +39,7 @@ export const EntryTypeComponent = () => {
         <AddTypeForm
           item={itemToEdit}
           cleanItem={() => setItemToEdit(null)}
-          editItem={async (item) => setItemToEdit(item)}
+          editItem={(item) => setItemToEdit(item)}
           saveItem={saveItem}
         />
 
@@ -52,13 +47,8 @@ export const EntryTypeComponent = () => {
           <EntryTypeTable
             items={items}
             editItem={(item: IType) => setItemToEdit(item)}
-            listEntries={handleListEntries}
+            listEntries={listEntries}
           />
-          {/* <div className="flex justify-end">
-            <Button color="primary" onClick={() => handleCloseRegister()}>
-              Fechar caixa
-            </Button>
-          </div> */}
         </div>
       </div>
     </>

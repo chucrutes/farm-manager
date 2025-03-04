@@ -2,7 +2,7 @@ import MuiSelect, { type SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { forwardRef, useState } from "react";
 import type { UseFormSetValue } from "react-hook-form";
-import type { IAddItem } from "../organisms/forms/AddItemForm/@types/types";
+import type { IAddEntry } from "../organisms/forms/AddEntryForm/@types/types";
 
 type SelectOption = {
   label: string;
@@ -11,7 +11,7 @@ type SelectOption = {
 
 type SelectProps = {
   options: SelectOption[];
-  setValue: UseFormSetValue<IAddItem>;
+  setValue: UseFormSetValue<IAddEntry>;
 };
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {

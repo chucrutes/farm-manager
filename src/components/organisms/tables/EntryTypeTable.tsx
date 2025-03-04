@@ -38,13 +38,10 @@ const EntryTypeTable = ({ items, total, editItem }: TableProps) => {
     },
     {
       id: "commission",
-      label: "% de comissão",
+      label: "Possui comissão?",
       align: "center",
-      format: (value?: number) => {
-        return `${(value ? value : 0)
-          .toFixed(2)
-          .toString()
-          .replace(".", ",")}%`;
+      format: (value: boolean) => {
+        return value ? "Sim" : "Não";
       },
     },
     {

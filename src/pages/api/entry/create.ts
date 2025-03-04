@@ -1,11 +1,11 @@
 import { envs } from "../../../config/envs";
-import type { IItem } from "../../../entities/IItem";
+import type { IEntry } from "../../../entities/IEntry";
 import { BodyCreation } from "../@types";
 
 const { REACT_APP_API_URL } = envs;
 
 type ICreateEntry = {
-  body: Omit<IItem, "createdAt" | "updatedAt">;
+  body: Omit<IEntry, "createdAt" | "updatedAt">;
 };
 
 type IResponse = {

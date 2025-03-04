@@ -1,35 +1,30 @@
-import type { DtoItem } from "../dashboard";
 import Button from "../../atoms/Button";
 import { useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
-import type { IAddItem } from "../forms/AddItemForm/@types/types";
-
-import {
-  Types,
-  findTypeByKey,
-  getCategory,
-} from "../../../entities/types.enum";
 import { TotalRow } from "./TotalRow";
 import { deleteEntry } from "../../../pages/api/entry/delete";
+import { DtoEntry } from "../dashboard";
+import { IAddEntry } from "../forms/AddEntryForm/@types/types";
+import { IEntryType } from "../../../entities/entry-type";
 
-type TableProps = {
-  items: DtoItem[];
+type EntryTableProps = {
+  items: DtoEntry[];
   total: number;
-  editItem: (item: IAddItem) => void;
+  editEntry: (item: IAddEntry) => void;
   listEntries: () => void;
 };
 
-type Item = Row<DtoItem>;
-const ItemsTableGeneric = ({
+type Entry = Row<DtoEntry>;
+const EntryTable = ({
   items,
   total,
-  editItem,
+  editEntry,
   listEntries,
-}: TableProps) => {
-  const columns: Column<DtoItem>[] = [
+}: EntryTableProps) => {
+  const columns: Column<DtoEntry>[] = [
     {
       id: "description",
       label: "Descrição",
@@ -40,19 +35,16 @@ const ItemsTableGeneric = ({
       id: "type",
       label: "Tipo",
       align: "left",
-      format: (value: string) => {
-        const typeFound = findTypeByKey(value.toLowerCase());
-
-        return typeFound?.name || "dasdsa";
+      format: (value: IEntryType) => {
+        return value.name;
       },
     },
     {
-      id: "category",
+      id: "type",
       label: "Categoria",
       align: "left",
-      format: (value: string) => {
-        const newValue = value.toLowerCase() as "expense" | "profit" | "asset";
-        return getCategory[newValue]();
+      format: (value: IEntryType) => {
+        return value.category;
       },
     },
     {
@@ -96,25 +88,24 @@ const ItemsTableGeneric = ({
       },
     },
   ];
-  const [rows, setRows] = useState<Item[]>([]);
-  const handleEditItem = (item: DtoItem) => {
+  const [rows, setRows] = useState<Entry[]>([]);
+  const handleEditEntry = (item: DtoEntry) => {
     if (!item) {
       return;
     }
-    const typeFound = findTypeByKey(item.key);
-    const data: IAddItem = {
+    const data: IAddEntry = {
       id: item._id,
       description: item.description,
       price: item.price,
       quantity: item.quantity,
       total: item.total,
-      type: typeFound?.name || Types.BUY_CATTLE,
+      type: "dasdasdas",
       fee: 0,
     };
 
-    editItem(data);
+    editEntry(data);
   };
-  const handleDeleteItem = async (itemId: string) => {
+  const handleDeleteEntry = async (itemId: string) => {
     await deleteEntry({ entryId: itemId });
 
     listEntries();
@@ -122,17 +113,17 @@ const ItemsTableGeneric = ({
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const rows: Item[] = items.map((item) => ({
+    const rows: Entry[] = items.map((item) => ({
       ...item,
       actions: () => (
         <div className="flex flex-row">
           <div className="px-2">
-            <Button onClick={() => handleEditItem(item)}>
+            <Button onClick={() => handleEditEntry(item)}>
               <EditIcon />
             </Button>
           </div>
           <div className="px-2">
-            <Button color="error" onClick={() => handleDeleteItem(item._id)}>
+            <Button color="error" onClick={() => handleDeleteEntry(item._id)}>
               <DeleteIcon />
             </Button>
           </div>
@@ -153,4 +144,4 @@ const ItemsTableGeneric = ({
   );
 };
 
-export { ItemsTableGeneric };
+export { EntryTable };

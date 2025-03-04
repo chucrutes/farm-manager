@@ -5,7 +5,7 @@ export const EntryTypeSchema = z.object({
   _id: z.string().nullish(),
   name: z.string().min(1),
   category: z.nativeEnum(Categories),
-  commission: z.coerce.number().nullish(),
+  commission: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

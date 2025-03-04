@@ -1,8 +1,7 @@
 import {
-  type AddItemFormProps,
-  type IAddItem,
-  addItemSchema,
-  typesForSelect,
+  type AddEntryFormProps,
+  type IAddEntry,
+  AddEntrySchema,
 } from "./@types/types";
 import Alert from "../../../atoms/Span";
 import { useEffect, useId } from "react";
@@ -17,12 +16,12 @@ import LabeledInput from "../../../molecules/LabeledInput";
 import LabeledSelectInput from "../../../molecules/LabeledSelectInput";
 import { calculateFee } from "../../../../utils/calculateFee";
 
-const AddItemForm = ({
+const AddEntryForm = ({
   saveItem,
   editItem,
   cleanItem,
   item,
-}: AddItemFormProps) => {
+}: AddEntryFormProps) => {
   const descriptionTagId = useId();
   const priceTagId = useId();
   const quantityTagId = useId();
@@ -37,7 +36,7 @@ const AddItemForm = ({
     handleSubmit,
     formState: { errors, ...restFormState },
     ...methods
-  } = useForm<IAddItem>({
+  } = useForm<IAddEntry>({
     defaultValues: {
       id: item?.id,
       fee: item ? item.fee : 0,
@@ -47,7 +46,7 @@ const AddItemForm = ({
       description: item?.description,
       type: item?.type,
     },
-    resolver: zodResolver(addItemSchema),
+    resolver: zodResolver(AddEntrySchema),
   });
 
   const type = watch("type");
@@ -56,7 +55,7 @@ const AddItemForm = ({
   const price = watch("price", item?.price || 0);
   const quantity = watch("quantity", item?.quantity || 0);
 
-  const submitAddItem = (data: IAddItem) => {
+  const submitAddEntry = (data: IAddEntry) => {
     if (item?.id) {
       editItem(data);
       reset();
@@ -108,4 +107,4 @@ const AddItemForm = ({
   return <h1>dsdsa</h1>;
 };
 
-export default AddItemForm;
+export default AddEntryForm;

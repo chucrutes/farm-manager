@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-// import AddItemForm from "./forms/AddItemForm";
 import { listEntry } from "../../pages/api/entry/list";
-import { createEntry } from "../../pages/api/entry/create";
-import type { IAddItem } from "./forms/AddItemForm/@types/types";
-import { findTypeByType } from "../../entities/types.enum";
-import { ItemsTableGeneric } from "./tables/GerericTableTest";
+import type { IAddEntry } from "./forms/AddEntryForm/@types/types";
 import Button from "../atoms/Button";
 import { closeRegister } from "../../pages/api/entry/closeRegister";
+import { EntryTable } from "./tables/EntryTable";
 
-export type DtoItem = {
+export type DtoEntry = {
   _id: string;
   farmId: string;
   description: string;
@@ -23,9 +20,9 @@ export type DtoItem = {
 };
 
 export const DashboardComponent = () => {
-  const [items, setItems] = useState<DtoItem[]>([]);
+  const [items, setItems] = useState<DtoEntry[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [itemToEdit, setItemToEdit] = useState<IAddItem | null>(null);
+  const [itemToEdit, setItemToEdit] = useState<IAddEntry | null>(null);
 
   const listEntries = async () => {
     const response = await listEntry();
@@ -40,10 +37,7 @@ export const DashboardComponent = () => {
     fee,
     // quantity,
     ...item
-  }: IAddItem) => {
-    const typeFound = findTypeByType(type);
-    if (!typeFound) return;
-
+  }: IAddEntry) => {
     // let newPrice = price;
     // let newTotal = total;
 
@@ -65,7 +59,7 @@ export const DashboardComponent = () => {
     listEntries();
   };
 
-  const handleEditItem = async (item: IAddItem) => {
+  const handleEditItem = async (item: IAddEntry) => {
     setItemToEdit(null);
   };
 
@@ -86,7 +80,7 @@ export const DashboardComponent = () => {
   return (
     <>
       <div className="flex flex-col items-center">
-        {/* <AddItemForm
+        {/* <AddEntryForm
           cleanItem={() => setItemToEdit(null)}
           key={itemToEdit?.id || "new"}
           saveItem={saveItem}
@@ -95,11 +89,11 @@ export const DashboardComponent = () => {
         {/* /> */}
 
         <div className="p-8 overflow-x-auto">
-          <ItemsTableGeneric
+          <EntryTable
             items={items}
-            editItem={(item: IAddItem) => setItemToEdit(item)}
+            editEntry={(item: IAddEntry) => setItemToEdit(item)}
             total={total}
-            listEntries={handleListEntries}
+            listEntries={listEntries}
           />
           <div className="flex justify-end">
             <Button color="primary" onClick={() => handleCloseRegister()}>

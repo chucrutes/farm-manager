@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { typeSchema } from "./types.enum";
+import { EntryTypeSchema } from "./entry-type";
 
-export const itemSchema = z.object({
+export const EntrySchema = z.object({
   description: z.string().min(1),
   quantity: z.number().positive(),
   price: z.number().positive(),
   total: z.number().positive(),
-  type: typeSchema,
+  type: EntryTypeSchema.nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
-export type IItem = z.infer<typeof itemSchema>;
+export type IEntry = z.infer<typeof EntrySchema>;

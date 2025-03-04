@@ -10,6 +10,9 @@ const Header = () => {
           <LinkItem path="/">
             <LiItem content="Início" />
           </LinkItem>
+          <LinkItem path="/dashboard">
+            <LiItem content="Registros" />
+          </LinkItem>
           <LinkItem path="/types">
             <LiItem content="Tipos" />
           </LinkItem>

@@ -1,22 +1,25 @@
 import { toast } from "react-toastify";
 import { ResponseCreation } from "../pages/api/@types";
+import { findLabelByKey } from "../language/pt-br";
 
 export const handleResponseToast = (response: ResponseCreation): void => {
   const { body } = response;
   const { message, type } = body;
 
+  const _message = findLabelByKey(message);
+
   switch (type) {
     case "success":
-      toast.success(message);
+      toast.success(_message);
       break;
     case "error":
-      toast.error(message);
+      toast.error(_message);
       break;
     case "info":
-      toast.info(message);
+      toast.info(_message);
       break;
     default:
-      console.warn("Unhandled message type", message);
+      console.warn("Unhandled message type", _message);
       break;
   }
 };

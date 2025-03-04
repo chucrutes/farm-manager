@@ -21,15 +21,15 @@ export const categoryOptions: Option[] = [
     label: "Ativo",
     value: Categories.ASSET,
   },
-  {
-    label: "Investimento",
-    value: Categories.INVESTMENT,
-  },
 ];
 
 export const findLabel = (category: Categories) => {
   return categoryOptions.find((item) => item.value === category)
     ?.label as string;
+};
+
+export const findCategoryByValue = (value: string) => {
+  return categoryOptions.find((item) => item.value === value) as Option;
 };
 
 export const categoriesSchema = z.nativeEnum(Categories);

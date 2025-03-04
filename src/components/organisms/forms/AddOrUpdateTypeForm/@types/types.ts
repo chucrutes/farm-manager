@@ -1,17 +1,16 @@
 import type { z } from "zod";
 import { EntryTypeSchema } from "../../../../../entities/entry-type";
-import type { ResponseCreation } from "../../../../../pages/api/@types";
 
-export const addOrUpdateTypeSchema = EntryTypeSchema.omit({
+export const AddOrUpdateTypeSchema = EntryTypeSchema.omit({
   createdAt: true,
   updatedAt: true,
 });
 
-export type IType = z.infer<typeof addOrUpdateTypeSchema>;
+export type IType = z.infer<typeof AddOrUpdateTypeSchema>;
 
 export type AddOrUpdateTypeFormProps = {
   cleanItem: () => void;
   item?: IType | null;
-  editItem: (item: IType) => Promise<void>;
-  saveItem: (item: IType) => Promise<ResponseCreation>;
+  editItem: (item: IType) => void;
+  saveItem: (item: IType) => Promise<void>;
 };
