@@ -70,11 +70,9 @@ export default function StickyHeadTable<T>({
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     {columns.map((column) => {
                       const value = row[column.id];
+                      console.log(value);
                       return (
-                        <TableCell
-                          key={column.id as string}
-                          align={column.align}
-                        >
+                        <TableCell align={column.align}>
                           {column.format?.(value)}
                         </TableCell>
                       );

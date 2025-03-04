@@ -7,6 +7,7 @@ import LabeledInput from "../../../molecules/LabeledInput";
 import { AddOrUpdateEntryFormProps, IAddOrUpdateEntry } from "./@types/types";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
+import { CurrencyInput } from "../../../atoms/CurrencyInput";
 
 const AddEntryForm = ({
   saveItem,
@@ -71,61 +72,14 @@ const AddEntryForm = ({
             )}
           </LabeledInput>
           <LabeledInput>
-            <Input
-              label="Quantidade"
+            <CurrencyInput
               id="quantity"
-              type="number"
               value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              onChange={(e, details) => setQuantity(e)}
             />
             {error && verifyError(error, "quantity") && (
               <Alert icon={<ErrorIcon />} severity="error">
                 Quantidade inválida
-              </Alert>
-            )}
-          </LabeledInput>
-
-          <LabeledInput>
-            <Input
-              label="Preço"
-              id="price"
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-            />
-            {error && verifyError(error, "price") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Preço inválido
-              </Alert>
-            )}
-          </LabeledInput>
-
-          <LabeledInput>
-            <Input
-              label="Total"
-              id="total"
-              type="number"
-              value={total}
-              onChange={(e) => setTotal(Number(e.target.value))}
-            />
-            {error && verifyError(error, "total") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Total inválido
-              </Alert>
-            )}
-          </LabeledInput>
-
-          <LabeledInput>
-            <Input
-              label="Taxa"
-              id="fee"
-              type="number"
-              value={fee}
-              onChange={(e) => setFee(Number(e.target.value))}
-            />
-            {error && verifyError(error, "fee") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Taxa inválida
               </Alert>
             )}
           </LabeledInput>

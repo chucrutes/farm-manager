@@ -1,4 +1,5 @@
-import { ComponentProps, forwardRef } from "react";
+import React, { ComponentProps, forwardRef, useEffect, useState } from "react";
+import { numberToBrFormat } from "../../@utils/formatters";
 
 export type Details = {
   value: number;
@@ -10,13 +11,14 @@ export type CurrencyInputProps = Omit<
   ComponentProps<"input">,
   "value" | "onChange"
 > & {
-  value?: number;
-  onChange?: (value: number, details?: Details) => void;
+  value: number;
+  onChange: (value: number, details?: Details) => void;
   defaultValue?: number;
   placeholder?: string;
-  locale?: "pt-BR" | "en-US";
-  currency?: "BRL" | "USD";
+  addonBefore?: string;
 };
+
+const DECIMAL_SIZE = 2;
 
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
   (
@@ -24,44 +26,43 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       value,
       onChange,
       placeholder,
-      locale = "pt-BR",
-      currency = "BRL",
+      addonBefore = "R$",
       ...props
     }: CurrencyInputProps,
     ref
   ) => {
-    // Format the number value to a currency string for display
-    const formatToDisplay = (numValue: number | undefined): string => {
-      if (numValue === undefined) return "";
-      return numValue.toLocaleString(locale, {
-        style: "currency",
-        currency,
-      });
-    };
+    const [currentValue, setCurrentValue] = useState<string>(`${value}`);
+    console.log(currentValue);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value;
-      // Remove all non-numeric characters
-      const numericValue = rawValue.replace(/[^0-9]/g, "");
-      // Convert to number and divide by 100 to get the decimal value
-      const parsedValue = Number(numericValue) / 100;
+    useEffect(() => {
+      const valueString = `${value}`;
+      if (/\D/.test(valueString.replace(".", ""))) return;
 
-      const formattedValue = parsedValue.toLocaleString(locale, {
-        style: "currency",
-        currency,
-      });
+      setCurrentValue(numberToBrFormat(value));
+    }, [value]);
 
-      onChange?.(parsedValue, {
-        value: parsedValue,
-        formattedValue,
-        splittedValue: parsedValue.toString().split(""),
-      });
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(event.target.value);
+      const valueParsedToNum = event.target.value.replace(",", "");
+      console.log(valueParsedToNum);
+      const sizeSlice = valueParsedToNum.length - DECIMAL_SIZE;
+
+      const newValue = [
+        valueParsedToNum.slice(0, sizeSlice),
+        ".",
+        valueParsedToNum.slice(sizeSlice),
+      ].join("");
+      console.log(newValue);
+      const numParsed = Number.parseFloat(newValue);
+      console.log(numParsed);
+
+      onChange(numParsed);
     };
 
     return (
       <input
         type="text"
-        value={formatToDisplay(value)}
+        value={currentValue}
         onChange={handleChange}
         placeholder={placeholder}
         className="border p-2 rounded w-full"
