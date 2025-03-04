@@ -1,42 +1,52 @@
-import MuiSelect, { type SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import { forwardRef, useState } from "react";
-import type { UseFormSetValue } from "react-hook-form";
-import type { IAddOrUpdateEntry } from "../organisms/forms/AddOrUpdateEntryForm/@types/types";
+import { ComponentProps } from "react";
 
-type SelectOption = {
+export type Option = {
   label: string;
   value: string;
 };
 
-type SelectProps = {
-  options: SelectOption[];
-  setValue: UseFormSetValue<IAddOrUpdateEntry>;
+export type SelectProps = ComponentProps<"select"> & {
+  options: Option[];
+  label: string;
+  placeholder?: string;
 };
 
-const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
-  const { options, setValue } = props;
-  const [option, setOption] = useState<SelectOption>(options[0]);
-
-  const onChange = ({ target: { value } }: SelectChangeEvent) => {
-    const option = options.find((option) => option.value === value);
-    if (!option) return;
-
-    setOption(option);
-    setValue("type", value);
-  };
-
+const GenericSelect = ({
+  name,
+  label,
+  placeholder,
+  options,
+  onChange,
+  value,
+}: SelectProps) => {
   return (
-    <MuiSelect ref={ref} value={option.value} onChange={onChange}>
-      {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </MuiSelect>
+    <div className="form-group">
+      <label htmlFor={name} className="block mb-2 text-sm font-medium">
+        {label}
+      </label>
+
+      <div className="relative">
+        <select
+          id={name}
+          onChange={onChange}
+          value={value}
+          className={`form-select w-full p-2 border rounded-md
+           border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+        >
+          {
+            <option value="" disabled>
+              {placeholder}
+            </option>
+          }
+          {options.map((option) => (
+            <option key={String(option.value)} value={String(option.value)}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
   );
-});
+};
 
-Select.displayName = "Select";
-
-export default Select;
+export default GenericSelect;

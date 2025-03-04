@@ -14,7 +14,7 @@ import {
   categoryOptions,
   findCategoryByValue,
 } from "../../../../entities/categories.enum";
-import GenericSelect, { Option } from "../../../atoms/GenericSelect";
+import Select, { Option } from "../../../atoms/Select";
 import { validateData, verifyError } from "../../../../core/validator";
 import { handleResponseToast } from "../../../../utils/handleToast";
 import { ZodError } from "zod";
@@ -93,7 +93,7 @@ const AddTypeForm = ({
               </Alert>
             )}
           </LabeledInput>
-          <GenericSelect
+          <Select
             options={categoryOptions}
             name="category"
             onChange={handleSelect}
