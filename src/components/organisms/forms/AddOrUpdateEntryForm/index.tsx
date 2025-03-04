@@ -8,19 +8,23 @@ import { AddOrUpdateEntryFormProps, IAddOrUpdateEntry } from "./@types/types";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
+import { IEntryType } from "../../../../entities/entry-type";
+import { stringifier } from "../../../../@utils/stringifier";
 
 const AddEntryForm = ({
   saveItem,
   editItem,
   cleanItem,
   item,
+  types,
 }: AddOrUpdateEntryFormProps) => {
   const id = item?._id;
-  const [quantity, setQuantity] = useState<number>(item?.quantity ?? 0);
-  const [price, setPrice] = useState<number>(item?.price ?? 0);
-  const [total, setTotal] = useState<number>(item?.total ?? 0);
-  const [fee, setFee] = useState<number>(item?.fee ?? 0);
   const [description, setDescription] = useState<string>();
+  const [quantity, setQuantity] = useState<number>(0);
+  const [price, setPrice] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const [fee, setFee] = useState<number>(0);
+  const [type, setType] = useState<IEntryType>(types[0]);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {};
@@ -75,9 +79,25 @@ const AddEntryForm = ({
             <CurrencyInput
               id="quantity"
               value={quantity}
-              onChange={(e, details) => setQuantity(e)}
+              onChange={setQuantity}
             />
             {error && verifyError(error, "quantity") && (
+              <Alert icon={<ErrorIcon />} severity="error">
+                Quantidade inválida
+              </Alert>
+            )}
+          </LabeledInput>
+          <LabeledInput>
+            <CurrencyInput id="price" value={price} onChange={setPrice} />
+            {error && verifyError(error, "price") && (
+              <Alert icon={<ErrorIcon />} severity="error">
+                Preço Inválido
+              </Alert>
+            )}
+          </LabeledInput>
+          <LabeledInput>
+            <CurrencyInput id="total" value={total} onChange={setTotal} />
+            {error && verifyError(error, "total") && (
               <Alert icon={<ErrorIcon />} severity="error">
                 Quantidade inválida
               </Alert>
