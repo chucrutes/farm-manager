@@ -9,10 +9,11 @@ export type Details = {
 
 export type CurrencyInputProps = Omit<
   ComponentProps<"input">,
-  "value" | "onChange"
+  "value" | "onChange" | "onBlur"
 > & {
   value: number;
   onChange: (value: number, details?: Details) => void;
+  onBlur?: (value: number) => void;
   defaultValue?: number;
   placeholder?: string;
   addonBefore?: string;
@@ -25,6 +26,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     {
       value,
       onChange,
+      onBlur,
       placeholder,
       addonBefore = "R$",
       ...props
@@ -32,6 +34,9 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     ref
   ) => {
     const [currentValue, setCurrentValue] = useState<string>(`${value}`);
+    const [numParsed, setNumParsed] = useState<number>(value);
+
+
     useEffect(() => {
       const valueString = `${value}`;
       if (/\D/.test(valueString.replace(".", ""))) return;
@@ -49,6 +54,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
         valueParsedToNum.slice(sizeSlice),
       ].join("");
       const numParsed = Number.parseFloat(newValue);
+      setNumParsed(numParsed);
 
       onChange(numParsed);
     };
@@ -58,6 +64,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
         type="text"
         value={currentValue}
         onChange={handleChange}
+        onBlur={() => onBlur?.(numParsed)}
         placeholder={placeholder}
         className="border p-2 rounded w-full"
         {...props}

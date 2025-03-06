@@ -9,7 +9,6 @@ import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
 import { IEntryType } from "../../../../entities/entry-type";
-import { stringifier } from "../../../../@utils/stringifier";
 import Label from "../../../atoms/Label";
 import { Categories, findLabel } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
@@ -26,9 +25,11 @@ const AddEntryForm = ({
   const [quantity, setQuantity] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState<Option>();
+  const [selectedType, setSelectedType] = useState<IEntryType>();
   const [category, setCategory] = useState<Categories | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
+
+  console.log(selectedType)
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id ?? "",
@@ -64,11 +65,14 @@ const AddEntryForm = ({
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
+    console.log('selectedId')
+    console.log(selectedId)
     
     const selectedTypeObj = types.find((type) => type._id === selectedId);
-
+    console.log(selectedTypeObj);
+    
     if(!selectedTypeObj) return;
-    setSelectedType({value: selectedTypeObj._id ?? "", label: selectedTypeObj.name});
+    setSelectedType(selectedType);
     setCategory(selectedTypeObj?.category ?? null);
   };
 
@@ -95,6 +99,7 @@ const AddEntryForm = ({
             <Input
               label="Categoria"
               id="category"
+              disabled={true}
               value={category ? findLabel(category) : ""}
             />
             {error && verifyError(error, "category") && (
@@ -108,8 +113,35 @@ const AddEntryForm = ({
             name="type"
             onChange={handleTypeChange}
             label="Tipo"
-            value={selectedType?.value ?? ""}
+            value={selectedType?._id ?? ""}
           />
+          <LabeledInput>
+            <Label>Quantidade</Label>
+            <CurrencyInput
+              id="quantity"
+              value={quantity}
+              onChange={setQuantity}
+              onBlur={handleQuantityBlur}
+            />
+          </LabeledInput>
+          <LabeledInput>
+            <Label>Preço</Label>
+            <CurrencyInput
+              id="price"
+              value={price}
+              onChange={setPrice}
+              onBlur={handlePriceBlur}
+            />
+          </LabeledInput>
+          <LabeledInput>
+            <Label>Total</Label>
+            <CurrencyInput
+              id="total"
+              value={total}
+              onChange={setTotal}
+              onBlur={handleTotalBlur}
+                       />
+          </LabeledInput>
         </div>
 
         <div className="flex justify-center py-4">
