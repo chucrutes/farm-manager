@@ -29,8 +29,6 @@ const AddEntryForm = ({
   const [category, setCategory] = useState<Categories | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
-  console.log(selectedType)
-
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,
     label: type.name,
@@ -65,11 +63,9 @@ const AddEntryForm = ({
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
-    console.log('selectedId')
-    console.log(selectedId)
     
     const selectedTypeObj = types.find((type) => type._id === selectedId);
-    console.log(selectedTypeObj);
+
     
     if(!selectedTypeObj) return;
     setSelectedType(selectedType);
