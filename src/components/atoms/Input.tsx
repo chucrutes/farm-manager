@@ -29,7 +29,7 @@ function Input({
         {...props}
         InputLabelProps={{ shrink: !!value }}
         label={label}
-        type={isVisible ? "text" : "password"}
+        type={isVisible ? type : "password"}
         ref={ref}
         color="success"
         variant="standard"

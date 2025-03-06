@@ -10,6 +10,9 @@ import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
 import { IEntryType } from "../../../../entities/entry-type";
 import { stringifier } from "../../../../@utils/stringifier";
+import Label from "../../../atoms/Label";
+import { Categories, findLabel } from "../../../../entities/categories.enum";
+import Select, { Option } from "../../../atoms/Select";
 
 const AddEntryForm = ({
   saveItem,
@@ -23,39 +26,52 @@ const AddEntryForm = ({
   const [quantity, setQuantity] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [fee, setFee] = useState<number>(0);
-  const [type, setType] = useState<IEntryType>(types[0]);
+  const [selectedType, setSelectedType] = useState<Option>();
+  const [category, setCategory] = useState<Categories | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
+
+  const typeOptions: Option[] = types.map((type) => ({
+    value: type._id ?? "",
+    label: type.name,
+  }));
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {};
 
-  const handlePriceBlur = () => {
+  const handlePriceBlur = (value: number) => {
     if (!quantity) return;
 
-    const value = (price * quantity).toFixed(2);
-    setTotal(Number.parseFloat(value));
+    const total = (value * quantity).toFixed(2);
+    setPrice(value);
+    setTotal(Number.parseFloat(total));
   };
 
-  const handleTotalBlur = () => {
+  const handleTotalBlur = (value: number) => {
     if (!quantity) return;
 
-    const value = (total / quantity).toFixed(2);
-    setPrice(Number.parseFloat(value));
+    const price = (value / quantity).toFixed(2);
+    setTotal(value)
+    setPrice(Number.parseFloat(price));
   };
 
-  const handleQuantityBlur = () => {
+  const handleQuantityBlur = (value: number) => {
     if (!price) return;
 
-    const value = (price * quantity).toFixed(2);
-    setQuantity(Number.parseFloat(value));
+    const total = (price * value).toFixed(2);
+    setQuantity(value);
+    setTotal(Number.parseFloat(total));
   };
 
-  const handleFeeBlur = () => {
-    if (!fee || !price || !quantity) return;
+  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = event.target.value;
+    
+    const selectedTypeObj = types.find((type) => type._id === selectedId);
 
-    const value = (price * quantity).toFixed(2);
-    setTotal(Number.parseFloat(value));
+    if(!selectedTypeObj) return;
+    setSelectedType({value: selectedTypeObj._id ?? "", label: selectedTypeObj.name});
+    setCategory(selectedTypeObj?.category ?? null);
   };
+
 
   return (
     <div className="flex flex-col justify-center">
@@ -76,33 +92,24 @@ const AddEntryForm = ({
             )}
           </LabeledInput>
           <LabeledInput>
-            <CurrencyInput
-              id="quantity"
-              value={quantity}
-              onChange={setQuantity}
+            <Input
+              label="Categoria"
+              id="category"
+              value={category ? findLabel(category) : ""}
             />
-            {error && verifyError(error, "quantity") && (
+            {error && verifyError(error, "category") && (
               <Alert icon={<ErrorIcon />} severity="error">
-                Quantidade inválida
+                Categoria inválida
               </Alert>
             )}
           </LabeledInput>
-          <LabeledInput>
-            <CurrencyInput id="price" value={price} onChange={setPrice} />
-            {error && verifyError(error, "price") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Preço Inválido
-              </Alert>
-            )}
-          </LabeledInput>
-          <LabeledInput>
-            <CurrencyInput id="total" value={total} onChange={setTotal} />
-            {error && verifyError(error, "total") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Quantidade inválida
-              </Alert>
-            )}
-          </LabeledInput>
+          <Select
+            options={typeOptions}
+            name="type"
+            onChange={handleTypeChange}
+            label="Tipo"
+            value={selectedType?.value ?? ""}
+          />
         </div>
 
         <div className="flex justify-center py-4">

@@ -1,11 +1,10 @@
 import { z } from "zod";
 import { EntrySchema } from "../../../../../entities/entry";
-import { IEntryType } from "../../../../../entities/entry-type";
+import { EntryTypeSchema, IEntryType } from "../../../../../entities/entry-type";
 
 export const AddOrUpdateEntrySchema = EntrySchema.omit({
   createdAt: true,
   updatedAt: true,
-  type: true,
 }).merge(
   z.object({
     id: z.string().nullish(),

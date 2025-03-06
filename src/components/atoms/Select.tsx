@@ -19,6 +19,8 @@ const Select = ({
   onChange,
   value,
 }: SelectProps) => {
+  const disabled = options.length === 0;
+
   return (
     <div className="form-group">
       <label htmlFor={name} className="block mb-2 text-sm font-medium">
@@ -27,6 +29,7 @@ const Select = ({
 
       <div className="relative">
         <select
+        disabled={disabled}
           id={name}
           onChange={onChange}
           value={value}
