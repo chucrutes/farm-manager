@@ -8,7 +8,7 @@ import { AddOrUpdateEntryFormProps, IAddOrUpdateEntry } from "./@types/types";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
-import { IEntryType, IType } from "../../../../entities/entry-type";
+import {  IType } from "../../../../entities/entry-type";
 import Label from "../../../atoms/Label";
 import { Categories, findLabel } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
@@ -68,7 +68,7 @@ const AddEntryForm = ({
 
     
     if(!selectedTypeObj) return;
-    setSelectedType(selectedType);
+    setSelectedType(selectedTypeObj);
     setCategory(selectedTypeObj?.category ?? null);
   };
 
