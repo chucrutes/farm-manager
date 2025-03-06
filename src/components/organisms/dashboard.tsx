@@ -9,6 +9,7 @@ import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntry } from "../../pages/api/entry/create";
 import { handleResponseToast } from "../../utils/handleToast";
 import { EntryTable } from "./tables/EntryTable";
+import { stringifier } from "../../@utils/stringifier";
 
 export type DtoEntry = {
   _id: string;
@@ -32,6 +33,7 @@ export const DashboardComponent = () => {
 
   const listEntries = async () => {
     const response = await listEntry();
+    stringifier(response.body)
     setItems(response.body.dto.entries);
     setTotal(response.body.dto.total);
   };

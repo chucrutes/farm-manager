@@ -12,11 +12,9 @@ import {  IType } from "../../../../entities/entry-type";
 import Label from "../../../atoms/Label";
 import { Categories, findLabel } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
-import { stringifier } from "../../../../@utils/stringifier";
 
 const AddEntryForm = ({
   saveItem,
-  editItem,
   cleanItem,
   item,
   types,

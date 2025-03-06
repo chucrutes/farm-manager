@@ -1,6 +1,5 @@
 import { IAddOrUpdateEntry } from "../../../components/organisms/forms/AddOrUpdateEntryForm/@types/types";
 import { envs } from "../../../config/envs";
-import type { IEntry } from "../../../entities/entry";
 import { BodyCreation } from "../@types";
 
 const { REACT_APP_API_URL } = envs;

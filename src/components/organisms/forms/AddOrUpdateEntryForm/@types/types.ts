@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { EntrySchema } from "../../../../../entities/entry";
-import {  EntryTypeSchema, IEntryType, IType } from "../../../../../entities/entry-type";
+import {  EntryTypeSchema, IType } from "../../../../../entities/entry-type";
 
 export const AddOrUpdateEntrySchema = EntrySchema.omit({
   createdAt: true,
