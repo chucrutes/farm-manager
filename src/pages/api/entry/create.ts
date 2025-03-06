@@ -1,3 +1,4 @@
+import { IAddOrUpdateEntry } from "../../../components/organisms/forms/AddOrUpdateEntryForm/@types/types";
 import { envs } from "../../../config/envs";
 import type { IEntry } from "../../../entities/entry";
 import { BodyCreation } from "../@types";
@@ -5,7 +6,7 @@ import { BodyCreation } from "../@types";
 const { REACT_APP_API_URL } = envs;
 
 type ICreateEntry = {
-  body: Omit<IEntry, "createdAt" | "updatedAt">;
+  body: IAddOrUpdateEntry;
 };
 
 type IResponse = {
@@ -17,10 +18,11 @@ const getTokenFromLocalStorage = (): string | null => {
   return localStorage.getItem("token");
 };
 
-export const createEntry = async ({
+export const createOrUpdateEntry = async ({
   body,
 }: ICreateEntry): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
+  console.log('createOrUpdateEntry')
 
   const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
     method: "POST",

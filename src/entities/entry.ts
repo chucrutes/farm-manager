@@ -7,7 +7,7 @@ export const EntrySchema = z.object({
   quantity: z.number().positive(),
   price: z.number().positive(),
   total: z.number().positive(),
-  type: EntryTypeSchema.nullish(),
+  type: EntryTypeSchema,
   createdAt: z.date(),
   updatedAt: z.date(),
 });

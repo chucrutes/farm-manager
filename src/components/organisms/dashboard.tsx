@@ -3,10 +3,12 @@ import { listEntry } from "../../pages/api/entry/list";
 import type { IAddOrUpdateEntry } from "./forms/AddOrUpdateEntryForm/@types/types";
 import Button from "../atoms/Button";
 import { closeRegister } from "../../pages/api/entry/closeRegister";
-import { EntryTable } from "./tables/EntryTable";
 import AddEntryForm from "./forms/AddOrUpdateEntryForm";
 import { IEntryType, IType } from "../../entities/entry-type";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
+import { createOrUpdateEntry } from "../../pages/api/entry/create";
+import { handleResponseToast } from "../../utils/handleToast";
+import { EntryTable } from "./tables/EntryTable";
 
 export type DtoEntry = {
   _id: string;
@@ -15,7 +17,7 @@ export type DtoEntry = {
   price: number;
   quantity: number;
   total: number;
-  type: string;
+  type: IEntryType;
   category: string;
   createdAt: string;
   updatedAt: string;
@@ -38,15 +40,29 @@ export const DashboardComponent = () => {
     setTypes(response.body.dto);
   };
 
-  const saveItem = async ({
-    type,
-    // total,
-    // price,
-    fee,
-    // quantity,
-    ...item
-  }: IAddOrUpdateEntry) => {
-    listEntries();
+  const saveItem = async (item: IAddOrUpdateEntry) => {
+    const res = await createOrUpdateEntry({ body: item });
+    if (![200, 201].includes(res.status)) {
+      handleResponseToast(res);
+
+      return;
+    }
+
+    handleResponseToast(res);
+
+    const typeSaved = res.body.dto as DtoEntry;
+    if (res.status === 201) {
+      const newItems = [typeSaved, ...items];
+      setItems(newItems);
+      setItemToEdit(null);
+      return;
+    }
+    setItems((previousItems) =>
+      previousItems.map((entry) =>
+        entry._id === typeSaved._id ? typeSaved : entry
+      )
+    );
+    setItemToEdit(null);
   };
 
   const handleEditItem = async (item: IAddOrUpdateEntry) => {
@@ -68,7 +84,6 @@ export const DashboardComponent = () => {
       <div className="flex flex-col items-center">
         <AddEntryForm
           cleanItem={() => setItemToEdit(null)}
-          key={itemToEdit?.id || "new"}
           saveItem={saveItem}
           editItem={handleEditItem}
           item={itemToEdit}
@@ -76,12 +91,12 @@ export const DashboardComponent = () => {
         />
 
         <div className="p-8 overflow-x-auto">
-          {/* <EntryTable
+          <EntryTable
             items={items}
             editEntry={(item: IAddOrUpdateEntry) => setItemToEdit(item)}
             total={total}
             listEntries={listEntries}
-          /> */}
+          />
           <div className="flex justify-end">
             <Button color="primary" onClick={() => handleCloseRegister()}>
               Fechar caixa

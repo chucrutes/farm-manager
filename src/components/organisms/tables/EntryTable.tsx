@@ -95,13 +95,12 @@ const EntryTable = ({
         return;
       }
       const data: IAddOrUpdateEntry = {
-        id: item._id,
+        _id: item._id,
         description: item.description,
         price: item.price,
         quantity: item.quantity,
         total: item.total,
-        type: "dasdasdas",
-        fee: 0,
+        type: item.type,
       };
 
       editEntry(data);

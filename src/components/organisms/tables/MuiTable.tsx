@@ -53,7 +53,6 @@ export default function StickyHeadTable<T>({
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  key={column.id as string}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >

@@ -1,17 +1,16 @@
 import { z } from "zod";
 import { EntrySchema } from "../../../../../entities/entry";
-import {  IEntryType, IType } from "../../../../../entities/entry-type";
+import {  EntryTypeSchema, IEntryType, IType } from "../../../../../entities/entry-type";
 
 export const AddOrUpdateEntrySchema = EntrySchema.omit({
   createdAt: true,
   updatedAt: true,
-}).merge(
-  z.object({
-    id: z.string().nullish(),
-    type: z.string(),
-    fee: z.number().nullish(),
-  })
-);
+  type: true
+}).merge(z.object({
+
+  type: EntryTypeSchema.omit({createdAt: true, updatedAt: true})})
+)
+
 
 export type IAddOrUpdateEntry = z.infer<typeof AddOrUpdateEntrySchema>;
 
