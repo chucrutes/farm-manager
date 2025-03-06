@@ -8,7 +8,7 @@ import { AddOrUpdateEntryFormProps, IAddOrUpdateEntry } from "./@types/types";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
-import { IEntryType } from "../../../../entities/entry-type";
+import { IEntryType, IType } from "../../../../entities/entry-type";
 import Label from "../../../atoms/Label";
 import { Categories, findLabel } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
@@ -25,14 +25,14 @@ const AddEntryForm = ({
   const [quantity, setQuantity] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState<IEntryType>();
+  const [selectedType, setSelectedType] = useState<IType>();
   const [category, setCategory] = useState<Categories | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
   console.log(selectedType)
 
   const typeOptions: Option[] = types.map((type) => ({
-    value: type._id ?? "",
+    value: type._id,
     label: type.name,
   }));
 

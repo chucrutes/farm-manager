@@ -5,7 +5,7 @@ import Button from "../atoms/Button";
 import { closeRegister } from "../../pages/api/entry/closeRegister";
 import { EntryTable } from "./tables/EntryTable";
 import AddEntryForm from "./forms/AddOrUpdateEntryForm";
-import { IEntryType } from "../../entities/entry-type";
+import { IEntryType, IType } from "../../entities/entry-type";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
 
 export type DtoEntry = {
@@ -24,7 +24,7 @@ export type DtoEntry = {
 
 export const DashboardComponent = () => {
   const [items, setItems] = useState<DtoEntry[]>([]);
-  const [types, setTypes] = useState<IEntryType[]>([]);
+  const [types, setTypes] = useState<IType[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [itemToEdit, setItemToEdit] = useState<IAddOrUpdateEntry | null>(null);
 

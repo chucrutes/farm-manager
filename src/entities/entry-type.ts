@@ -11,3 +11,6 @@ export const EntryTypeSchema = z.object({
 });
 
 export type IEntryType = z.infer<typeof EntryTypeSchema>;
+export type IType = Omit<IEntryType, "_id"> & {
+  _id:string
+};
