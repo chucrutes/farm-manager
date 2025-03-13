@@ -7,7 +7,7 @@ import type { IEntryType } from "../../../entities/entry-type";
 import type { IType } from "../forms/add-update-type-form/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
-import { type Categories, findLabel } from "../../../entities/categories.enum";
+import { type Categories, findCategoryByValue } from "../../../entities/categories.enum";
 import { deleteEntryType } from "../../../pages/api/entry-types/delete";
 
 export type DtoEntryType = Omit<IEntryType, "id"> & {
@@ -35,7 +35,7 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
       id: "category",
       label: "Categoria",
       align: "center",
-      format: (value: Categories) => findLabel(value),
+      format: (value: Categories) => findCategoryByValue(value).label,
     },
     {
       id: "commission",
@@ -63,9 +63,10 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
     },
   ];
   const [rows, setRows] = useState<Item[]>([]);
-  const handleEditItem = (item: DtoEntryType) => {
+  const handleEditItem = useCallback(  (item: DtoEntryType) => {
     editItem(item);
-  };
+  }, [editItem])
+
   const handleDeleteItem = useCallback(
     async (itemId: string) => {
       await deleteEntryType({ ids: itemId });
@@ -95,7 +96,7 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
     }));
 
     setRows(rows);
-  }, [items]);
+  }, [items, handleDeleteItem, handleEditItem]);
 
   return (
     <StickyHeadTable

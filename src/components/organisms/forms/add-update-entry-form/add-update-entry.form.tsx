@@ -9,7 +9,7 @@ import Button from "../../../atoms/Button";
 import { CurrencyInput } from "../../../atoms/CurrencyInput";
 import {  IType } from "../../../../entities/entry-type";
 import Label from "../../../atoms/Label";
-import { Categories, findLabel } from "../../../../entities/categories.enum";
+import { Categories, findCategoryByValue } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
 import { useValidateData } from "../@hooks/use-validate-form";
 
@@ -135,7 +135,7 @@ const AddEntryForm = ({
               label="Categoria"
               id="category"
               disabled={true}
-              value={category ? findLabel(category) : ""}
+              value={category ? findCategoryByValue(category)?.label : ""}
             />
             {error && verifyError(error, "category") && (
               <Alert icon={<ErrorIcon />} severity="error">

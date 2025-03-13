@@ -1,5 +1,5 @@
 import AuthLayout from "../layout/AuthLayout";
-import { EntryTypeComponent } from "../../components/organisms/entryType";
+import { EntryTypeComponent } from "../../components/organisms/type.page";
 const TypesPage = () => {
   return (
     <AuthLayout>

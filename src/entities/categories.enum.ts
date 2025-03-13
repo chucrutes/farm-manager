@@ -5,7 +5,6 @@ export enum Categories {
   EXPENSE = "EXPENSE",
   INCOME = "INCOME",
   ASSET = "ASSET",
-  INVESTMENT = "INVESTMENT",
 }
 
 export const categoryOptions: Option[] = [
@@ -22,11 +21,6 @@ export const categoryOptions: Option[] = [
     value: Categories.ASSET,
   },
 ];
-
-export const findLabel = (category: Categories) => {
-  return categoryOptions.find((item) => item.value === category)
-    ?.label as string;
-};
 
 export const findCategoryByValue = (value: string) => {
   return categoryOptions.find((item) => item.value === value) as Option;

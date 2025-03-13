@@ -1,9 +1,6 @@
 import {
   type AddOrUpdateTypeFormProps,
-  AddOrUpdateTypeSchema,
-  type IType,
 } from "./@types/types";
-import React, { useEffect, useState } from "react";
 import Alert from "../../../atoms/Span";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";

@@ -1,5 +1,5 @@
 import AuthLayout from "../layout/AuthLayout";
-import { DashboardComponent } from "../../components/organisms/dashboard";
+import { DashboardComponent } from "../../components/organisms/dashboard.page";
 
 const DashboardPage = () => {
 	return (
