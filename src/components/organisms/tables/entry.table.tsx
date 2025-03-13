@@ -46,7 +46,7 @@ const EntryTable = ({
       label: "Categoria",
       align: "left",
       format: (value: IEntryType) => {
-        return findCategoryByValue( value.category).label;
+        return findCategoryByValue(value.category).label;
       },
     },
     {
@@ -54,9 +54,9 @@ const EntryTable = ({
       label: "Quantidade",
       align: "left",
       format: (value: number) => {
-        return value.toLocaleString('pt-BR', {
+        return value.toLocaleString("pt-BR", {
           maximumFractionDigits: 2,
-          minimumFractionDigits: 2
+          minimumFractionDigits: 2,
         });
       },
     },
@@ -115,7 +115,7 @@ const EntryTable = ({
 
   const handleDeleteEntry = useCallback(
     async (itemId: string) => {
-      await deleteEntry({ entryId: itemId });
+      await deleteEntry({ ids: itemId });
       listEntries();
     },
     [listEntries]
