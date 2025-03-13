@@ -13,6 +13,8 @@ import Select from "../../../atoms/Select";
 import CheckBox from "../../../atoms/CheckBox";
 import { useValidateData } from "../@hooks/use-validate-form";
 import { useTypeForm } from "./@hooks/use-type-form.hook";
+import { useEffect } from "react";
+import { stringifier } from "../../../../@utils/stringifier";
 
 const AddTypeForm = ({
   saveItem,
@@ -20,8 +22,11 @@ const AddTypeForm = ({
   item,
 }: AddOrUpdateTypeFormProps) => {
   const { verifyError} = useValidateData()
-  const {resetForm, handleSubmit, category, name, setName, error, handleSelect, commission, setCommission} = useTypeForm({item, saveItem, cleanItem})
-
+  const {setForm, resetForm, handleSubmit, category, name, setName, error, handleSelect, commission, setCommission} = useTypeForm({item, saveItem, cleanItem})
+  stringifier(item)
+  useEffect(() => {
+    setForm(item);
+  }, [item, setForm]);
 
   return (
     <div className="flex flex-col justify-center">

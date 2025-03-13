@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { ZodError } from "zod";
 import { Alert } from "@mui/material";
-import { ErrorIcon } from "../../../Icons/ErrorIcon";
-import LabeledInput from "../../../molecules/LabeledInput";
-import { AddOrUpdateEntryFormProps, AddOrUpdateEntrySchema, IAddOrUpdateEntry } from "./@types/types";
+import Label from "../../../atoms/Label";
 import Input from "../../../atoms/Input";
 import Button from "../../../atoms/Button";
-import { CurrencyInput } from "../../../atoms/CurrencyInput";
-import {  IType } from "../../../../entities/entry-type";
-import Label from "../../../atoms/Label";
-import { Categories, findCategoryByValue } from "../../../../entities/categories.enum";
+import { ErrorIcon } from "../../../Icons/ErrorIcon";
 import Select, { Option } from "../../../atoms/Select";
+import LabeledInput from "../../../molecules/LabeledInput";
+import { AddOrUpdateEntryFormProps } from "./@types/types";
+import { useEntryForm } from "./@hooks/use-entry-form.hook";
+import { CurrencyInput } from "../../../atoms/CurrencyInput";
 import { useValidateData } from "../@hooks/use-validate-form";
+import { findCategoryByValue } from "../../../../entities/categories.enum";
+import { useEffect } from "react";
 
 const AddEntryForm = ({
   saveItem,
@@ -19,97 +18,35 @@ const AddEntryForm = ({
   item,
   types,
 }: AddOrUpdateEntryFormProps) => {
-  const id = item?._id;
-  const [description, setDescription] = useState<string>("");
-  const [quantity, setQuantity] = useState<number>(0);
-  const [price, setPrice] = useState<number>(0);
-  const [total, setTotal] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState<IType>();
-  const [category, setCategory] = useState<Categories | null>(null);
-  const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
-  const {validateData, verifyError} = useValidateData()
+
+  const { verifyError} = useValidateData()
+  const { 
+    id,
+    error, 
+    total, 
+    price, 
+    category, 
+    quantity, 
+    description,
+    selectedType,
+    handleSubmit,
+    handlePriceBlur, handleQuantityBlur, handleTypeChange, handleTotalBlur,
+    setDescription, 
+    setPrice, 
+    setQuantity, 
+    setTotal,
+    setForm
+  } = useEntryForm({item, saveItem, cleanItem, types})
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,
     label: type.name,
   }));
 
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    console.log('handleSubmit')
-    event.preventDefault();
-
-    if(!selectedType) return;
-
-    const item = {
-      _id: id,
-      description,
-      price,
-      quantity,
-      total,
-      type: selectedType
-    };
-
-    const isValid = validateData(AddOrUpdateEntrySchema, item);
-
-
-    if (!isValid.success) {
-      setError(isValid.data);
-      return;
-    }
-
-    await saveItem(isValid.data);
-    resetForm();
-  }
-
-  const resetForm = () => {
-    cleanItem();
-
-    setPrice(0);
-    setQuantity(0);
-    setTotal(0);
-    setDescription("");
-    setSelectedType(undefined);
-    setError(null);
-  };
-
-  const handlePriceBlur = (value: number) => {
-    if (!quantity) return;
-
-    const total = (value * quantity).toFixed(2);
-    setPrice(value);
-    setTotal(Number.parseFloat(total));
-  };
-
-  const handleTotalBlur = (value: number) => {
-    // if (!quantity) return;
-
-    // const price = (value / quantity).toFixed(2);
-    // console.log('price', price)
-    // console.log('total', value)
-    // setTotal(value)
-    // setPrice(Number.parseFloat(price));
-  };
-
-  const handleQuantityBlur = (value: number) => {
-    if (!price) return;
-
-    const total = (price * value).toFixed(2);
-    setQuantity(value);
-    setTotal(Number.parseFloat(total));
-  };
-
-  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedId = event.target.value;
-    
-    const selectedTypeObj = types.find((type) => type._id === selectedId);
-
-    
-    if(!selectedTypeObj) return;
-    setSelectedType(selectedTypeObj);
-    setCategory(selectedTypeObj?.category ?? null);
-  };
+    useEffect(() => {
+      setForm(item);
+    }, [item, setForm]);
 
 
   return (

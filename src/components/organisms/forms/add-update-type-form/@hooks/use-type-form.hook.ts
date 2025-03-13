@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Option } from "../../../../atoms/Select";
 import {
   AddOrUpdateTypeFormProps,
@@ -23,10 +23,6 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
   const [error, setError] = useState<ZodError<IType> | null>();
 
   const { validateData } = useValidateData();
-
-  useEffect(() => {
-    setForm(item);
-  }, [item]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -83,6 +79,7 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
     handleSubmit,
     handleSelect,
     resetForm,
+    setForm,
     name,
     category,
     error,

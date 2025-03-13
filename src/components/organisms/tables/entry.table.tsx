@@ -54,7 +54,10 @@ const EntryTable = ({
       label: "Quantidade",
       align: "left",
       format: (value: number) => {
-        return value.toString();
+        return value.toLocaleString('pt-BR', {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2
+        });
       },
     },
     {
