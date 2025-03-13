@@ -19,7 +19,8 @@ const Select = ({
   onChange,
   value,
 }: SelectProps) => {
-  const disabled = options.length === 0;
+  const optionsLength = options.length;
+  const disabled = optionsLength === 0;
 
   return (
     <div className="form-group">
@@ -29,7 +30,7 @@ const Select = ({
 
       <div className="relative">
         <select
-        disabled={disabled}
+          disabled={disabled}
           id={name}
           onChange={onChange}
           value={value}
@@ -38,7 +39,7 @@ const Select = ({
         >
           {
             <option value="" disabled>
-              {placeholder}
+              {optionsLength === 0 ? "Nenhum item" : placeholder}
             </option>
           }
           {options.map((option) => (

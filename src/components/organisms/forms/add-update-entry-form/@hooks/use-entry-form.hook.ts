@@ -78,7 +78,6 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     const selectedId = event.target.value;
 
     const selectedTypeObj = findType(types, selectedId);
-    stringifier(selectedTypeObj);
     if (!selectedTypeObj) return;
     setSelectedType(selectedTypeObj);
     setCategory(selectedTypeObj?.category ?? null);
@@ -86,21 +85,17 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 
   const resetForm = () => {
     cleanItem();
-    setForm(undefined);
+    setDescription("");
+    setQuantity(0);
+    setPrice(0);
+    setTotal(0);
+    setSelectedType(undefined);
+    setCategory(null);
+    setError(null);
   };
 
   const setForm = (item?: IAddOrUpdateEntry | null) => {
-    if (!item) {
-      setDescription("");
-      setQuantity(0);
-      setPrice(0);
-      setTotal(0);
-      setSelectedType(undefined);
-      setCategory(null);
-      setError(null);
-
-      return;
-    }
+    if (!item) return;
 
     setDescription(item.description);
     setQuantity(item.quantity);
@@ -125,6 +120,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setDescription,
     setSelectedType,
     setForm,
+    resetForm,
     handleSubmit,
     handlePriceBlur,
     handleTotalBlur,

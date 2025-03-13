@@ -30,7 +30,6 @@ const AddTypeForm = ({
     commission,
     setCommission,
   } = useTypeForm({ item, saveItem, cleanItem });
-  stringifier(item);
   useEffect(() => {
     setForm(item);
   }, [item, setForm]);

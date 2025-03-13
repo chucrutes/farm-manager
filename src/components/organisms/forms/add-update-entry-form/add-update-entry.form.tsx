@@ -36,13 +36,14 @@ const AddEntryForm = ({
     handleTypeChange,
     handleQuantityBlur,
     handleCommissionBlur,
-    setDescription,
-    setPrice,
-    setQuantity,
-    setTotal,
     setForm,
+    resetForm,
+    setPrice,
+    setTotal,
+    setQuantity,
     setAfterTax,
     setCommission,
+    setDescription,
   } = useEntryForm({ item, saveItem, cleanItem, types });
 
   const typeOptions: Option[] = types.map((type) => ({
@@ -155,7 +156,7 @@ const AddEntryForm = ({
               <div className="px-4">
                 <Button
                   color="primary"
-                  onClick={() => cleanItem()}
+                  onClick={() => resetForm()}
                   type="button"
                 >
                   Limpar
