@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { type DtoEntryType, EntryTypeTable } from "./tables/EntryTypeTable";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntryType } from "../../pages/api/entry-types/create";
-import AddTypeForm from "./forms/AddOrUpdateTypeForm";
-import type { IType } from "./forms/AddOrUpdateTypeForm/@types/types";
+import AddTypeForm from "./forms/add-update-type-form/add-update-type.form";
+import type { IType } from "./forms/add-update-type-form/@types/types";
 import { handleResponseToast } from "../../utils/handleToast";
 
 export const EntryTypeComponent = () => {

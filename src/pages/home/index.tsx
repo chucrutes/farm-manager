@@ -1,5 +1,5 @@
 import GuestLayout from "../layout/GuestLayout";
-import SignInForm from "../../components/organisms/forms/SignInForm";
+import SignInForm from "../../components/organisms/forms/sign-in-form/sign-in.form";
 import ImageBackground from "../../assets/signInBackground.jpg";
 
 export default function Home() {

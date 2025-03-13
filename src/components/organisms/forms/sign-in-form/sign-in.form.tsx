@@ -7,10 +7,10 @@ import { signIn } from "../../../../pages/api/signIn";
 import { useAuth } from "../../../../contexts/AuthContext";
 import LabeledInput from "../../../molecules/LabeledInput";
 import { type IUser, signInSchema } from "../../../../entities/user";
-import { validateData, verifyError } from "../../../../core/validator";
 import { ZodError } from "zod";
 import { Alert } from "@mui/material";
 import { ErrorIcon } from "../../../Icons/ErrorIcon";
+import { useValidateData } from "../@hooks/use-validate-form";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -22,6 +22,8 @@ const SignInForm = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<ZodError<IUser> | null>();
+
+  const {validateData, verifyError} = useValidateData()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

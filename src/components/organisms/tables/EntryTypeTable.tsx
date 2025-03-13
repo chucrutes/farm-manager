@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import type { IEntryType } from "../../../entities/entry-type";
-import type { IType } from "../forms/AddOrUpdateTypeForm/@types/types";
+import type { IType } from "../forms/add-update-type-form/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./MuiTable";
 import { brDateFormatter } from "../../../utils/formatters";
 import { type Categories, findLabel } from "../../../entities/categories.enum";

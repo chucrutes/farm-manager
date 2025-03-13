@@ -3,7 +3,7 @@ import type { Option } from "../components/atoms/Select";
 
 export enum Categories {
   EXPENSE = "EXPENSE",
-  PROFIT = "PROFIT",
+  INCOME = "INCOME",
   ASSET = "ASSET",
   INVESTMENT = "INVESTMENT",
 }
@@ -14,8 +14,8 @@ export const categoryOptions: Option[] = [
     value: Categories.EXPENSE,
   },
   {
-    label: "Lucro",
-    value: Categories.PROFIT,
+    label: "Receita",
+    value: Categories.INCOME,
   },
   {
     label: "Ativo",

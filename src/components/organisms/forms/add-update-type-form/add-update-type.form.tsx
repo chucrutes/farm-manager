@@ -10,67 +10,21 @@ import Button from "../../../atoms/Button";
 import { ErrorIcon } from "../../../Icons/ErrorIcon";
 import LabeledInput from "../../../molecules/LabeledInput";
 import {
-  Categories,
   categoryOptions,
-  findCategoryByValue,
 } from "../../../../entities/categories.enum";
-import Select, { Option } from "../../../atoms/Select";
-import { validateData, verifyError } from "../../../../core/validator";
-import { ZodError } from "zod";
+import Select from "../../../atoms/Select";
 import CheckBox from "../../../atoms/CheckBox";
+import { useValidateData } from "../@hooks/use-validate-form";
+import { useTypeForm } from "./@hooks/use-type-form.hook";
 
 const AddTypeForm = ({
   saveItem,
   cleanItem,
   item,
 }: AddOrUpdateTypeFormProps) => {
-  const id = item?._id;
-  const [name, setName] = useState<IType["name"]>("");
-  const [category, setCategory] = useState<Option>(categoryOptions[0]);
-  const [commission, setCommission] = useState<IType["commission"]>(false);
-  const [error, setError] = useState<ZodError<IType> | null>();
-  useEffect(() => {
-    if (!item) return;
-    setName(item.name);
-    setCategory(findCategoryByValue(item.category));
-    setCommission(item.commission);
-  }, [item]);
+  const { verifyError} = useValidateData()
+  const {resetForm, handleSubmit, category, name, setName, error, handleSelect, commission, setCommission} = useTypeForm({item, saveItem, cleanItem})
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const type: IType = {
-      _id: id,
-      name,
-      category: category.value as Categories,
-      commission,
-    };
-
-    const isValid = validateData(AddOrUpdateTypeSchema, type);
-
-    if (!isValid.success) {
-      setError(isValid.data);
-      return;
-    }
-
-    await saveItem(isValid.data);
-    resetForm();
-  }
-
-  const resetForm = () => {
-    cleanItem();
-
-    setCommission(false);
-    setCategory(categoryOptions[0]);
-    setName("");
-    setError(null);
-  };
-
-  const handleSelect = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(findCategoryByValue(value));
-  };
 
   return (
     <div className="flex flex-col justify-center">

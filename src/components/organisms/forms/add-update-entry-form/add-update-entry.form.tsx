@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ZodError } from "zod";
 import { Alert } from "@mui/material";
 import { ErrorIcon } from "../../../Icons/ErrorIcon";
-import { validateData, verifyError } from "../../../../core/validator";
 import LabeledInput from "../../../molecules/LabeledInput";
 import { AddOrUpdateEntryFormProps, AddOrUpdateEntrySchema, IAddOrUpdateEntry } from "./@types/types";
 import Input from "../../../atoms/Input";
@@ -12,6 +11,7 @@ import {  IType } from "../../../../entities/entry-type";
 import Label from "../../../atoms/Label";
 import { Categories, findLabel } from "../../../../entities/categories.enum";
 import Select, { Option } from "../../../atoms/Select";
+import { useValidateData } from "../@hooks/use-validate-form";
 
 const AddEntryForm = ({
   saveItem,
@@ -27,7 +27,8 @@ const AddEntryForm = ({
   const [selectedType, setSelectedType] = useState<IType>();
   const [category, setCategory] = useState<Categories | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
-  console.log(price, quantity, total)
+
+  const {validateData, verifyError} = useValidateData()
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,

@@ -7,7 +7,7 @@ import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./TotalRow";
 import { deleteEntry } from "../../../pages/api/entry/delete";
 import { DtoEntry } from "../dashboard";
-import { IAddOrUpdateEntry } from "../forms/AddOrUpdateEntryForm/@types/types";
+import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
 import { IEntryType } from "../../../entities/entry-type";
 
 type EntryTableProps = {
