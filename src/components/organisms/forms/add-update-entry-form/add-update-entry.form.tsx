@@ -121,7 +121,6 @@ const AddEntryForm = ({
             />
           </LabeledInput>
 
-          {/* Show commission inputs only if type.commission is true */}
           {selectedType?.commission && (
             <>
               <LabeledInput>
