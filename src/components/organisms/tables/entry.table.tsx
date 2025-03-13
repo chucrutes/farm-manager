@@ -10,6 +10,7 @@ import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
 import { IEntryType } from "../../../entities/entry-type";
 import { findCategoryByValue } from "../../../entities/categories.enum";
+import { formatBrazilianCurrency } from "../../../@utils/formatters";
 
 type EntryTableProps = {
   items: DtoEntry[];
@@ -61,7 +62,7 @@ const EntryTable = ({
       label: "Preço",
       align: "left",
       format: (value: number) => {
-        return value.toString();
+        return formatBrazilianCurrency(value);
       },
     },
     {
@@ -69,7 +70,7 @@ const EntryTable = ({
       label: "Total",
       align: "left",
       format: (value: number) => {
-        return value.toString();
+        return formatBrazilianCurrency(value);
       },
     },
     {
