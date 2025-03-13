@@ -21,7 +21,6 @@ export const createOrUpdateEntry = async ({
   body,
 }: ICreateEntry): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
-  console.log("createOrUpdateEntry");
 
   const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
     method: "POST",

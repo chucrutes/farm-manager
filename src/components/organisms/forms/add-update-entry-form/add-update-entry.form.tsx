@@ -28,16 +28,21 @@ const AddEntryForm = ({
     quantity,
     description,
     selectedType,
+    afterTax,
+    commission,
     handleSubmit,
-    handlePriceBlur,
-    handleQuantityBlur,
-    handleTypeChange,
     handleTotalBlur,
+    handlePriceBlur,
+    handleTypeChange,
+    handleQuantityBlur,
+    handleCommissionBlur,
     setDescription,
     setPrice,
     setQuantity,
     setTotal,
     setForm,
+    setAfterTax,
+    setCommission,
   } = useEntryForm({ item, saveItem, cleanItem, types });
 
   const typeOptions: Option[] = types.map((type) => ({
@@ -53,7 +58,7 @@ const AddEntryForm = ({
     <div className="flex flex-col justify-center">
       <h1 className="mb-4 md:mr-4 text-center text-2xl">Entradas e Saídas</h1>
       <form onSubmit={handleSubmit}>
-        <div className="flex md:flex-row justify-center md:items-end flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <LabeledInput>
             <Input
               label="Descrição"
@@ -114,6 +119,31 @@ const AddEntryForm = ({
               onBlur={handleTotalBlur}
             />
           </LabeledInput>
+
+          {/* Show commission inputs only if type.commission is true */}
+          {selectedType?.commission && (
+            <>
+              <LabeledInput>
+                <Label>Comissão (%)</Label>
+                <CurrencyInput
+                  id="commission"
+                  disabled={!item?.type.commission}
+                  value={commission ?? 0}
+                  onChange={setCommission}
+                  onBlur={handleCommissionBlur}
+                />
+              </LabeledInput>
+              <LabeledInput>
+                <Label>Total Após Taxa</Label>
+                <CurrencyInput
+                  id="totalAfterTax"
+                  disabled={true}
+                  value={afterTax ?? 0}
+                  onChange={setAfterTax}
+                />
+              </LabeledInput>
+            </>
+          )}
         </div>
 
         <div className="flex justify-center py-4">

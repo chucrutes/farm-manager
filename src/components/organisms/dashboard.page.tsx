@@ -33,7 +33,6 @@ export const DashboardComponent = () => {
 
   const listEntries = async () => {
     const response = await listEntry();
-    stringifier(response.body)
     setItems(response.body.dto.entries);
     setTotal(response.body.dto.total);
   };

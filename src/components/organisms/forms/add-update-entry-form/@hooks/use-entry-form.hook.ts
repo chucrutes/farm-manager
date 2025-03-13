@@ -8,6 +8,7 @@ import { IType } from "../../../../../entities/entry-type";
 import { Categories } from "../../../../../entities/categories.enum";
 import { ZodError } from "zod";
 import { useValidateData } from "../../@hooks/use-validate-form";
+import { stringifier } from "../../../../../@utils/stringifier";
 
 type Params = Omit<AddOrUpdateEntryFormProps, "editItem">;
 
@@ -19,6 +20,8 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   const [total, setTotal] = useState<number>(0);
   const [selectedType, setSelectedType] = useState<IType>();
   const [category, setCategory] = useState<Categories | null>(null);
+  const [afterTax, setAfterTax] = useState<number | null>(null);
+  const [commission, setCommission] = useState<number | null>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
   const { validateData } = useValidateData();
@@ -64,12 +67,18 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setTotal(Number.parseFloat(total));
   };
   const handleTotalBlur = (_: number) => {};
+  const handleCommissionBlur = (value: number) => {
+    if (value === 0) setCommission(null);
+    const percentage = 1 - value / 100;
+
+    setAfterTax(total * percentage);
+  };
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
 
     const selectedTypeObj = findType(types, selectedId);
-
+    stringifier(selectedTypeObj);
     if (!selectedTypeObj) return;
     setSelectedType(selectedTypeObj);
     setCategory(selectedTypeObj?.category ?? null);
@@ -111,22 +120,27 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setTotal,
     setPrice,
     setQuantity,
+    setAfterTax,
+    setCommission,
     setDescription,
     setSelectedType,
     setForm,
     handleSubmit,
     handlePriceBlur,
+    handleTotalBlur,
     handleTypeChange,
     handleQuantityBlur,
-    handleTotalBlur,
+    handleCommissionBlur,
     id,
     total,
     price,
     error,
     quantity,
     category,
-    selectedType,
+    afterTax,
+    commission,
     description,
+    selectedType,
   };
 };
 
