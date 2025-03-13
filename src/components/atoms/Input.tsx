@@ -42,10 +42,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           }}
           sx={{
             "& input": {
-              fontFamily: "Sora, sans-serif",
+              fontFamily:
+                type === "password" && !isVisible
+                  ? "Arial, sans-serif"
+                  : "Sora, sans-serif",
               fontSize: "13px",
               padding: (theme) =>
                 type === "password" ? "6px 1.5px" : "6px 0px",
+              paddingLeft: "8px",
             },
             "& label": {
               fontFamily: "Sora, sans-serif",
