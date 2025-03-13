@@ -14,7 +14,7 @@ export const signInSchema = z.object({
       required_error: "A senha é obrigatória",
       invalid_type_error: "A senha deve ser um texto",
     })
-    .min(6, "A senha deve ter pelo menos 6 caracteres")
+    .min(5, "A senha deve ter pelo menos 6 caracteres")
     .max(50, "A senha deve ter no máximo 50 caracteres"),
 });
 

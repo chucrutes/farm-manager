@@ -1,6 +1,5 @@
 import { Alert } from "@mui/material";
 import Label from "../../../atoms/label";
-import Input from "../../../atoms/input";
 import Button from "../../../atoms/button";
 import { ErrorIcon } from "../../../Icons/error-icon";
 import Select, { Option } from "../../../atoms/select";
@@ -11,6 +10,8 @@ import { CurrencyInput } from "../../../atoms/currency-input";
 import { useValidateData } from "../@hooks/use-validate-form";
 import { findCategoryByValue } from "../../../../entities/categories.enum";
 import { useEffect } from "react";
+import Input from "../../../atoms/Input";
+import { stringifier } from "../../../../@utils/stringifier";
 
 const AddEntryForm = ({
   saveItem,
@@ -128,7 +129,7 @@ const AddEntryForm = ({
                 <Label>Comissão (%)</Label>
                 <CurrencyInput
                   id="commission"
-                  disabled={!item?.type.commission}
+                  disabled={!selectedType.commission}
                   value={commission ?? 0}
                   onChange={setCommission}
                   onBlur={handleCommissionBlur}

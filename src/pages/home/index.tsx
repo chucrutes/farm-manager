@@ -1,7 +1,7 @@
 import GuestLayout from "../layout/guest-layout";
 import SignInForm from "../../components/organisms/forms/sign-in-form/sign-in.form";
 import ImageBackground from "../../assets/signInBackground.jpg";
-import LiveCattleFrame from "../../components/molecules/LiveCattleFrame";
+import LiveCattleFrame from "../../components/molecules/live-cattle-frame";
 
 export default function Home() {
   return (

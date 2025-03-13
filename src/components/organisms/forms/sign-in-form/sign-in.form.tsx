@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import Input from "../../../atoms/input";
 import Button from "../../../atoms/button";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../../../pages/api/signIn";
@@ -11,6 +10,7 @@ import { ZodError } from "zod";
 import { Alert } from "@mui/material";
 import { ErrorIcon } from "../../../Icons/error-icon";
 import { useValidateData } from "../@hooks/use-validate-form";
+import Input from "../../../atoms/Input";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -74,7 +74,9 @@ const SignInForm = () => {
                 label="Usuário"
                 id={"user"}
                 value={user}
-                onChange={(e) => setUser(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUser(e.target.value)
+                }
               />
               {error && verifyError(error, "user") && (
                 <Alert icon={<ErrorIcon />} severity="error">
@@ -85,10 +87,12 @@ const SignInForm = () => {
             <LabeledInput>
               <Input
                 label="Senha"
-                id={"password"}
+                id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
               />
               {error && verifyError(error, "password") && (
                 <Alert icon={<ErrorIcon />} severity="error">

@@ -47,18 +47,14 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
 
   const resetForm = () => {
     cleanItem();
-    setForm(undefined);
+    setName("");
+    setCategory(categoryOptions[0]);
+    setCommission(false);
+    setError(null);
   };
 
   const setForm = (item?: IType | null) => {
-    if (!item) {
-      setName("");
-      setCategory(categoryOptions[0]);
-      setCommission(false);
-      setError(null);
-
-      return;
-    }
+    if (!item) return;
 
     setName(item.name);
     setCategory(findCategoryByValue(item.category));

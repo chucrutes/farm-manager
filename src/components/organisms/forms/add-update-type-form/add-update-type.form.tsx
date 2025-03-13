@@ -1,6 +1,5 @@
 import { type AddOrUpdateTypeFormProps } from "./@types/types";
 import Alert from "../../../atoms/span";
-import Input from "../../../atoms/input";
 import Button from "../../../atoms/button";
 import { ErrorIcon } from "../../../Icons/error-icon";
 import LabeledInput from "../../../molecules/labeled-input";
@@ -10,7 +9,7 @@ import CheckBox from "../../../atoms/check-box";
 import { useValidateData } from "../@hooks/use-validate-form";
 import { useTypeForm } from "./@hooks/use-type-form.hook";
 import { useEffect } from "react";
-import { stringifier } from "../../../../@utils/stringifier";
+import Input from "../../../atoms/Input";
 
 const AddTypeForm = ({
   saveItem,

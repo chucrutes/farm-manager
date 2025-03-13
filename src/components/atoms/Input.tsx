@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { InputAdornment, type TextFieldProps } from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
-import { ErrorIcon } from "../Icons/ErrorIcon";
+import { ErrorIcon } from "../Icons/error-icon";
 
 type InputProps = TextFieldProps & {
   label?: string;
