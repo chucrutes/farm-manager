@@ -9,12 +9,11 @@ type GuestLayoutProps = {
 export default function GuestLayout({ children }: Readonly<GuestLayoutProps>) {
   return (
     <>
-      <main className="flex flex-col h-[calc(100vh-24px)] overflow-auto bg-[#fff4f0]">
-        <Toast />
-        <div className="flex justify-center overflow-x-visible md:justify-end">
-          <LiveCattleFrame />
+      <main className="flex flex-col h-[calc(100vh-24px)] overflow-auto bg-white">
+        <div className="h-full flex flex-col gap-6">
+          <Toast />
+          {children}
         </div>
-        {children}
       </main>
       <Footer />
     </>
