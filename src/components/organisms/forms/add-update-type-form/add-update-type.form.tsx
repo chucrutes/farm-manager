@@ -1,5 +1,5 @@
 import { type AddOrUpdateTypeFormProps } from "./@types/types";
-import Alert from "../../../atoms/Span";
+import Alert from "../../../atoms/span";
 import Input from "../../../atoms/input";
 import Button from "../../../atoms/button";
 import { ErrorIcon } from "../../../Icons/error-icon";
