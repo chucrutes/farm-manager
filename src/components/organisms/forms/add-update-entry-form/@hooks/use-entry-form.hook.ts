@@ -8,7 +8,6 @@ import { IType } from "../../../../../entities/entry-type";
 import { Categories } from "../../../../../entities/categories.enum";
 import { ZodError } from "zod";
 import { useValidateData } from "../../@hooks/use-validate-form";
-import { stringifier } from "../../../../../@utils/stringifier";
 
 type Params = Omit<AddOrUpdateEntryFormProps, "editItem">;
 

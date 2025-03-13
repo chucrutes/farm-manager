@@ -1,6 +1,5 @@
 import type React from "react";
 import Footer from "../../components/UI/footer";
-import LiveCattleFrame from "../../components/molecules/live-cattle-frame";
 import Toast from "../../components/toast";
 
 type GuestLayoutProps = {

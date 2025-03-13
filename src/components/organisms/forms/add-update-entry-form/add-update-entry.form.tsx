@@ -11,7 +11,6 @@ import { useValidateData } from "../@hooks/use-validate-form";
 import { findCategoryByValue } from "../../../../entities/categories.enum";
 import { useEffect } from "react";
 import Input from "../../../atoms/Input";
-import { stringifier } from "../../../../@utils/stringifier";
 
 const AddEntryForm = ({
   saveItem,
