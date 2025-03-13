@@ -1,13 +1,16 @@
-import { TotalRow } from "./TotalRow";
-import Button from "../../atoms/Button";
+import { TotalRow } from "./total-row";
+import Button from "../../atoms/button";
 import { useCallback, useEffect, useState } from "react";
-import { EditIcon } from "../../Icons/EditIcon";
-import { DeleteIcon } from "../../Icons/DeleteIcon";
+import { EditIcon } from "../../Icons/edit-icon";
+import { DeleteIcon } from "../../Icons/delete-icon";
 import type { IEntryType } from "../../../entities/entry-type";
 import type { IType } from "../forms/add-update-type-form/@types/types";
 import StickyHeadTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
-import { type Categories, findCategoryByValue } from "../../../entities/categories.enum";
+import {
+  type Categories,
+  findCategoryByValue,
+} from "../../../entities/categories.enum";
 import { deleteEntryType } from "../../../pages/api/entry-types/delete";
 
 export type DtoEntryType = Omit<IEntryType, "id"> & {
@@ -63,9 +66,12 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
     },
   ];
   const [rows, setRows] = useState<Item[]>([]);
-  const handleEditItem = useCallback(  (item: DtoEntryType) => {
-    editItem(item);
-  }, [editItem])
+  const handleEditItem = useCallback(
+    (item: DtoEntryType) => {
+      editItem(item);
+    },
+    [editItem]
+  );
 
   const handleDeleteItem = useCallback(
     async (itemId: string) => {

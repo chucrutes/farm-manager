@@ -1,4 +1,4 @@
-import GuestLayout from "../layout/GuestLayout";
+import GuestLayout from "../layout/guest-layout";
 import SignInForm from "../../components/organisms/forms/sign-in-form/sign-in.form";
 import ImageBackground from "../../assets/signInBackground.jpg";
 

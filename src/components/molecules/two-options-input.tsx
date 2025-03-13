@@ -1,4 +1,4 @@
-import OptionInput from "../atoms/OptionInput";
+import OptionInput from "../atoms/option-input";
 
 type ITwoOptionsInput = {
   optionOneContent: string;

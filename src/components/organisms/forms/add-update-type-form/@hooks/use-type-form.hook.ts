@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 import { useState } from "react";
-import { Option } from "../../../../atoms/Select";
+import { Option } from "../../../../atoms/select";
 import {
   AddOrUpdateTypeFormProps,
   AddOrUpdateTypeSchema,

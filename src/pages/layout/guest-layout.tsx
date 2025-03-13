@@ -1,7 +1,7 @@
 import type React from "react";
-import Footer from "../../components/UI/Footer";
-import LiveCattleFrame from "../../components/molecules/LiveCattleFrame";
-import Toast from "../../components/Toast";
+import Footer from "../../components/UI/footer";
+import LiveCattleFrame from "../../components/molecules/live-cattle-frame";
+import Toast from "../../components/toast";
 
 type GuestLayoutProps = {
   children: React.ReactNode;

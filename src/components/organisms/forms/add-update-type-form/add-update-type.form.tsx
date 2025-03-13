@@ -1,16 +1,12 @@
-import {
-  type AddOrUpdateTypeFormProps,
-} from "./@types/types";
+import { type AddOrUpdateTypeFormProps } from "./@types/types";
 import Alert from "../../../atoms/Span";
-import Input from "../../../atoms/Input";
-import Button from "../../../atoms/Button";
-import { ErrorIcon } from "../../../Icons/ErrorIcon";
-import LabeledInput from "../../../molecules/LabeledInput";
-import {
-  categoryOptions,
-} from "../../../../entities/categories.enum";
-import Select from "../../../atoms/Select";
-import CheckBox from "../../../atoms/CheckBox";
+import Input from "../../../atoms/input";
+import Button from "../../../atoms/button";
+import { ErrorIcon } from "../../../Icons/error-icon";
+import LabeledInput from "../../../molecules/labeled-input";
+import { categoryOptions } from "../../../../entities/categories.enum";
+import Select from "../../../atoms/select";
+import CheckBox from "../../../atoms/check-box";
 import { useValidateData } from "../@hooks/use-validate-form";
 import { useTypeForm } from "./@hooks/use-type-form.hook";
 import { useEffect } from "react";
@@ -21,9 +17,20 @@ const AddTypeForm = ({
   cleanItem,
   item,
 }: AddOrUpdateTypeFormProps) => {
-  const { verifyError} = useValidateData()
-  const {setForm, resetForm, handleSubmit, category, name, setName, error, handleSelect, commission, setCommission} = useTypeForm({item, saveItem, cleanItem})
-  stringifier(item)
+  const { verifyError } = useValidateData();
+  const {
+    setForm,
+    resetForm,
+    handleSubmit,
+    category,
+    name,
+    setName,
+    error,
+    handleSelect,
+    commission,
+    setCommission,
+  } = useTypeForm({ item, saveItem, cleanItem });
+  stringifier(item);
   useEffect(() => {
     setForm(item);
   }, [item, setForm]);

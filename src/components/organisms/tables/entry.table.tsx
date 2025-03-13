@@ -1,10 +1,10 @@
-import Button from "../../atoms/Button";
+import Button from "../../atoms/button";
 import { useCallback, useEffect, useState } from "react";
-import { EditIcon } from "../../Icons/EditIcon";
-import { DeleteIcon } from "../../Icons/DeleteIcon";
+import { EditIcon } from "../../Icons/edit-icon";
+import { DeleteIcon } from "../../Icons/delete-icon";
 import StickyHeadTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
-import { TotalRow } from "./TotalRow";
+import { TotalRow } from "./total-row";
 import { deleteEntry } from "../../../pages/api/entry/delete";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";

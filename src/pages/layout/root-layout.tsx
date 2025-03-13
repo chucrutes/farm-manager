@@ -1,5 +1,5 @@
 import type React from "react";
-import { AuthProvider } from "../../contexts/AuthContext";
+import { AuthProvider } from "../../contexts/auth-context";
 
 type RootLayoutProps = {
   children: React.ReactNode;

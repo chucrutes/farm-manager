@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import Input from "../../../atoms/Input";
-import Button from "../../../atoms/Button";
+import Input from "../../../atoms/input";
+import Button from "../../../atoms/button";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../../../pages/api/signIn";
-import { useAuth } from "../../../../contexts/AuthContext";
-import LabeledInput from "../../../molecules/LabeledInput";
+import { useAuth } from "../../../../contexts/auth-context";
+import LabeledInput from "../../../molecules/labeled-input";
 import { type IUser, signInSchema } from "../../../../entities/user";
 import { ZodError } from "zod";
 import { Alert } from "@mui/material";
-import { ErrorIcon } from "../../../Icons/ErrorIcon";
+import { ErrorIcon } from "../../../Icons/error-icon";
 import { useValidateData } from "../@hooks/use-validate-form";
 
 const SignInForm = () => {
@@ -23,7 +23,7 @@ const SignInForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<ZodError<IUser> | null>();
 
-  const {validateData, verifyError} = useValidateData()
+  const { validateData, verifyError } = useValidateData();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

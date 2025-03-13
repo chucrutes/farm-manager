@@ -1,5 +1,5 @@
-import LiItem from "../atoms/LiItem";
-import LinkItem from "../atoms/LinkItem";
+import LiItem from "../atoms/li-Item";
+import LinkItem from "../atoms/link-item";
 
 const Header = () => {
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listEntry } from "../../pages/api/entry/list";
 import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
-import Button from "../atoms/Button";
+import Button from "../atoms/button";
 import { closeRegister } from "../../pages/api/entry/closeRegister";
 import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
 import { IEntryType, IType } from "../../entities/entry-type";
@@ -9,7 +9,6 @@ import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntry } from "../../pages/api/entry/create";
 import { handleResponseToast } from "../../utils/handleToast";
 import { EntryTable } from "./tables/entry.table";
-import { stringifier } from "../../@utils/stringifier";
 
 export type DtoEntry = {
   _id: string;

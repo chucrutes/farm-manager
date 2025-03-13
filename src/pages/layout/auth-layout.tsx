@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../../components/UI/Header";
-import Footer from "../../components/UI/Footer";
-import LiveCattleFrame from "../../components/molecules/LiveCattleFrame";
-import useRequireAuth from "../../hooks/useRequireAuth";
-import Toast from "../../components/Toast";
+import Header from "../../components/UI/header";
+import Footer from "../../components/UI/footer";
+import LiveCattleFrame from "../../components/molecules/live-cattle-frame";
+import useRequireAuth from "../../hooks/use-require-auth";
+import Toast from "../../components/toast";
 
 type AuthLayoutProps = {
   children: React.ReactNode;

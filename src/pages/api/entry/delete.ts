@@ -16,7 +16,7 @@ export const deleteEntry = async (
 ): Promise<ResponseCreation> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entry`, {
+  const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
