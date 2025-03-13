@@ -8,7 +8,7 @@ import { IEntryType, IType } from "../../entities/entry-type";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntry } from "../../pages/api/entry/create";
 import { handleResponseToast } from "../../utils/handleToast";
-import { EntryTable } from "./tables/EntryTable";
+import { EntryTable } from "./tables/entry.table";
 import { stringifier } from "../../@utils/stringifier";
 
 export type DtoEntry = {

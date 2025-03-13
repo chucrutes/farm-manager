@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import { closeRegister } from "../../pages/api/entry/closeRegister";
-import { type DtoEntryType, EntryTypeTable } from "./tables/EntryTypeTable";
+import { type DtoEntryType, EntryTypeTable } from "./tables/type.table";
 import { listEntryTypes } from "../../pages/api/entry-types/list";
 import { createOrUpdateEntryType } from "../../pages/api/entry-types/create";
 import AddTypeForm from "./forms/add-update-type-form/add-update-type.form";

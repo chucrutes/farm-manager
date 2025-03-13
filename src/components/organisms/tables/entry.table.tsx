@@ -2,13 +2,14 @@ import Button from "../../atoms/Button";
 import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
-import StickyHeadTable, { type Column, type Row } from "./MuiTable";
+import StickyHeadTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./TotalRow";
 import { deleteEntry } from "../../../pages/api/entry/delete";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
 import { IEntryType } from "../../../entities/entry-type";
+import { findCategoryByValue } from "../../../entities/categories.enum";
 
 type EntryTableProps = {
   items: DtoEntry[];
@@ -44,7 +45,7 @@ const EntryTable = ({
       label: "Categoria",
       align: "left",
       format: (value: IEntryType) => {
-        return value.category;
+        return findCategoryByValue( value.category).label;
       },
     },
     {

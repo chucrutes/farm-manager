@@ -5,7 +5,7 @@ import { EditIcon } from "../../Icons/EditIcon";
 import { DeleteIcon } from "../../Icons/DeleteIcon";
 import type { IEntryType } from "../../../entities/entry-type";
 import type { IType } from "../forms/add-update-type-form/@types/types";
-import StickyHeadTable, { type Column, type Row } from "./MuiTable";
+import StickyHeadTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { type Categories, findCategoryByValue } from "../../../entities/categories.enum";
 import { deleteEntryType } from "../../../pages/api/entry-types/delete";
