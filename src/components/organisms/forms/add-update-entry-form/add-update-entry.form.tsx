@@ -18,36 +18,36 @@ const AddEntryForm = ({
   item,
   types,
 }: AddOrUpdateEntryFormProps) => {
-
-
-  const { verifyError} = useValidateData()
-  const { 
+  const { verifyError } = useValidateData();
+  const {
     id,
-    error, 
-    total, 
-    price, 
-    category, 
-    quantity, 
+    error,
+    total,
+    price,
+    category,
+    quantity,
     description,
     selectedType,
     handleSubmit,
-    handlePriceBlur, handleQuantityBlur, handleTypeChange, handleTotalBlur,
-    setDescription, 
-    setPrice, 
-    setQuantity, 
+    handlePriceBlur,
+    handleQuantityBlur,
+    handleTypeChange,
+    handleTotalBlur,
+    setDescription,
+    setPrice,
+    setQuantity,
     setTotal,
-    setForm
-  } = useEntryForm({item, saveItem, cleanItem, types})
+    setForm,
+  } = useEntryForm({ item, saveItem, cleanItem, types });
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,
     label: type.name,
   }));
 
-    useEffect(() => {
-      setForm(item);
-    }, [item, setForm]);
-
+  useEffect(() => {
+    setForm(item);
+  }, [item, setForm]);
 
   return (
     <div className="flex flex-col justify-center">
@@ -112,7 +112,7 @@ const AddEntryForm = ({
               value={total}
               onChange={setTotal}
               onBlur={handleTotalBlur}
-                       />
+            />
           </LabeledInput>
         </div>
 
