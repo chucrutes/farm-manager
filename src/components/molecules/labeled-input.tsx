@@ -1,11 +1,19 @@
 type ILabeledInput = {
   hidden?: boolean;
+  className?: string;
   children: React.ReactNode;
 };
 
-const LabeledInput = ({ children, hidden = false }: ILabeledInput) => {
+const LabeledInput = ({
+  children,
+  hidden = false,
+  className,
+}: ILabeledInput) => {
   return (
-    <div hidden={hidden} className="flex flex-col px-4 py-2 align-middle">
+    <div
+      hidden={hidden}
+      className={`flex flex-col px-1 py-2 align-middle ${className}`}
+    >
       {children}
     </div>
   );

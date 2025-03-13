@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { envs } from "../../config/envs";
 const { REACT_APP_API_URL } = envs;
 
@@ -22,6 +23,14 @@ const signIn = async ({ body }: ISignIn): Promise<IResponse> => {
     body: JSON.stringify({ ...body }),
   });
   const data = await response.json();
+
+  if (response.ok) {
+    toast.success("Login realizado com sucesso");
+  }
+
+  if (!response.ok) {
+    toast.error("Usuário ou senha incorretos");
+  }
 
   return { status: response.status, body: data };
 };
