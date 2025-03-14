@@ -5,7 +5,7 @@ import { DeleteIcon } from "../../Icons/delete-icon";
 import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./total-row";
-import { deleteEntry } from "../../../pages/api/entry/delete";
+import { deleteEntry } from "../../../services/api/entry/delete";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
 import { IEntryType } from "../../../entities/entry-type";
@@ -106,6 +106,7 @@ const EntryTable = ({
         quantity: item.quantity,
         total: item.total,
         type: item.type,
+        commission: item.commission,
       };
 
       editEntry(data);

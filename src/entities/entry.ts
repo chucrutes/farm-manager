@@ -7,6 +7,8 @@ export const EntrySchema = z.object({
   quantity: z.number().positive(),
   price: z.number().positive(),
   total: z.number().positive(),
+  commission: z.number().nullish(),
+  afterTax: z.number().positive(),
   type: EntryTypeSchema,
   createdAt: z.date(),
   updatedAt: z.date(),

@@ -129,7 +129,10 @@ const AddEntryForm = ({
                   id="commission"
                   disabled={!selectedType.commission}
                   value={commission ?? 0}
-                  onChange={setCommission}
+                  onChange={(value) => {
+                    console.log(value);
+                    setCommission(value);
+                  }}
                   onBlur={handleCommissionBlur}
                 />
               </LabeledInput>
