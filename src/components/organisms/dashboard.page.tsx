@@ -56,6 +56,11 @@ export const DashboardComponent = () => {
     if (res.status === 201) {
       const newItems = [typeSaved, ...items];
       setItems(newItems);
+      if (typeSaved.type.category === "EXPENSE") {
+        setTotal((prevTotal) => prevTotal - typeSaved.total);
+      } else {
+        setTotal((prevTotal) => prevTotal + typeSaved.total);
+      }
       setItemToEdit(null);
       return;
     }

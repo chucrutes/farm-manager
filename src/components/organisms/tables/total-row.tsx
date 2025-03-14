@@ -1,5 +1,3 @@
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import { formatBrazilianCurrency } from "../../../@utils/formatters";
 
 type TotalRowProps = {
@@ -7,16 +5,15 @@ type TotalRowProps = {
 };
 
 const TotalRow = ({ total }: TotalRowProps) => {
+  const textColor = total < 0 ? "text-red-500" : "text-green-500";
+
   return (
-    <TableRow hover role="checkbox" tabIndex={-1} key={"total"}>
-      <TableCell key={"total"} align={"left"}>
-        {"Total"}
-      </TableCell>
-      <TableCell colSpan={6} />
-      <TableCell key={"total-value"} align={"left"}>
-        <p className={total < 0 ? "text-red-600" : "text-green-600"}>{formatBrazilianCurrency(total)}</p>
-      </TableCell>
-    </TableRow>
+    <div className="flex justify-end items-center p-4 bg-gray-50 font-medium">
+      <div className="text-gray-700 mr-4">Total:</div>
+      <div className={`font-bold ${textColor}`}>
+        {formatBrazilianCurrency(total)}
+      </div>
+    </div>
   );
 };
 
