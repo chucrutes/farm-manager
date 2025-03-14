@@ -18,19 +18,19 @@ export type Column<T> = {
 
 export type Row<T> = T & { actions: (item: T) => React.JSX.Element };
 
-export type StickyHeadTableProps<T> = {
+export type GenericTableProps<T> = {
   columns: Column<T>[];
   rows: Row<T>[];
   pk: keyof T;
   totalChildren?: React.ReactNode;
 };
 
-export default function StickyHeadTable<T>({
+export default function GenericTable<T>({
   columns,
   rows,
   pk,
   totalChildren,
-}: StickyHeadTableProps<T>) {
+}: GenericTableProps<T>) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -53,7 +53,7 @@ export default function StickyHeadTable<T>({
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                key={`${column.id as string}-${column.label}`}
+                  key={`${column.id as string}-${column.label}`}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >

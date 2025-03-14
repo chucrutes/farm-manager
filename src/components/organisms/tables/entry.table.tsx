@@ -2,7 +2,7 @@ import Button from "../../atoms/button";
 import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/edit-icon";
 import { DeleteIcon } from "../../Icons/delete-icon";
-import StickyHeadTable, { type Column, type Row } from "./generic.table";
+import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./total-row";
 import { deleteEntry } from "../../../pages/api/entry/delete";
@@ -145,7 +145,7 @@ const EntryTable = ({
   }, [items, handleEditEntry, handleDeleteEntry]);
 
   return (
-    <StickyHeadTable
+    <GenericTable
       columns={columns}
       rows={rows}
       pk={"_id"}
