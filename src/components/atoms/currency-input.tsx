@@ -1,5 +1,6 @@
 import React, { ComponentProps, forwardRef, useEffect, useState } from "react";
 import { numberToBrFormat } from "../../@utils/formatters";
+import { ErrorIcon } from "../Icons/error-icon";
 
 export type Details = {
   value: number;
@@ -17,6 +18,8 @@ export type CurrencyInputProps = Omit<
   defaultValue?: number;
   placeholder?: string;
   addonBefore?: string;
+  error?: boolean;
+  errorMessage?: string;
 };
 
 const DECIMAL_SIZE = 2;
@@ -29,13 +32,14 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       onBlur,
       placeholder,
       addonBefore = "R$",
+      error,
+      errorMessage,
       ...props
     }: CurrencyInputProps,
     ref
   ) => {
     const [currentValue, setCurrentValue] = useState<string>(`${value}`);
     const [numParsed, setNumParsed] = useState<number>(value);
-
 
     useEffect(() => {
       const valueString = `${value}`;
@@ -60,16 +64,33 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     };
 
     return (
-      <input
-        type="text"
-        value={currentValue}
-        onChange={handleChange}
-        onBlur={() => onBlur?.(numParsed)}
-        placeholder={placeholder}
-        className="border p-2 rounded w-full"
-        {...props}
-        ref={ref}
-      />
+      <div className="relative">
+        <input
+          type="text"
+          value={currentValue}
+          onChange={handleChange}
+          onBlur={() => onBlur?.(numParsed)}
+          placeholder={placeholder}
+          className={`border p-2 rounded w-full ${
+            error ? "border-red-500" : ""
+          }`}
+          style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: "14px",
+          }}
+          {...props}
+          ref={ref}
+        />
+
+        {error && errorMessage && (
+          <div className="flex text-red-500 gap-1 px-2 pt-2">
+            <ErrorIcon />
+            <p className="text-xs">{errorMessage}</p>
+          </div>
+        )}
+      </div>
     );
   }
 );
+
+CurrencyInput.displayName = "CurrencyInput";
