@@ -20,7 +20,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   const [selectedType, setSelectedType] = useState<IType>();
   const [category, setCategory] = useState<Categories | null>(null);
   const [afterTax, setAfterTax] = useState<number | null>(null);
-  const [commission, setCommission] = useState<number | null>(null);
+  const [commission, setCommission] = useState<number | null | undefined>(null);
   const [error, setError] = useState<ZodError<IAddOrUpdateEntry> | null>();
 
   const { validateData } = useValidateData();
@@ -36,6 +36,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
       price,
       quantity,
       total,
+      commission,
       type: selectedType,
     };
 
@@ -67,7 +68,6 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   };
   const handleTotalBlur = (_: number) => {};
   const handleCommissionBlur = (value: number) => {
-    if (value === 0) setCommission(null);
     const percentage = 1 - value / 100;
 
     setAfterTax(total * percentage);
@@ -88,6 +88,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setQuantity(0);
     setPrice(0);
     setTotal(0);
+    setCommission(0);
     setSelectedType(undefined);
     setCategory(null);
     setError(null);
@@ -96,11 +97,15 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   const setForm = (item?: IAddOrUpdateEntry | null) => {
     if (!item) return;
 
+    const percentage = 1 - (item.commission ?? 0) / 100;
+
     setDescription(item.description);
     setQuantity(item.quantity);
     setPrice(item.price);
     setTotal(item.total);
+    setCommission(item.commission);
     setCategory(item.type.category);
+    setAfterTax(item.total * percentage);
     setError(null);
 
     const typeFound = findType(types, item.type?._id);

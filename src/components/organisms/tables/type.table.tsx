@@ -11,7 +11,7 @@ import {
   type Categories,
   findCategoryByValue,
 } from "../../../entities/categories.enum";
-import { deleteEntryType } from "../../../pages/api/entry-types/delete";
+import { deleteEntryType } from "../../../services/api/entry-type/delete";
 
 export type DtoEntryType = Omit<IEntryType, "id"> & {
   _id: string;

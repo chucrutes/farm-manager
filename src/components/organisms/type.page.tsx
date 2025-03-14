@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 // import { closeRegister } from "../../pages/api/entry/closeRegister";
 import { type DtoEntryType, EntryTypeTable } from "./tables/type.table";
-import { listEntryTypes } from "../../pages/api/entry-types/list";
-import { createOrUpdateEntryType } from "../../pages/api/entry-types/create";
+import { listEntryTypes } from "../../services/api/entry-type/list";
+import { createOrUpdateEntryType } from "../../services/api/entry-type/create";
 import AddTypeForm from "./forms/add-update-type-form/add-update-type.form";
 import type { IType } from "./forms/add-update-type-form/@types/types";
 import { handleResponseToast } from "../../utils/handleToast";
