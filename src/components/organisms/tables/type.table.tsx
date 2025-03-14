@@ -5,7 +5,7 @@ import { EditIcon } from "../../Icons/edit-icon";
 import { DeleteIcon } from "../../Icons/delete-icon";
 import type { IEntryType } from "../../../entities/entry-type";
 import type { IType } from "../forms/add-update-type-form/@types/types";
-import { StickyHeadTable, type Column, type Row } from "./generic.table";
+import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import {
   type Categories,
@@ -105,7 +105,7 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
   }, [items, handleDeleteItem, handleEditItem]);
 
   return (
-    <StickyHeadTable
+    <GenericTable
       columns={columns}
       rows={rows}
       pk={"_id"}

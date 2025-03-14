@@ -11,19 +11,19 @@ export type Row<T> = T & {
   actions?: () => React.ReactNode;
 };
 
-type StickyHeadTableProps<T> = {
+export type GenericTableProps<T> = {
   columns: Column<T>[];
   rows: Row<T>[];
   pk: keyof T;
   totalChildren?: React.ReactNode;
 };
 
-export const StickyHeadTable = <T,>({
+export default function GenericTable<T>({
   columns,
   rows,
   pk,
   totalChildren,
-}: StickyHeadTableProps<T>) => {
+}: GenericTableProps<T>) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -143,4 +143,4 @@ export const StickyHeadTable = <T,>({
       )}
     </div>
   );
-};
+}

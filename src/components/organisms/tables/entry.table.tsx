@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/edit-icon";
 import { DeleteIcon } from "../../Icons/delete-icon";
+import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { formatBrazilianCurrency } from "../../../@utils/formatters";
 import { findCategoryByValue } from "../../../entities/categories.enum";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
 import { deleteEntry } from "../../../pages/api/entry/delete";
-import { Column, Row, StickyHeadTable } from "./generic.table";
 import { TotalRow } from "./total-row";
 
 type EntryTableProps = {
@@ -143,7 +143,7 @@ const EntryTable = ({
   }, [items, handleEditEntry, handleDeleteEntry]);
 
   return (
-    <StickyHeadTable
+    <GenericTable
       columns={columns}
       rows={rows}
       pk="_id"
