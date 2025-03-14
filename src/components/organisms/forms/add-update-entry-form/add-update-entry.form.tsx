@@ -50,7 +50,9 @@ const AddEntryForm = ({
   }));
 
   useEffect(() => {
-    setForm(item);
+    if (item) {
+      setForm(item);
+    }
   }, [item, setForm]);
 
   return (

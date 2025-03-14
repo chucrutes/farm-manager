@@ -60,12 +60,7 @@ const Select = ({
             color: value === "" ? "#6B7280" : "black",
           }}
         >
-          <option
-            value=""
-            disabled
-            selected={!value}
-            style={{ color: "#6B7280" }}
-          >
+          <option value="" disabled style={{ color: "#6B7280" }}>
             {optionsLength === 0 ? "Nenhum item" : placeholder}
           </option>
 

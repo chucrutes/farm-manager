@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   AddOrUpdateEntryFormProps,
   AddOrUpdateEntrySchema,
@@ -152,22 +152,34 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setError(null);
   };
 
-  const setForm = (item?: IAddOrUpdateEntry | null) => {
-    if (!item) return;
+  const setForm = useCallback(
+    (item?: IAddOrUpdateEntry | null) => {
+      if (!item) return;
 
-    setDescription(item.description);
-    setQuantity(item.quantity);
-    setPrice(item.price);
-    setTotal(item.total);
-    setCategory(item.type.category);
-    setError(null);
+      setDescription(item.description);
+      setQuantity(item.quantity);
+      setPrice(item.price);
+      setTotal(item.total);
+      setCategory(item.type.category);
+      setError(null);
 
-    const typeFound = findType(types, item.type?._id);
+      const typeFound = findType(types, item.type?._id);
 
-    if (!typeFound) return;
-    setSelectedType(typeFound);
-    setCategory(typeFound?.category ?? null);
-  };
+      if (!typeFound) return;
+      setSelectedType(typeFound);
+      setCategory(typeFound?.category ?? null);
+    },
+    [
+      setDescription,
+      setQuantity,
+      setPrice,
+      setTotal,
+      setCategory,
+      setError,
+      setSelectedType,
+      types,
+    ]
+  );
 
   return {
     setTotal,
