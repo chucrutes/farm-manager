@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { ResponseCreation } from "../pages/api/@types";
+import { ResponseCreation } from "../services/api/@types";
 import { findLabelByKey } from "../language/pt-br";
 
 export const handleResponseToast = (response: ResponseCreation): void => {
@@ -19,6 +19,7 @@ export const handleResponseToast = (response: ResponseCreation): void => {
       toast.info(_message);
       break;
     default:
+      toast.info(_message);
       console.warn("Unhandled message type", _message);
       break;
   }

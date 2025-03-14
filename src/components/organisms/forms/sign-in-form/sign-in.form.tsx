@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../../../atoms/button";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../../../../pages/api/signIn";
+import { signIn } from "../../../../services/api/signIn";
 import { useAuth } from "../../../../contexts/auth-context";
 import LabeledInput from "../../../molecules/labeled-input";
 import { type IUser, signInSchema } from "../../../../entities/user";

@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { listEntry } from "../../pages/api/entry/list";
+import { listEntry } from "../../services/api/entry/list";
 import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
 import Button from "../atoms/button";
-import { closeRegister } from "../../pages/api/entry/close-register";
 import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
 import { IEntryType, IType } from "../../entities/entry-type";
-import { listEntryTypes } from "../../pages/api/entry-types/list";
-import { createOrUpdateEntry } from "../../pages/api/entry/create";
+import { listEntryTypes } from "../../services/api/entry-type/list";
+import { createOrUpdateEntry } from "../../services/api/entry/create";
 import { handleResponseToast } from "../../utils/handleToast";
 import { EntryTable } from "./tables/entry.table";
 import { PlusIcon } from "../Icons/plus-icon";
+import { closeRegister } from "../../services/api/register/close-register";
 
 export type DtoEntry = {
   _id: string;
-  farmId: string;
   description: string;
   price: number;
   quantity: number;
+  commission: number | null;
   total: number;
   type: IEntryType;
   category: string;

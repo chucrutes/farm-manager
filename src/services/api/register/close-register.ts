@@ -14,8 +14,8 @@ const getTokenFromLocalStorage = (): string | null => {
 export const closeRegister = async (): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entries/close`, {
-    method: "PUT",
+  const response: Response = await fetch(`${REACT_APP_API_URL}/registers`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

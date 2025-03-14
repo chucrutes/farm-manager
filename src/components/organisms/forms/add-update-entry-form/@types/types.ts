@@ -6,6 +6,7 @@ export const AddOrUpdateEntrySchema = EntrySchema.omit({
   createdAt: true,
   updatedAt: true,
   type: true,
+  afterTax: true,
 }).merge(
   z.object({
     type: EntryTypeSchema.omit({ createdAt: true, updatedAt: true }),

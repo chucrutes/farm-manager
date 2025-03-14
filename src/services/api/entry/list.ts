@@ -14,13 +14,16 @@ const getTokenFromLocalStorage = (): string | null => {
 export const listEntry = async (): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response: Response = await fetch(
+    `${REACT_APP_API_URL}/entries?type=true&farm=true&removeDeletedAt=true`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const data = await response.json();
 
   return { status: response.status, body: data };
