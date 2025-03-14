@@ -1,4 +1,3 @@
-import Button from "../../atoms/button";
 import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/edit-icon";
 import { DeleteIcon } from "../../Icons/delete-icon";
@@ -6,11 +5,10 @@ import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./total-row";
 import { deleteEntry } from "../../../services/api/entry/delete";
+import { formatBrazilianCurrency } from "../../../@utils/formatters";
+import { findCategoryByValue } from "../../../entities/categories.enum";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
-import { IEntryType } from "../../../entities/entry-type";
-import { findCategoryByValue } from "../../../entities/categories.enum";
-import { formatBrazilianCurrency } from "../../../@utils/formatters";
 
 type EntryTableProps = {
   items: DtoEntry[];
@@ -19,13 +17,14 @@ type EntryTableProps = {
   listEntries: () => void;
 };
 
-type Entry = Row<DtoEntry>;
 const EntryTable = ({
   items,
   total,
   editEntry,
   listEntries,
 }: EntryTableProps) => {
+  const [rows, setRows] = useState<Row<DtoEntry>[]>([]);
+
   const columns: Column<DtoEntry>[] = [
     {
       id: "description",
@@ -34,25 +33,23 @@ const EntryTable = ({
       format: (value: string) => value,
     },
     {
-      id: "type",
+      id: "type.name",
       label: "Tipo",
       align: "left",
-      format: (value: IEntryType) => {
-        return value.name;
-      },
+      format: (value: string) => value,
     },
     {
-      id: "type",
+      id: "type.category",
       label: "Categoria",
       align: "left",
-      format: (value: IEntryType) => {
-        return findCategoryByValue(value.category).label;
+      format: (value: string) => {
+        return findCategoryByValue(value).label;
       },
     },
     {
       id: "quantity",
       label: "Quantidade",
-      align: "left",
+      align: "right",
       format: (value: number) => {
         return value.toLocaleString("pt-BR", {
           maximumFractionDigits: 2,
@@ -63,7 +60,7 @@ const EntryTable = ({
     {
       id: "price",
       label: "Preço",
-      align: "left",
+      align: "right",
       format: (value: number) => {
         return formatBrazilianCurrency(value);
       },
@@ -71,7 +68,7 @@ const EntryTable = ({
     {
       id: "total",
       label: "Total",
-      align: "left",
+      align: "right",
       format: (value: number) => {
         return formatBrazilianCurrency(value);
       },
@@ -87,13 +84,13 @@ const EntryTable = ({
     {
       id: "actions",
       label: "Ações",
-      align: "left",
-      format: (value) => {
+      align: "center",
+      format: (value: () => any) => {
         return value();
       },
     },
   ];
-  const [rows, setRows] = useState<Entry[]>([]);
+
   const handleEditEntry = useCallback(
     (item: DtoEntry) => {
       if (!item) {
@@ -122,34 +119,35 @@ const EntryTable = ({
     [listEntries]
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const rows: Entry[] = items.map((item) => ({
+    const newRows: Row<DtoEntry>[] = items.map((item) => ({
       ...item,
       actions: () => (
-        <div className="flex flex-row">
-          <div className="px-2">
-            <Button onClick={() => handleEditEntry(item)}>
-              <EditIcon />
-            </Button>
-          </div>
-          <div className="px-2">
-            <Button color="error" onClick={() => handleDeleteEntry(item._id)}>
-              <DeleteIcon />
-            </Button>
-          </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleEditEntry(item)}
+            className="p-2 bg-transparent hover:bg-gray-200 text-blue-600 rounded-md"
+          >
+            <EditIcon />
+          </button>
+          <button
+            onClick={() => handleDeleteEntry(item._id)}
+            className="p-2 bg-transparent hover:bg-gray-200 text-red-500 rounded-md"
+          >
+            <DeleteIcon />
+          </button>
         </div>
       ),
     }));
 
-    setRows(rows);
+    setRows(newRows);
   }, [items, handleEditEntry, handleDeleteEntry]);
 
   return (
     <GenericTable
       columns={columns}
       rows={rows}
-      pk={"_id"}
+      pk="_id"
       totalChildren={<TotalRow total={total} />}
     />
   );

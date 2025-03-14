@@ -7,10 +7,10 @@ import { useAuth } from "../../../../contexts/auth-context";
 import LabeledInput from "../../../molecules/labeled-input";
 import { type IUser, signInSchema } from "../../../../entities/user";
 import { ZodError } from "zod";
-import { Alert } from "@mui/material";
-import { ErrorIcon } from "../../../Icons/error-icon";
 import { useValidateData } from "../@hooks/use-validate-form";
 import Input from "../../../atoms/Input";
+import { Person } from "../../../Icons/person-icon";
+import { Lock } from "../../../Icons/lock-icon";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="flex flex-col md:w-64 lg:w-96 min-h-full p-5 gap-4">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col lg:w-96 min-h-full gap-4">
+      <div className="flex flex-col gap-4">
         <h1 className="text-left text-4xl font-semibold">Bem-vindo</h1>
         <h1 className="text-left">Insira seus dados para acessar sua conta</h1>
       </div>
@@ -74,15 +74,13 @@ const SignInForm = () => {
                 label="Usuário"
                 id={"user"}
                 value={user}
+                icon={<Person />}
+                error={!!error}
+                errorMessage="Usuário inválido"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUser(e.target.value)
                 }
               />
-              {error && verifyError(error, "user") && (
-                <Alert icon={<ErrorIcon />} severity="error">
-                  Usuário inválido
-                </Alert>
-              )}
             </LabeledInput>
             <LabeledInput>
               <Input
@@ -90,18 +88,16 @@ const SignInForm = () => {
                 id="password"
                 type="password"
                 value={password}
+                icon={<Lock />}
+                error={!!error}
+                errorMessage="Senha inválida"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setPassword(e.target.value)
                 }
               />
-              {error && verifyError(error, "password") && (
-                <Alert icon={<ErrorIcon />} severity="error">
-                  Senha inválida
-                </Alert>
-              )}
             </LabeledInput>
           </div>
-          <div className="flex justify-center py-4">
+          <div className="flex justify-center py-4 px-20">
             <Button type="submit" disabled={loading}>
               {loading ? "Carregando" : "Entrar"}
             </Button>

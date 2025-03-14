@@ -7,7 +7,6 @@ import LabeledInput from "../../../molecules/labeled-input";
 import { AddOrUpdateEntryFormProps } from "./@types/types";
 import { useEntryForm } from "./@hooks/use-entry-form.hook";
 import { CurrencyInput } from "../../../atoms/currency-input";
-import { useValidateData } from "../@hooks/use-validate-form";
 import { findCategoryByValue } from "../../../../entities/categories.enum";
 import { useEffect } from "react";
 import Input from "../../../atoms/Input";
@@ -18,10 +17,8 @@ const AddEntryForm = ({
   item,
   types,
 }: AddOrUpdateEntryFormProps) => {
-  const { verifyError } = useValidateData();
   const {
     id,
-    error,
     total,
     price,
     category,
@@ -37,13 +34,14 @@ const AddEntryForm = ({
     handleQuantityBlur,
     handleCommissionBlur,
     setForm,
-    resetForm,
     setPrice,
     setTotal,
     setQuantity,
     setAfterTax,
     setCommission,
     setDescription,
+    hasError,
+    getErrorMessage,
   } = useEntryForm({ item, saveItem, cleanItem, types });
 
   const typeOptions: Option[] = types.map((type) => ({
@@ -52,72 +50,83 @@ const AddEntryForm = ({
   }));
 
   useEffect(() => {
-    setForm(item);
+    if (item) {
+      setForm(item);
+    }
   }, [item, setForm]);
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="mb-4 md:mr-4 text-center text-2xl">Entradas e Saídas</h1>
+      <h1 className="mb-4 md:mr-4 text-center text-2xl font-medium">
+        {id ? "Editar" : "Adicionar"} Entrada ou Saída
+      </h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <LabeledInput>
             <Input
               label="Descrição"
               id="description"
+              variant="outlined"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              error={hasError("description")}
+              errorMessage={getErrorMessage("description")}
             />
-            {error && verifyError(error, "description") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Descrição inválida
-              </Alert>
-            )}
+          </LabeledInput>
+          <LabeledInput className="py-0">
+            <Select
+              options={typeOptions}
+              name="type"
+              placeholder="Selecione um tipo"
+              onChange={handleTypeChange}
+              label="Tipo"
+              value={selectedType?._id ?? ""}
+              error={hasError("selectedType")}
+              errorMessage={getErrorMessage("selectedType")}
+            />
           </LabeledInput>
           <LabeledInput>
             <Input
               label="Categoria"
               id="category"
+              variant="outlined"
               disabled={true}
               value={category ? findCategoryByValue(category)?.label : ""}
+              error={hasError("category")}
+              errorMessage={getErrorMessage("category")}
             />
-            {error && verifyError(error, "category") && (
-              <Alert icon={<ErrorIcon />} severity="error">
-                Categoria inválida
-              </Alert>
-            )}
           </LabeledInput>
-          <Select
-            options={typeOptions}
-            name="type"
-            onChange={handleTypeChange}
-            label="Tipo"
-            value={selectedType?._id ?? ""}
-          />
           <LabeledInput>
-            <Label>Quantidade</Label>
+            <Label error={hasError("quantity")}>Quantidade</Label>
             <CurrencyInput
               id="quantity"
               value={quantity}
               onChange={setQuantity}
               onBlur={handleQuantityBlur}
+              error={hasError("quantity")}
+              errorMessage={getErrorMessage("quantity")}
             />
           </LabeledInput>
           <LabeledInput>
-            <Label>Preço</Label>
+            <Label error={hasError("price")}>Preço</Label>
             <CurrencyInput
               id="price"
               value={price}
               onChange={setPrice}
               onBlur={handlePriceBlur}
+              error={hasError("price")}
+              errorMessage={getErrorMessage("price")}
             />
           </LabeledInput>
           <LabeledInput>
-            <Label>Total</Label>
+            <Label error={hasError("total")}>Total</Label>
             <CurrencyInput
               id="total"
               value={total}
               onChange={setTotal}
               onBlur={handleTotalBlur}
+              error={hasError("total")}
+              errorMessage={getErrorMessage("total")}
             />
           </LabeledInput>
 
@@ -134,6 +143,8 @@ const AddEntryForm = ({
                     setCommission(value);
                   }}
                   onBlur={handleCommissionBlur}
+                  error={hasError("commission")}
+                  errorMessage={getErrorMessage("commission")}
                 />
               </LabeledInput>
               <LabeledInput>
@@ -149,25 +160,13 @@ const AddEntryForm = ({
           )}
         </div>
 
-        <div className="flex justify-center py-4">
-          {id ? (
-            <>
-              <div className="px-4">
-                <Button type="submit">Editar</Button>
-              </div>
-              <div className="px-4">
-                <Button
-                  color="primary"
-                  onClick={() => resetForm()}
-                  type="button"
-                >
-                  Limpar
-                </Button>
-              </div>
-            </>
-          ) : (
-            <Button type="submit">Adicionar</Button>
-          )}
+        <div className="flex justify-end py-5">
+          <Button onClick={cleanItem} type="button" color="#94a3b8" width="10%">
+            Cancelar
+          </Button>
+          <Button color="#00c950" type="submit" width="10%">
+            {id ? "Editar" : "Adicionar"}
+          </Button>
         </div>
       </form>
     </div>
