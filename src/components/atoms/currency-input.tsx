@@ -71,8 +71,10 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
           onChange={handleChange}
           onBlur={() => onBlur?.(numParsed)}
           placeholder={placeholder}
-          className={`border p-2 rounded w-full ${
-            error ? "border-red-500" : ""
+          className={`border p-2 rounded w-full focus:outline-black ${
+            error
+              ? "border-red-500 focus:border-black"
+              : "border-gray-300 focus:border-black"
           }`}
           style={{
             fontFamily: "Sora, sans-serif",
