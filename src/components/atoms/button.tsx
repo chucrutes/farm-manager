@@ -2,10 +2,13 @@ import type { ComponentProps } from "react";
 import MuiButton from "@mui/material/Button";
 import { ThemeProvider } from "@mui/material";
 import { buttonTheme } from "../templates/button-theme";
+import React from "react";
 
 type ButtonProps = Omit<ComponentProps<"button">, "color"> & {
   color?: string;
   palette?: "primary" | "secondary" | "success";
+  icon?: React.ReactNode;
+  width?: string;
 };
 
 const Button = ({
@@ -14,6 +17,8 @@ const Button = ({
   onClick,
   disabled = false,
   palette,
+  icon,
+  width = "100%",
   children,
 }: ButtonProps) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,10 +34,11 @@ const Button = ({
         size="large"
         onClick={handleSubmit}
         color={palette}
+        startIcon={icon}
         sx={{
           fontFamily: "Sora, sans-serif",
           marginX: "15px",
-          width: "100%",
+          width: width,
           textTransform: "none",
           fontSize: "14px",
           borderRadius: "8px",
