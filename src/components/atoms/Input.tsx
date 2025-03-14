@@ -49,7 +49,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               fontSize: "13px",
               padding: (theme) =>
                 type === "password" ? "6px 1.5px" : "6px 0px",
-              paddingLeft: "8px",
             },
             "& label": {
               fontFamily: "Sora, sans-serif",
