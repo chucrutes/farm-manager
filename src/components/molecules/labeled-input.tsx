@@ -12,7 +12,7 @@ const LabeledInput = ({
   return (
     <div
       hidden={hidden}
-      className={`flex flex-col px-1 py-2 align-middle ${className}`}
+      className={`group ${className} flex flex-col px-1 py-1 align-middle `}
     >
       {children}
     </div>

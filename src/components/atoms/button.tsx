@@ -44,7 +44,13 @@ const Button = ({
           borderRadius: "8px",
           backgroundColor: color,
           "&:hover": {
-            backgroundColor: color,
+            backgroundColor: `rgba(${parseInt(
+              color.slice(1, 3),
+              16
+            )}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(
+              color.slice(5, 7),
+              16
+            )}, 0.8)`,
           },
         }}
       >

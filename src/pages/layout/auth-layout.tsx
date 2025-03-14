@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../../components/UI/header";
 import Footer from "../../components/UI/footer";
-import LiveCattleFrame from "../../components/molecules/live-cattle-frame";
 import useRequireAuth from "../../hooks/use-require-auth";
 import Toast from "../../components/toast";
 
