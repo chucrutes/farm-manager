@@ -10,6 +10,10 @@ import { handleResponseToast } from "../../utils/handleToast";
 import { EntryTable } from "./tables/entry.table";
 import { PlusIcon } from "../Icons/plus-icon";
 import { closeRegister } from "../../services/api/register/close-register";
+import { listRegister } from "../../services/api/register/list";
+import { stringifier } from "../../@utils/stringifier";
+import BarChart from "./bar-chart";
+import { formatBrazillianCurrency } from "../../@utils/formatters";
 
 export type DtoEntry = {
   _id: string;
@@ -31,11 +35,15 @@ export const DashboardComponent = () => {
   const [total, setTotal] = useState<number>(0);
   const [itemToEdit, setItemToEdit] = useState<IAddOrUpdateEntry | null>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [registers, setRegisters] = useState<any[]>([]);
 
   const listEntries = async () => {
     const response = await listEntry();
+    const registers = await listRegister();
+    stringifier(registers.body);
     setItems(response.body.dto.entries);
     setTotal(response.body.dto.total);
+    setRegisters(registers.body.dto);
   };
 
   const listTypes = async () => {
@@ -165,6 +173,9 @@ export const DashboardComponent = () => {
             <Button color="#16a44b" onClick={handleCloseRegister}>
               Fechar caixa
             </Button>
+          </div>
+          <div className="p-8">
+            <BarChart data={registers} />
           </div>
         </div>
       </div>

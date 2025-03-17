@@ -1,4 +1,4 @@
-import { formatBrazilianCurrency } from "../../../@utils/formatters";
+import { formatBrazillianCurrency } from "../../../@utils/formatters";
 
 type TotalRowProps = {
   total: number;
@@ -11,7 +11,7 @@ const TotalRow = ({ total }: TotalRowProps) => {
     <div className="flex justify-end items-center p-4 bg-gray-50 font-medium">
       <div className="text-gray-700 mr-4">Total:</div>
       <div className={`font-bold ${textColor}`}>
-        {formatBrazilianCurrency(total)}
+        {formatBrazillianCurrency(total)}
       </div>
     </div>
   );

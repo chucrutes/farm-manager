@@ -5,7 +5,7 @@ import GenericTable, { type Column, type Row } from "./generic.table";
 import { brDateFormatter } from "../../../utils/formatters";
 import { TotalRow } from "./total-row";
 import { deleteEntry } from "../../../services/api/entry/delete";
-import { formatBrazilianCurrency } from "../../../@utils/formatters";
+import { formatBrazillianCurrency } from "../../../@utils/formatters";
 import { findCategoryByValue } from "../../../entities/categories.enum";
 import { DtoEntry } from "../dashboard.page";
 import { IAddOrUpdateEntry } from "../forms/add-update-entry-form/@types/types";
@@ -62,7 +62,7 @@ const EntryTable = ({
       label: "Preço",
       align: "center",
       format: (value: number) => {
-        return formatBrazilianCurrency(value);
+        return formatBrazillianCurrency(value);
       },
     },
     {
@@ -70,7 +70,7 @@ const EntryTable = ({
       label: "Total",
       align: "center",
       format: (value: number) => {
-        return formatBrazilianCurrency(value);
+        return formatBrazillianCurrency(value);
       },
     },
     {
