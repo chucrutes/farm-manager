@@ -23,7 +23,7 @@ const SignInForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<ZodError<IUser> | null>();
 
-  const { validateData, verifyError } = useValidateData();
+  const { validateData } = useValidateData();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

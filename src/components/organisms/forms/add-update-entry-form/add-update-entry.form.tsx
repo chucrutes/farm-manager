@@ -1,7 +1,5 @@
-import { Alert } from "@mui/material";
 import Label from "../../../atoms/label";
 import Button from "../../../atoms/button";
-import { ErrorIcon } from "../../../Icons/error-icon";
 import Select, { Option } from "../../../atoms/select";
 import LabeledInput from "../../../molecules/labeled-input";
 import { AddOrUpdateEntryFormProps } from "./@types/types";
