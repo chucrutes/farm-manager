@@ -1,5 +1,6 @@
 import { ComponentProps } from "react";
 import { ErrorIcon } from "../Icons/error-icon";
+import { LaunchIcon } from "../Icons/launch-icon";
 
 export type Option = {
   label: string;
@@ -12,6 +13,8 @@ export type SelectProps = ComponentProps<"select"> & {
   placeholder?: string;
   error?: boolean;
   errorMessage?: string;
+  shortcutLabel?: string;
+  onShortcutClick?: () => void;
 };
 
 const Select = ({
@@ -23,24 +26,42 @@ const Select = ({
   value,
   error,
   errorMessage,
+  shortcutLabel,
+  onShortcutClick,
 }: SelectProps) => {
   const optionsLength = options.length;
   const disabled = optionsLength === 0;
 
   return (
     <div className="form-group group">
-      <label
-        htmlFor={name}
-        className={`block text-sm font-medium mb-1 ${
-          error ? "text-red-500 group-focus-within:text-black" : "text-black"
-        }`}
-        style={{
-          fontFamily: "Sora, sans-serif",
-          fontSize: "14px",
-        }}
-      >
-        {label}
-      </label>
+      <div className="flex justify-between items-center mb-1">
+        <label
+          htmlFor={name}
+          className={`block text-sm font-medium ${
+            error ? "text-red-500 group-focus-within:text-black" : "text-black"
+          }`}
+          style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: "14px",
+          }}
+        >
+          {label}
+        </label>
+
+        {shortcutLabel && onShortcutClick && (
+          <button
+            type="button"
+            onClick={onShortcutClick}
+            className="text-xs text-green-500 hover:text-green-700 hover:underline focus:outline-none gap-1 flex items-center"
+            style={{
+              fontFamily: "Sora, sans-serif",
+            }}
+          >
+            {shortcutLabel}
+            <LaunchIcon />
+          </button>
+        )}
+      </div>
 
       <div className="relative">
         <select
