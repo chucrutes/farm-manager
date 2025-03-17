@@ -8,6 +8,7 @@ import {
   Rectangle,
   ResponsiveContainer,
 } from "recharts";
+import { formatBrazillianCurrency } from "../../@utils/formatters";
 
 type BarData = {
   name: string;
@@ -34,12 +35,16 @@ export default function BarChart({ data }: BarDataProps) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          formatter={(value) => formatBrazillianCurrency(value as number)}
+        />
         <Bar
           barSize={60}
           dataKey="totalIncome"
           fill="#00c950"
           name="Receita"
+          attributeType="string"
+          format={""}
           activeBar={<Rectangle fill="#00c950" stroke="#00c950" />}
         />
         <Bar
@@ -47,7 +52,7 @@ export default function BarChart({ data }: BarDataProps) {
           dataKey="totalExpense"
           fill="#B10000 "
           name="Despesas"
-          activeBar={<Rectangle fill="#B10000 " stroke="#B10000 " />}
+          activeBar={<Rectangle fill="#B10000 " stroke="#B10000" />}
         />
       </RechartBar>
     </ResponsiveContainer>

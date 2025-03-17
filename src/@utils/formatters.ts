@@ -5,7 +5,10 @@ export const stringToNumber = (value: string) => {
   return Number.parseFloat(value.replace(",", "."));
 };
 
-export const formatBrazilianCurrency = (amount: number) => {
+export const formatBrazillianCurrency = (amount: number) => {
+  console.log(typeof amount);
+  console.log(amount);
+
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",

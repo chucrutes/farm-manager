@@ -13,6 +13,7 @@ import { closeRegister } from "../../services/api/register/close-register";
 import { listRegister } from "../../services/api/register/list";
 import { stringifier } from "../../@utils/stringifier";
 import BarChart from "./bar-chart";
+import { formatBrazillianCurrency } from "../../@utils/formatters";
 
 export type DtoEntry = {
   _id: string;
