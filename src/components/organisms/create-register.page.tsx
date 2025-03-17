@@ -1,25 +1,50 @@
 import { useEffect, useState } from "react";
-import { type DtoEntryType, EntryTypeTable } from "./tables/type.table";
-import { listEntryTypes } from "../../services/api/entry-type/list";
-import { createOrUpdateEntryType } from "../../services/api/entry-type/create";
-import AddTypeForm from "./forms/add-update-type-form/add-update-type.form";
-import type { IType } from "./forms/add-update-type-form/@types/types";
-import { handleResponseToast } from "../../utils/handleToast";
+import { listEntry } from "../../services/api/entry/list";
+import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
 import Button from "../atoms/button";
+import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
+import { IEntryType, IType } from "../../entities/entry-type";
+import { listEntryTypes } from "../../services/api/entry-type/list";
+import { createOrUpdateEntry } from "../../services/api/entry/create";
+import { handleResponseToast } from "../../utils/handleToast";
+import { EntryTable } from "./tables/entry.table";
 import { PlusIcon } from "../Icons/plus-icon";
+import { closeRegister } from "../../services/api/register/close-register";
 
-export const EntryTypeComponent = () => {
-  const [items, setItems] = useState<DtoEntryType[]>([]);
-  const [itemToEdit, setItemToEdit] = useState<IType | null>(null);
+export type DtoEntry = {
+  _id: string;
+  description: string;
+  price: number;
+  quantity: number;
+  commission: number | null;
+  total: number;
+  type: IEntryType;
+  category: string;
+  createdAt: string;
+  updatedAt: string;
+  key: string;
+};
+
+export const CreateRegisterComponent = () => {
+  const [items, setItems] = useState<DtoEntry[]>([]);
+  const [types, setTypes] = useState<IType[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [itemToEdit, setItemToEdit] = useState<IAddOrUpdateEntry | null>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const listEntries = async () => {
-    const response = await listEntryTypes();
-    setItems(response.body.dto);
+    const response = await listEntry();
+    setItems(response.body.dto.entries);
+    setTotal(response.body.dto.total);
   };
 
-  const saveItem = async (item: IType) => {
-    const res = await createOrUpdateEntryType({ body: item });
+  const listTypes = async () => {
+    const response = await listEntryTypes();
+    setTypes(response.body.dto);
+  };
+
+  const saveItem = async (item: IAddOrUpdateEntry) => {
+    const res = await createOrUpdateEntry({ body: item });
     if (![200, 201].includes(res.status)) {
       handleResponseToast(res);
       return;
@@ -27,12 +52,16 @@ export const EntryTypeComponent = () => {
 
     handleResponseToast(res);
 
-    const typeSaved = res.body.dto as DtoEntryType;
+    const typeSaved = res.body.dto as DtoEntry;
     if (res.status === 201) {
       const newItems = [typeSaved, ...items];
       setItems(newItems);
+      if (typeSaved.type.category === "EXPENSE") {
+        setTotal((prevTotal) => prevTotal - typeSaved.total);
+      } else {
+        setTotal((prevTotal) => prevTotal + typeSaved.total);
+      }
       setItemToEdit(null);
-      setShowForm(false);
       return;
     }
     setItems((previousItems) =>
@@ -41,12 +70,21 @@ export const EntryTypeComponent = () => {
       )
     );
     setItemToEdit(null);
-    setShowForm(false);
   };
 
-  const handleEditItem = (item: IType) => {
+  const handleEditItem = async (item: IAddOrUpdateEntry) => {
     setItemToEdit(item);
     setShowForm(true);
+  };
+
+  useEffect(() => {
+    listEntries();
+    listTypes();
+  }, []);
+
+  const handleCloseRegister = async () => {
+    await closeRegister();
+    listEntries();
   };
 
   const handleAddClick = () => {
@@ -58,10 +96,6 @@ export const EntryTypeComponent = () => {
     setShowForm(false);
     setItemToEdit(null);
   };
-
-  useEffect(() => {
-    listEntries();
-  }, []);
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
@@ -78,7 +112,7 @@ export const EntryTypeComponent = () => {
             {!showForm && (
               <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-800">
-                  Tipos de Entrada
+                  Entradas e Saídas
                 </h1>
                 <Button
                   color="#00c950"
@@ -103,26 +137,34 @@ export const EntryTypeComponent = () => {
             {showForm && (
               <div className="mb-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <AddTypeForm
-                    item={itemToEdit}
+                  <AddEntryForm
                     cleanItem={handleFormClose}
-                    editItem={handleEditItem}
                     saveItem={saveItem}
+                    editItem={handleEditItem}
+                    item={itemToEdit}
+                    types={types}
                   />
                 </div>
                 <div className="flex mt-6">
-                  <h2 className="text-2xl font-semibold">Tipos de Entrada</h2>
+                  <h2 className="text-2xl font-semibold">Entradas e Saídas</h2>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <EntryTypeTable
+        <EntryTable
           items={items}
-          editItem={handleEditItem}
-          listItems={listEntries}
+          editEntry={handleEditItem}
+          total={total}
+          listEntries={listEntries}
         />
+
+        <div className="flex justify-end mt-6">
+          <Button color="#16a44b" onClick={handleCloseRegister}>
+            Fechar caixa
+          </Button>
+        </div>
       </div>
     </div>
   );
