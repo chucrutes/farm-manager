@@ -10,6 +10,7 @@ import { CurrencyInput } from "../../../atoms/currency-input";
 import { findCategoryByValue } from "../../../../entities/categories.enum";
 import { useEffect } from "react";
 import Input from "../../../atoms/Input";
+import { useNavigate } from "react-router-dom";
 
 const AddEntryForm = ({
   saveItem,
@@ -43,6 +44,8 @@ const AddEntryForm = ({
     hasError,
     getErrorMessage,
   } = useEntryForm({ item, saveItem, cleanItem, types });
+
+  const navigate = useNavigate();
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,
@@ -83,6 +86,10 @@ const AddEntryForm = ({
               value={selectedType?._id ?? ""}
               error={hasError("selectedType")}
               errorMessage={getErrorMessage("selectedType")}
+              shortcutLabel="Adicionar Tipo"
+              onShortcutClick={() => {
+                navigate("/types");
+              }}
             />
           </LabeledInput>
           <LabeledInput>

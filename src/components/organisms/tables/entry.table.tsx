@@ -29,19 +29,19 @@ const EntryTable = ({
     {
       id: "description",
       label: "Descrição",
-      align: "left",
+      align: "center",
       format: (value: string) => value,
     },
     {
       id: "type.name",
       label: "Tipo",
-      align: "left",
+      align: "center",
       format: (value: string) => value,
     },
     {
       id: "type.category",
       label: "Categoria",
-      align: "left",
+      align: "center",
       format: (value: string) => {
         return findCategoryByValue(value).label;
       },
@@ -49,7 +49,7 @@ const EntryTable = ({
     {
       id: "quantity",
       label: "Quantidade",
-      align: "right",
+      align: "center",
       format: (value: number) => {
         return value.toLocaleString("pt-BR", {
           maximumFractionDigits: 2,
@@ -60,7 +60,7 @@ const EntryTable = ({
     {
       id: "price",
       label: "Preço",
-      align: "right",
+      align: "center",
       format: (value: number) => {
         return formatBrazilianCurrency(value);
       },
@@ -68,7 +68,7 @@ const EntryTable = ({
     {
       id: "total",
       label: "Total",
-      align: "right",
+      align: "center",
       format: (value: number) => {
         return formatBrazilianCurrency(value);
       },
@@ -76,7 +76,7 @@ const EntryTable = ({
     {
       id: "updatedAt",
       label: "Atualizado em",
-      align: "left",
+      align: "center",
       format: (value: string) => {
         return brDateFormatter(new Date(value));
       },
@@ -123,7 +123,7 @@ const EntryTable = ({
     const newRows: Row<DtoEntry>[] = items.map((item) => ({
       ...item,
       actions: () => (
-        <div className="flex gap-2">
+        <div className="flex justify-center gap-2">
           <button
             onClick={() => handleEditEntry(item)}
             className="p-2 bg-transparent hover:bg-gray-200 text-blue-600 rounded-md"
