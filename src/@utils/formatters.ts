@@ -5,9 +5,9 @@ export const stringToNumber = (value: string) => {
   return Number.parseFloat(value.replace(",", "."));
 };
 
-export const formatBrazilianCurrency = (amount: number) => {
+export const formatBrazilianCurrency = (amount: number, signal?: boolean) => {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(Math.abs(amount));
+  }).format(signal ? amount : Math.abs(amount));
 };
