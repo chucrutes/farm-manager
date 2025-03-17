@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listRegister } from "../../services/api/register/list";
 import { useNavigate } from "react-router-dom";
-import { formatBrazilianCurrency } from "../../@utils/formatters";
+import { formatBrazillianCurrency } from "../../@utils/formatters";
 import Button from "../atoms/button";
 import { PlusIcon } from "../Icons/plus-icon";
 import {
@@ -182,13 +182,13 @@ export const RegistersComponent = () => {
                       <div className="flex justify-between">
                         <span className="text-sm text-gray-600">Receitas:</span>
                         <span className="text-sm font-medium text-green-600">
-                          {formatBrazilianCurrency(register.totalIncome)}
+                          {formatBrazillianCurrency(register.totalIncome)}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-sm text-gray-600">Despesas:</span>
                         <span className="text-sm font-medium text-red-600">
-                          {formatBrazilianCurrency(register.totalExpense)}
+                          {formatBrazillianCurrency(register.totalExpense)}
                         </span>
                       </div>
                       <div className="flex justify-between pt-2 border-t border-gray-100">
@@ -200,7 +200,7 @@ export const RegistersComponent = () => {
                             isPositive ? "text-green-600" : "text-red-600"
                           }`}
                         >
-                          {formatBrazilianCurrency(balance, true)}
+                          {formatBrazillianCurrency(balance, true)}
                         </span>
                       </div>
                     </div>
