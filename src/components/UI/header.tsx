@@ -14,18 +14,18 @@ const Header = () => {
 
   const navItems: NavItem[] = [
     {
-      path: "/",
+      path: "/dashboard",
       content: "Início",
       icon: <Home className="w-4 h-4 md:w-5 md:h-5" />,
     },
     {
-      path: "/dashboard",
+      path: "/registers",
       content: "Caixas",
       icon: <Wallet className="w-4 h-4 md:w-5 md:h-5" />,
     },
     {
       path: "/types",
-      content: "Relatórios",
+      content: "Tipos",
       icon: <FileText className="w-4 h-4 md:w-5 md:h-5" />,
     },
   ];
