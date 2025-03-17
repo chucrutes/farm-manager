@@ -29,19 +29,23 @@ const AddTypeForm = ({
     commission,
     setCommission,
   } = useTypeForm({ item, saveItem, cleanItem });
+
   useEffect(() => {
     setForm(item);
   }, [item, setForm]);
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="mb-4 md:mr-4 text-center text-2xl">Tipos</h1>
+      <h1 className="mb-4 md:mr-4 text-center text-2xl font-medium">
+        {item?._id ? "Editar" : "Adicionar"} Tipo
+      </h1>
       <form onSubmit={handleSubmit}>
-        <div className="flex md:flex-row justify-center md:items-end flex-col">
-          <LabeledInput>
+        <div className="flex md:flex-row justify-center md:items-end flex-col gap-4">
+          <LabeledInput className="py-0 px-0">
             <Input
               label="Nome"
               id="name"
+              variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -51,13 +55,16 @@ const AddTypeForm = ({
               </Alert>
             )}
           </LabeledInput>
-          <Select
-            options={categoryOptions}
-            name="category"
-            onChange={handleSelect}
-            label="Categoria"
-            value={category.value}
-          />
+          <LabeledInput className="py-0">
+            <Select
+              options={categoryOptions}
+              name="category"
+              placeholder="Selecione uma categoria"
+              onChange={handleSelect}
+              label="Categoria"
+              value={category.value}
+            />
+          </LabeledInput>
           <LabeledInput>
             <CheckBox
               label={"Possui comissão?"}
@@ -66,27 +73,14 @@ const AddTypeForm = ({
             />
           </LabeledInput>
         </div>
-        <div className="flex justify-center py-4">
-          {item?._id ? (
-            <>
-              <div className="px-4">
-                <Button type="submit">
-                  {item?._id ? "Editar" : "Adicionar"}
-                </Button>
-              </div>
-              <div className="px-4">
-                <Button
-                  color="primary"
-                  onClick={() => resetForm()}
-                  type="button"
-                >
-                  Limpar
-                </Button>
-              </div>
-            </>
-          ) : (
-            <Button type="submit">{item?._id ? "Salvar" : "Adicionar"}</Button>
-          )}
+
+        <div className="flex justify-end py-5">
+          <Button onClick={cleanItem} type="button" color="#94a3b8" width="10%">
+            Cancelar
+          </Button>
+          <Button color="#00c950" type="submit" width="10%">
+            {item?._id ? "Editar" : "Adicionar"}
+          </Button>
         </div>
       </form>
     </div>

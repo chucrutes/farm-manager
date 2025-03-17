@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Option } from "../../../../atoms/select";
 import {
   AddOrUpdateTypeFormProps,
@@ -53,13 +53,16 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
     setError(null);
   };
 
-  const setForm = (item?: IType | null) => {
-    if (!item) return;
+  const setForm = useCallback(
+    (item?: IType | null) => {
+      if (!item) return;
 
-    setName(item.name);
-    setCategory(findCategoryByValue(item.category));
-    setCommission(item.commission);
-  };
+      setName(item.name);
+      setCategory(findCategoryByValue(item.category));
+      setCommission(item.commission);
+    },
+    [setName, setCategory, setCommission]
+  );
 
   const handleSelect = ({
     target: { value },
