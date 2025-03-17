@@ -81,22 +81,23 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
     [listItems]
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const rows: Item[] = items.map((item) => ({
       ...item,
       actions: () => (
-        <div className="flex flex-row">
-          <div className="px-2">
-            <Button onClick={() => handleEditItem(item)}>
-              <EditIcon />
-            </Button>
-          </div>
-          <div className="px-2">
-            <Button color="error" onClick={() => handleDeleteItem(item._id)}>
-              <DeleteIcon />
-            </Button>
-          </div>
+        <div className="flex justify-center gap-2">
+          <button
+            onClick={() => handleEditItem(item)}
+            className="p-2 bg-transparent hover:bg-gray-200 text-blue-600 rounded-md"
+          >
+            <EditIcon />
+          </button>
+          <button
+            onClick={() => handleDeleteItem(item._id)}
+            className="p-2 bg-transparent hover:bg-gray-200 text-red-500 rounded-md"
+          >
+            <DeleteIcon />
+          </button>
         </div>
       ),
     }));
