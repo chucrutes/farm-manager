@@ -10,20 +10,7 @@ import { handleResponseToast } from "../../utils/handleToast";
 import { EntryTable } from "./tables/entry.table";
 import { PlusIcon } from "../Icons/plus-icon";
 import { closeRegister } from "../../services/api/register/close-register";
-
-export type DtoEntry = {
-  _id: string;
-  description: string;
-  price: number;
-  quantity: number;
-  commission: number | null;
-  total: number;
-  type: IEntryType;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-  key: string;
-};
+import { DtoEntry } from "./dashboard.page";
 
 export const CreateRegisterComponent = () => {
   const [items, setItems] = useState<DtoEntry[]>([]);

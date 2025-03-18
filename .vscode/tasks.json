@@ -7,7 +7,8 @@
             "command": "yarn run dev",
             "runOptions": {
                 "runOn": "folderOpen"
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }

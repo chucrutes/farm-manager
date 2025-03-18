@@ -74,6 +74,14 @@ const EntryTable = ({
       },
     },
     {
+      id: "afterTax",
+      label: "Após taxa",
+      align: "center",
+      format: (value: number) => {
+        return formatBrazillianCurrency(value);
+      },
+    },
+    {
       id: "updatedAt",
       label: "Atualizado em",
       align: "center",

@@ -21,6 +21,7 @@ export type DtoEntry = {
   quantity: number;
   commission: number | null;
   total: number;
+  afterTax: number;
   type: IEntryType;
   category: string;
   createdAt: string;
