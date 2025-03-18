@@ -124,7 +124,12 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
     setTotal(Number.parseFloat(total));
   };
 
-  const handleTotalBlur = (_: number) => {};
+  const handleTotalBlur = (_: number) => {
+    if (!quantity) return;
+
+    const price = (total / quantity).toFixed(2);
+    setPrice(Number.parseFloat(price));
+  };
 
   const handleCommissionBlur = (value: number) => {
     const percentage = 1 - value / 100;

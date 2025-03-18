@@ -1,5 +1,4 @@
 import { TotalRow } from "./total-row";
-import Button from "../../atoms/button";
 import { useCallback, useEffect, useState } from "react";
 import { EditIcon } from "../../Icons/edit-icon";
 import { DeleteIcon } from "../../Icons/delete-icon";

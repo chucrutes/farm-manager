@@ -13,7 +13,6 @@ import { closeRegister } from "../../services/api/register/close-register";
 import { listRegister } from "../../services/api/register/list";
 import { stringifier } from "../../@utils/stringifier";
 import BarChart from "./bar-chart";
-import { formatBrazillianCurrency } from "../../@utils/formatters";
 
 export type DtoEntry = {
   _id: string;
@@ -175,7 +174,7 @@ export const DashboardComponent = () => {
             </Button>
           </div>
           <div className="p-8">
-            <BarChart data={registers} />
+            {registers.length !== 0 && <BarChart data={registers} />}
           </div>
         </div>
       </div>

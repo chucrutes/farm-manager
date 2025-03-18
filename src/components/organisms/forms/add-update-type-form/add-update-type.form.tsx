@@ -19,7 +19,6 @@ const AddTypeForm = ({
   const { verifyError } = useValidateData();
   const {
     setForm,
-    resetForm,
     handleSubmit,
     category,
     name,
