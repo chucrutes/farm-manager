@@ -12,6 +12,7 @@ import {
   categoryOptions,
   findCategoryByValue,
 } from "../../../../../entities/categories.enum";
+import { toast } from "react-toastify";
 
 type Params = Omit<AddOrUpdateTypeFormProps, "editItem">;
 
@@ -33,6 +34,11 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
       category: category.value as Categories,
       commission,
     };
+
+    if (type.category === Categories.EXPENSE && commission) {
+      toast.error("Uma dívida não pode possuir comissão");
+      return;
+    }
 
     const isValid = validateData(AddOrUpdateTypeSchema, type);
 
