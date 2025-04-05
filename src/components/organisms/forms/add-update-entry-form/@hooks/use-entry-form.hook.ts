@@ -8,6 +8,7 @@ import { IType } from "../../../../../entities/entry-type";
 import { Categories } from "../../../../../entities/categories.enum";
 import { ZodError } from "zod";
 import { useValidateData } from "../../@hooks/use-validate-form";
+import { numAsCurrency } from "../../../../../utils/formatters";
 
 type Params = Omit<AddOrUpdateEntryFormProps, "editItem">;
 
@@ -111,24 +112,23 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   const handlePriceBlur = (value: number) => {
     if (!quantity) return;
 
-    const total = (value * quantity).toFixed(2);
     setPrice(value);
-    setTotal(Number.parseFloat(total));
+    setTotal(numAsCurrency(value * quantity));
   };
 
   const handleQuantityBlur = (value: number) => {
     if (!price) return;
 
-    const total = (price * value).toFixed(2);
+
+
     setQuantity(value);
-    setTotal(Number.parseFloat(total));
+    setTotal(price * value);
   };
 
   const handleTotalBlur = (_: number) => {
     if (!quantity) return;
 
-    const price = (total / quantity).toFixed(2);
-    setPrice(Number.parseFloat(price));
+    setPrice(numAsCurrency(total/quantity))
   };
 
   const handleCommissionBlur = (value: number) => {

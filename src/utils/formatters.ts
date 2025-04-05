@@ -25,3 +25,9 @@ export const formatTime = (dateString: string) => {
     minute: "2-digit",
   });
 };
+
+
+export const numAsCurrency = (value: number) => {
+    const stringValue = (value).toFixed(2);
+    return Number.parseFloat(stringValue);
+}
