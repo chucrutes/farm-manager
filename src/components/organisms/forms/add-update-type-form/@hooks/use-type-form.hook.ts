@@ -35,11 +35,6 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
       commission,
     };
 
-    if (type.category === Categories.EXPENSE && commission) {
-      toast.error("Uma dívida não pode possuir comissão");
-      return;
-    }
-
     const isValid = validateData(AddOrUpdateTypeSchema, type);
 
     if (!isValid.success) {
