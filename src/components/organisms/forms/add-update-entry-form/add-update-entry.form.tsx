@@ -138,7 +138,7 @@ const AddEntryForm = ({
           {selectedType?.commission && (
             <>
               <LabeledInput>
-                <Label>Comissão (%)</Label>
+                <Label>Comissão</Label>
                 <CurrencyInput
                   id="commission"
                   disabled={!selectedType.commission}
@@ -153,7 +153,7 @@ const AddEntryForm = ({
                 />
               </LabeledInput>
               <LabeledInput>
-                <Label>Total Após Taxa</Label>
+                <Label>Total Após Comissão</Label>
                 <CurrencyInput
                   id="totalAfterTax"
                   disabled={true}

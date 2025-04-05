@@ -132,9 +132,9 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   };
 
   const handleCommissionBlur = (value: number) => {
-    const percentage = 1 - value / 100;
+    ;
 
-    setAfterTax(total * percentage);
+    setAfterTax(total - value);
   };
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
