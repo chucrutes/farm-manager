@@ -1,7 +1,7 @@
 import { envs } from "../../../config/envs";
 import type { ResponseCreation } from "../@types";
 
-const { REACT_APP_API_URL } = envs;
+const { API_URL } = envs;
 
 type IDeleteType = {
   ids: string[] | string;
@@ -16,7 +16,7 @@ export const deleteEntryType = async (
 ): Promise<ResponseCreation> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entry-types`, {
+  const response: Response = await fetch(`${API_URL}/entry-types`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

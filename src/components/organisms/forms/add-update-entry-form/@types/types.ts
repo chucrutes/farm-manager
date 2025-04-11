@@ -3,8 +3,6 @@ import { EntrySchema } from "../../../../../entities/entry";
 import { EntryTypeSchema, IType } from "../../../../../entities/entry-type";
 
 export const AddOrUpdateEntrySchema = EntrySchema.omit({
-  createdAt: true,
-  updatedAt: true,
   type: true,
   afterTax: true,
 }).merge(

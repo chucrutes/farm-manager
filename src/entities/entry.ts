@@ -10,8 +10,7 @@ export const EntrySchema = z.object({
   commission: z.number().nullish(),
   afterTax: z.number().positive(),
   type: EntryTypeSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
+
 });
 
 export type IEntry = z.infer<typeof EntrySchema>;

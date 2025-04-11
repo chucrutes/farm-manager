@@ -12,7 +12,6 @@ import {
   categoryOptions,
   findCategoryByValue,
 } from "../../../../../entities/categories.enum";
-import { toast } from "react-toastify";
 
 type Params = Omit<AddOrUpdateTypeFormProps, "editItem">;
 

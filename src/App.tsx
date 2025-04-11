@@ -7,6 +7,7 @@ import TypesPage from "./pages/types";
 import RegistersPage from "./pages/registers";
 import CreateRegistersPage from "./pages/registers/create-register";
 import RegisterDetailPage from "./pages/registers/[id]";
+import SignUp from "./pages/sign-up";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/" element={<Home />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/types" element={<TypesPage />} />
           <Route path="/registers" element={<RegistersPage />} />
           <Route path="/register/new" element={<CreateRegistersPage />} />

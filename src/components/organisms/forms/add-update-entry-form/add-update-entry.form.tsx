@@ -8,7 +8,6 @@ import { CurrencyInput } from "../../../atoms/currency-input";
 import { findCategoryByValue } from "../../../../entities/categories.enum";
 import { useEffect } from "react";
 import Input from "../../../atoms/Input";
-import { useNavigate } from "react-router-dom";
 
 const AddEntryForm = ({
   saveItem,
@@ -43,7 +42,6 @@ const AddEntryForm = ({
     getErrorMessage,
   } = useEntryForm({ item, saveItem, cleanItem, types });
 
-  const navigate = useNavigate();
 
   const typeOptions: Option[] = types.map((type) => ({
     value: type._id,

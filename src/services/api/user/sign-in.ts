@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { envs } from "../../../config/envs";
-const { REACT_APP_API_URL } = envs;
+const { API_URL } = envs;
 
 type ISignIn = {
   body: {
@@ -15,7 +15,7 @@ type IResponse = {
 };
 
 const signIn = async ({ body }: ISignIn): Promise<IResponse> => {
-  const response: Response = await fetch(`${REACT_APP_API_URL}/auth/sign-in`, {
+  const response: Response = await fetch(`${API_URL}/auth/sign-in`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

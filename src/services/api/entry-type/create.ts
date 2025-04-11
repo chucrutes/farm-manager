@@ -2,7 +2,7 @@ import { envs } from "../../../config/envs";
 import type { IEntryType } from "../../../entities/entry-type";
 import type { ResponseCreation } from "../@types";
 
-const { REACT_APP_API_URL } = envs;
+const { API_URL } = envs;
 
 type ICreateEntryType = {
   body: Omit<IEntryType, "createdAt" | "updatedAt">;
@@ -17,7 +17,7 @@ export const createOrUpdateEntryType = async ({
 }: ICreateEntryType): Promise<ResponseCreation> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entry-types`, {
+  const response: Response = await fetch(`${API_URL}/entry-types`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import { IAddOrUpdateEntry } from "../../../components/organisms/forms/add-updat
 import { envs } from "../../../config/envs";
 import { BodyCreation } from "../@types";
 
-const { REACT_APP_API_URL } = envs;
+const { API_URL } = envs;
 
 type ICreateEntry = {
   body: IAddOrUpdateEntry;
@@ -22,7 +22,7 @@ export const createOrUpdateEntry = async ({
 }: ICreateEntry): Promise<IResponse> => {
   const token = getTokenFromLocalStorage();
 
-  const response: Response = await fetch(`${REACT_APP_API_URL}/entries`, {
+  const response: Response = await fetch(`${API_URL}/entries`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

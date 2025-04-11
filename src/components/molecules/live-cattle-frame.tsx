@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { envs } from "../../config/envs";
+
+const {CEPEA_URL} = envs
 
 const LiveCattlePrice = () => {
   const [priceData, setPriceData] = useState<{
@@ -16,7 +19,7 @@ const LiveCattlePrice = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://www.cepea.esalq.usp.br/br/widgetproduto.js.php?id_indicador[]=2"
+CEPEA_URL          
         );
         const data = await response.text();
 
