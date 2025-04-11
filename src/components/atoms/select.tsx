@@ -14,7 +14,7 @@ export type SelectProps = ComponentProps<"select"> & {
   error?: boolean;
   errorMessage?: string;
   shortcutLabel?: string;
-  onShortcutClick?: () => void;
+  shortcutLink?: string;
 };
 
 const Select = ({
@@ -27,7 +27,7 @@ const Select = ({
   error,
   errorMessage,
   shortcutLabel,
-  onShortcutClick,
+  shortcutLink,
 }: SelectProps) => {
   const optionsLength = options.length;
   const disabled = optionsLength === 0;
@@ -48,10 +48,10 @@ const Select = ({
           {label}
         </label>
 
-        {shortcutLabel && onShortcutClick && (
-          <button
-            type="button"
-            onClick={onShortcutClick}
+        {shortcutLabel && shortcutLink && (
+          <a
+          href="/types"
+          target="_blank"
             className="text-xs text-green-500 hover:text-green-700 hover:underline focus:outline-none gap-1 flex items-center"
             style={{
               fontFamily: "Sora, sans-serif",
@@ -59,7 +59,7 @@ const Select = ({
           >
             {shortcutLabel}
             <LaunchIcon />
-          </button>
+          </a>
         )}
       </div>
 

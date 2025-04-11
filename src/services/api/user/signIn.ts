@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { envs } from "../../config/envs";
+import { envs } from "../../../config/envs";
 const { REACT_APP_API_URL } = envs;
 
 type ISignIn = {

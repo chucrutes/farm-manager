@@ -85,9 +85,7 @@ const AddEntryForm = ({
               error={hasError("selectedType")}
               errorMessage={getErrorMessage("selectedType")}
               shortcutLabel="Adicionar Tipo"
-              onShortcutClick={() => {
-                navigate("/types");
-              }}
+              shortcutLink="Adicionar Tipo"
             />
           </LabeledInput>
           <LabeledInput>

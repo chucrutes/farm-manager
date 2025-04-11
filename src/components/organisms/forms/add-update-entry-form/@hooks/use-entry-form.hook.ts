@@ -132,9 +132,20 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
   };
 
   const handleCommissionBlur = (value: number) => {
-    ;
+    if(!selectedType) return
 
-    setAfterTax(total - value);
+    switch(selectedType.category){
+      case Categories.EXPENSE: 
+      setAfterTax(total + value)
+      break
+      case Categories.INCOME: 
+      setAfterTax(total - value)
+      break
+      default:
+        return
+
+    }
+
   };
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

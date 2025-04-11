@@ -65,9 +65,9 @@ export const DashboardComponent = () => {
       const newItems = [typeSaved, ...items];
       setItems(newItems);
       if (typeSaved.type.category === "EXPENSE") {
-        setTotal((prevTotal) => prevTotal - typeSaved.total);
+        setTotal((prevTotal) => prevTotal - typeSaved.afterTax);
       } else {
-        setTotal((prevTotal) => prevTotal + typeSaved.total);
+        setTotal((prevTotal) => prevTotal + typeSaved.afterTax);
       }
       setItemToEdit(null);
       return;
