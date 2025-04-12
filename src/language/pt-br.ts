@@ -7,6 +7,10 @@ const ptBr = [
 		key: "user.already_exists",
 		label: "Entre em contato com os administradores",
 	},
+	{
+		key: "account.created",
+		label: "Conta criada com sucesso",
+	},
 ];
 
 export const findLabelByKey = (key: string): string => {
