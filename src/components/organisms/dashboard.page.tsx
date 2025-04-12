@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { listEntry } from "../../services/api/entry/list";
 import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
 import Button from "../atoms/button";
 import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
-import { IEntryType, IType } from "../../entities/entry-type";
+import type { IEntryType, IType } from "../../entities/entry-type";
 import { listEntryTypes } from "../../services/api/entry-type/list";
 import { createOrUpdateEntry } from "../../services/api/entry/create";
 import { handleResponseToast } from "../../utils/handle-toast";
@@ -13,6 +13,7 @@ import { closeRegister } from "../../services/api/register/close-register";
 import { listRegister } from "../../services/api/register/list";
 import { stringifier } from "../../@utils/stringifier";
 import BarChart from "./bar-chart";
+import LiveCattlePrice from "../molecules/live-cattle-frame";
 
 export type DtoEntry = {
 	_id: string;
@@ -37,19 +38,19 @@ export const DashboardComponent = () => {
 	const [showForm, setShowForm] = useState<boolean>(false);
 	const [registers, setRegisters] = useState<any[]>([]);
 
-	const listEntries = async () => {
+	const listEntries = useCallback(async () => {
 		const response = await listEntry();
 		const registers = await listRegister();
 		stringifier(registers.body);
 		setItems(response.body.dto.entries);
 		setTotal(response.body.dto.total);
 		setRegisters(registers.body.dto);
-	};
+	}, []);
 
-	const listTypes = async () => {
+	const listTypes = useCallback(async () => {
 		const response = await listEntryTypes();
 		setTypes(response.body.dto);
-	};
+	}, []);
 
 	const saveItem = async (item: IAddOrUpdateEntry) => {
 		const res = await createOrUpdateEntry({ body: item });
@@ -88,7 +89,7 @@ export const DashboardComponent = () => {
 	useEffect(() => {
 		listEntries();
 		listTypes();
-	}, []);
+	}, [listEntries, listTypes]);
 
 	const handleCloseRegister = async () => {
 		await closeRegister();
@@ -118,6 +119,9 @@ export const DashboardComponent = () => {
 							}`}
 							key="add-button"
 						>
+							<div className="flex justify-end py-4">
+								<LiveCattlePrice />
+							</div>
 							{!showForm && (
 								<div className="flex justify-between items-center mb-4">
 									<h2 className="text-2xl font-semibold">Entradas e Saídas</h2>

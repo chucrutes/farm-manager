@@ -51,7 +51,7 @@ const LiveCattlePrice = () => {
 	}, []);
 
 	return (
-		<div className={`${collapse ? "flex justify-end" : ""}`}>
+		<div className={`${collapse ? "flex justify-end" : "max-w-96"}`}>
 			<div
 				className={`rounded-2xl bg-[#ddece5] ${collapse ? "w-fit p-2" : "p-4"}`}
 			>
