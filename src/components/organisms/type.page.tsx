@@ -3,14 +3,14 @@ import { type DtoEntryType, EntryTypeTable } from "./tables/type.table";
 import { listEntryTypes } from "../../services/api/entry-type/list";
 import { createOrUpdateEntryType } from "../../services/api/entry-type/create";
 import AddTypeForm from "./forms/add-update-type-form/add-update-type.form";
-import type { IType } from "./forms/add-update-type-form/@types/types";
+import type { Type } from "./forms/add-update-type-form/@types/types";
 import { handleResponseToast } from "../../utils/handle-toast";
 import Button from "../atoms/button";
 import { PlusIcon } from "../Icons/plus-icon";
 
 export const EntryTypeComponent = () => {
 	const [items, setItems] = useState<DtoEntryType[]>([]);
-	const [itemToEdit, setItemToEdit] = useState<IType | null>(null);
+	const [itemToEdit, setItemToEdit] = useState<Type | null>(null);
 	const [showForm, setShowForm] = useState<boolean>(false);
 
 	const listEntries = async () => {
@@ -18,7 +18,7 @@ export const EntryTypeComponent = () => {
 		setItems(response.body.dto);
 	};
 
-	const saveItem = async (item: IType) => {
+	const saveItem = async (item: Type) => {
 		const res = await createOrUpdateEntryType({ body: item });
 		if (![200, 201].includes(res.status)) {
 			handleResponseToast(res);
@@ -44,7 +44,7 @@ export const EntryTypeComponent = () => {
 		setShowForm(false);
 	};
 
-	const handleEditItem = (item: IType) => {
+	const handleEditItem = (item: Type) => {
 		setItemToEdit(item);
 		setShowForm(true);
 	};

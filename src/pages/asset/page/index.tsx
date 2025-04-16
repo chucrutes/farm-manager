@@ -1,19 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { listEntry } from "../../services/api/entry/list";
-import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
-import Button from "../atoms/button";
-import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
-import type { IEntryType, Type } from "../../entities/entry-type";
-import { listEntryTypes } from "../../services/api/entry-type/list";
-import { createOrUpdateEntry } from "../../services/api/entry/create";
-import { handleResponseToast } from "../../utils/handle-toast";
-import { EntryTable } from "./tables/entry.table";
-import { PlusIcon } from "../Icons/plus-icon";
-import { closeRegister } from "../../services/api/register/close-register";
-import { listRegister } from "../../services/api/register/list";
-import { stringifier } from "../../@utils/stringifier";
-import BarChart from "./bar-chart";
-import LiveCattlePrice from "../molecules/live-cattle-frame";
+import type { IEntryType, Type } from "../../../entities/entry-type";
+import type { IAddOrUpdateEntry } from "../../../components/organisms/forms/add-update-entry-form/@types/types";
+import { listEntry } from "../../../services/api/entry/list";
+import { listEntryTypes } from "../../../services/api/entry-type/list";
+import { createOrUpdateEntry } from "../../../services/api/entry/create";
+import { handleResponseToast } from "../../../utils/handle-toast";
+import LiveCattlePrice from "../../../components/molecules/live-cattle-frame";
+import Button from "../../../components/atoms/button";
+import { PlusIcon } from "../../../components/Icons/plus-icon";
+import AddEntryForm from "../../../components/organisms/forms/add-update-entry-form/add-update-entry.form";
+import { EntryTable } from "../../../components/organisms/tables/entry.table";
+import { listAsset } from "../../../services/api/entry/list-asset";
 
 export type DtoEntry = {
 	_id: string;
@@ -30,21 +27,17 @@ export type DtoEntry = {
 	key: string;
 };
 
-export const DashboardComponent = () => {
+export const AssetComponent = () => {
 	const [items, setItems] = useState<DtoEntry[]>([]);
 	const [types, setTypes] = useState<Type[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [itemToEdit, setItemToEdit] = useState<IAddOrUpdateEntry | null>(null);
 	const [showForm, setShowForm] = useState<boolean>(false);
-	const [registers, setRegisters] = useState<any[]>([]);
 
 	const listEntries = useCallback(async () => {
-		const response = await listEntry();
-		const registers = await listRegister();
-		stringifier(registers.body);
+		const response = await listAsset();
 		setItems(response.body.dto.entries);
 		setTotal(response.body.dto.total);
-		setRegisters(registers.body.dto);
 	}, []);
 
 	const listTypes = useCallback(async () => {
@@ -91,11 +84,6 @@ export const DashboardComponent = () => {
 		listTypes();
 	}, [listEntries, listTypes]);
 
-	const handleCloseRegister = async () => {
-		await closeRegister();
-		listEntries();
-	};
-
 	const handleAddClick = () => {
 		setShowForm(true);
 		setItemToEdit(null);
@@ -124,7 +112,7 @@ export const DashboardComponent = () => {
 							</div>
 							{!showForm && (
 								<div className="flex justify-between items-center mb-4">
-									<h2 className="text-2xl font-semibold">Entradas e Saídas</h2>
+									<h2 className="text-2xl font-semibold">Patrimônio</h2>
 									<Button
 										color="#00c950"
 										onClick={handleAddClick}
@@ -172,15 +160,6 @@ export const DashboardComponent = () => {
 						total={total}
 						listEntries={listEntries}
 					/>
-
-					<div className="flex justify-end mt-4">
-						<Button color="#16a44b" onClick={handleCloseRegister}>
-							Fechar caixa
-						</Button>
-					</div>
-					<div className="p-8">
-						{registers.length !== 0 && <BarChart data={registers} />}
-					</div>
 				</div>
 			</div>
 		</>

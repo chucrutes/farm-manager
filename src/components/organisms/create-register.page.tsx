@@ -3,7 +3,7 @@ import { listEntry } from "../../services/api/entry/list";
 import type { IAddOrUpdateEntry } from "./forms/add-update-entry-form/@types/types";
 import Button from "../atoms/button";
 import AddEntryForm from "./forms/add-update-entry-form/add-update-entry.form";
-import { IEntryType, IType } from "../../entities/entry-type";
+import { IEntryType, Type } from "../../entities/entry-type";
 import { listEntryTypes } from "../../services/api/entry-type/list";
 import { createOrUpdateEntry } from "../../services/api/entry/create";
 import { handleResponseToast } from "../../utils/handle-toast";
@@ -14,7 +14,7 @@ import { DtoEntry } from "./dashboard.page";
 
 export const CreateRegisterComponent = () => {
 	const [items, setItems] = useState<DtoEntry[]>([]);
-	const [types, setTypes] = useState<IType[]>([]);
+	const [types, setTypes] = useState<Type[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [itemToEdit, setItemToEdit] = useState<IAddOrUpdateEntry | null>(null);
 	const [showForm, setShowForm] = useState<boolean>(false);

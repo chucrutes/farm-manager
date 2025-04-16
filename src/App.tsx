@@ -8,23 +8,25 @@ import RegistersPage from "./pages/registers";
 import CreateRegistersPage from "./pages/registers/create-register";
 import RegisterDetailPage from "./pages/registers/[id]";
 import SignUp from "./pages/sign-up";
+import AssetsPage from "./pages/asset";
 
 function App() {
-  return (
-    <RootLayout>
-      <Router>
-        <Routes>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/types" element={<TypesPage />} />
-          <Route path="/registers" element={<RegistersPage />} />
-          <Route path="/register/new" element={<CreateRegistersPage />} />
-          <Route path="/register/:id" element={<RegisterDetailPage />} />
-        </Routes>
-      </Router>
-    </RootLayout>
-  );
+	return (
+		<RootLayout>
+			<Router>
+				<Routes>
+					<Route path="/dashboard" element={<DashboardPage />} />
+					<Route path="/assets" element={<AssetsPage />} />
+					<Route path="/" element={<Home />} />
+					<Route path="/sign-up" element={<SignUp />} />
+					<Route path="/types" element={<TypesPage />} />
+					<Route path="/registers" element={<RegistersPage />} />
+					<Route path="/register/new" element={<CreateRegistersPage />} />
+					<Route path="/register/:id" element={<RegisterDetailPage />} />
+				</Routes>
+			</Router>
+		</RootLayout>
+	);
 }
 
 export default App;

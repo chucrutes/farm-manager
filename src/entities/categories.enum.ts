@@ -17,7 +17,7 @@ export const categoryOptions: Option[] = [
     value: Categories.INCOME,
   },
   {
-    label: "Ativo",
+    label: "Patrimônio",
     value: Categories.ASSET,
   },
 ];
