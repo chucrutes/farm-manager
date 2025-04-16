@@ -58,13 +58,17 @@ const LiveCattlePrice = () => {
 				<button type="button" onClick={() => setCollapse(!collapse)}>
 					{collapse ? <PanelRightOpen /> : <PanelLeftOpen />}
 				</button>
-				{loading ? (
+
+				{loading && (
 					<div className="animate-pulse flex space-x-4">
 						<div className="h-6 w-full bg-gray-200 rounded" />
 					</div>
-				) : error ? (
+				)}
+				{error && (
 					<div className="text-red-500">{error}</div>
-				) : (
+				)}
+				{!error && 
+				(
 					<div className={`${collapse ? "hidden" : "flex flex-col gap-1"}`}>
 						<div>
 							<div className="flex flex-row gap-1">
@@ -92,7 +96,10 @@ const LiveCattlePrice = () => {
 							</p>
 						</div>
 					</div>
-				)}
+				)
+				
+				} 
+				
 			</div>
 		</div>
 	);
