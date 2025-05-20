@@ -28,7 +28,7 @@ const Header = () => {
 		},
 		{
 			path: "/assets",
-			content: "Patrimônio",
+			content: "Investimento",
 			icon: <CircleDollarSign className="w-4 h-4 md:w-5 md:h-5" />,
 		},
 		{

@@ -86,16 +86,18 @@ const EntryTypeTable = ({ items, total, editItem, listItems }: TableProps) => {
 			actions: () => (
 				<div className="flex justify-center gap-2">
 					<button
+						type="button"
 						onClick={() => handleEditItem(item)}
 						className="p-2 bg-transparent hover:bg-gray-200 text-blue-600 rounded-md"
 					>
-						<EditIcon />
+						Editar
 					</button>
 					<button
+						type="button"
 						onClick={() => handleDeleteItem(item._id)}
 						className="p-2 bg-transparent hover:bg-gray-200 text-red-500 rounded-md"
 					>
-						<DeleteIcon />
+						Excluir
 					</button>
 				</div>
 			),
