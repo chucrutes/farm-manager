@@ -1,14 +1,14 @@
-import { ZodError } from "zod";
+import type { ZodError } from "zod";
 import { useCallback, useState } from "react";
-import { Option } from "../../../../atoms/select";
+import type { Option } from "../../../../atoms/select";
 import {
-	AddOrUpdateTypeFormProps,
+	type AddOrUpdateTypeFormProps,
 	AddOrUpdateTypeSchema,
-	Type,
+	type Type,
 } from "../@types/types";
 import { useValidateData } from "../../@hooks/use-validate-form";
 import {
-	Categories,
+	type Categories,
 	categoryOptions,
 	findCategoryByValue,
 } from "../../../../../entities/categories.enum";
@@ -53,16 +53,13 @@ export const useTypeForm = ({ item, saveItem, cleanItem }: Params) => {
 		setError(null);
 	};
 
-	const setForm = useCallback(
-		(item?: Type | null) => {
-			if (!item) return;
+	const setForm = useCallback((item?: Type | null) => {
+		if (!item) return;
 
-			setName(item.name);
-			setCategory(findCategoryByValue(item.category));
-			setCommission(item.commission);
-		},
-		[setName, setCategory, setCommission],
-	);
+		setName(item.name);
+		setCategory(findCategoryByValue(item.category));
+		setCommission(item.commission);
+	}, []);
 
 	const handleSelect = ({
 		target: { value },

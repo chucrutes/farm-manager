@@ -1,10 +1,10 @@
 import { useState, useCallback } from "react";
 import {
-	AddOrUpdateEntryFormProps,
+	type AddOrUpdateEntryFormProps,
 	AddOrUpdateEntrySchema,
-	IAddOrUpdateEntry,
+	type IAddOrUpdateEntry,
 } from "../@types/types";
-import { Type } from "../../../../../entities/entry-type";
+import type { Type } from "../../../../../entities/entry-type";
 import { Categories } from "../../../../../entities/categories.enum";
 import { ZodError } from "zod";
 import { useValidateData } from "../../@hooks/use-validate-form";
@@ -67,7 +67,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 		if (!total) {
 			errors.total = "Total é obrigatório";
 		}
-		if (selectedType?.commission && !commission) {
+		if (selectedType?.commission && commission !== 0 && commission) {
 			errors.commission = "Comissão é obrigatória";
 		}
 
