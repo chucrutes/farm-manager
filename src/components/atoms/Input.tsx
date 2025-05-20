@@ -2,17 +2,30 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { InputAdornment, type TextFieldProps } from "@mui/material";
 import { Eye, EyeOff } from "lucide-react";
-import { ErrorIcon } from "../Icons/ErrorIcon";
+import { ErrorIcon } from "../Icons/error-icon";
 
 type InputProps = TextFieldProps & {
   label?: string;
   icon?: React.ReactNode;
   error?: boolean;
   errorMessage?: string;
+  variant?: "standard" | "filled" | "outlined";
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ id, label, type = "text", icon, error, errorMessage, ...props }, ref) => {
+  (
+    {
+      id,
+      label,
+      type = "text",
+      icon,
+      error,
+      errorMessage,
+      variant = "standard",
+      ...props
+    },
+    ref
+  ) => {
     const [isVisible, setIsVisible] = useState(type === "text");
 
     const togglePassword = () => {
@@ -24,12 +37,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <TextField
           {...props}
           type={isVisible ? "text" : "password"}
-          color="success"
+          color={variant === "standard" ? "success" : "primary"}
           id={id}
           label={label}
-          variant="standard"
+          variant={variant}
           ref={ref}
           size="small"
+          error={error}
+          InputLabelProps={{
+            shrink: variant === "standard" ? true : false,
+          }}
           InputProps={{
             startAdornment: icon && (
               <InputAdornment
@@ -41,35 +58,81 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ),
           }}
           sx={{
-            "& input": {
-              fontFamily: "Sora, sans-serif",
-              fontSize: "13px",
-              padding: (theme) =>
-                type === "password" ? "6px 1.5px" : "6px 0px",
-            },
-            "& label": {
-              fontFamily: "Sora, sans-serif",
-              fontSize: "14px",
-              color: "black",
-              transform: icon
-                ? "translate(26px, 22px) scale(1)"
-                : "translate(0, 22px) scale(1)",
-              "&.Mui-focused": {
-                transform: "translate(2px, 3px) scale(0.80)",
-              },
-              "&.MuiFormLabel-filled": {
-                transform: "translate(2px, 3px) scale(0.80)",
-              },
-            },
-            "& .MuiInput-underline": {
-              "&::before": {
-                borderBottom: "1px solid black",
-              },
-              "&:hover:not(.Mui-disabled):before": {
-                borderBottom: "2px solid black",
-              },
-            },
             width: "100%",
+            ...(variant === "standard" && {
+              "& input": {
+                fontFamily: "Sora, sans-serif",
+                fontSize: "14px",
+                padding: (theme) =>
+                  type === "password" ? "6px 1.5px" : "6px 0px",
+              },
+              "& label": {
+                fontFamily: "Sora, sans-serif",
+                fontSize: "14px",
+                color: "black",
+                transform: icon
+                  ? "translate(26px, 22px) scale(1)"
+                  : "translate(0, 22px) scale(1)",
+                "&.Mui-focused": {
+                  transform: "translate(2px, 3px) scale(0.80)",
+                  color: "green",
+                },
+                "&.MuiFormLabel-filled": {
+                  transform: "translate(2px, 3px) scale(0.80)",
+                },
+              },
+              "& .MuiInput-underline": {
+                "&::before": {
+                  borderBottom: error ? "1px solid red" : "1px solid black",
+                },
+                "&:hover:not(.Mui-disabled):before": {
+                  borderBottom: error ? "2px solid red" : "2px solid black",
+                },
+                "&::after": {
+                  borderBottom: error ? "2px solid red" : "2px solid green",
+                },
+              },
+            }),
+            ...(variant !== "standard" && {
+              "& input": {
+                paddingTop: "8px",
+                fontFamily: "Sora, sans-serif",
+                fontSize: "14px",
+              },
+              "& label": {
+                position: "relative",
+                transform: "translateY(-20%)",
+                fontSize: "14px",
+                fontFamily: "Sora, sans-serif",
+                fontWeight: "medium",
+                color: "black",
+                "&.Mui-focused": {
+                  color: "black",
+                },
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: error ? "red" : "#E0E0E0",
+                },
+                "&:hover fieldset": {
+                  borderColor: error ? "red" : "#E0E0E0",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "black",
+                },
+              },
+              "& .MuiFilledInput-root": {
+                "&::before": {
+                  borderBottom: error ? "2px solid red" : "2px solid black",
+                },
+                "&:hover:not(.Mui-disabled):before": {
+                  borderBottom: error ? "2px solid red" : "2px solid black",
+                },
+                "&::after": {
+                  borderBottom: error ? "2px solid red" : "2px solid black",
+                },
+              },
+            }),
           }}
         />
         {error && errorMessage && (
