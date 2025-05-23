@@ -67,7 +67,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 		if (!total) {
 			errors.total = "Total é obrigatório";
 		}
-		if (selectedType?.commission && commission !== 0 && commission) {
+		if (selectedType?.commission && commission !== 0 && !commission) {
 			errors.commission = "Comissão é obrigatória";
 		}
 
@@ -169,7 +169,6 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 		(item?: IAddOrUpdateEntry | null) => {
 			if (!item) return;
 
-			const percentage = 1 - (item.commission ?? 0) / 100;
 
 			setDescription(item.description);
 			setQuantity(item.quantity);
@@ -177,7 +176,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 			setTotal(item.total);
 			setCommission(item.commission);
 			setCategory(item.type.category);
-			setAfterTax(item.total * percentage);
+			setAfterTax(item.total - (item.commission ?? 0));
 			setError(null);
 
 			const typeFound = findType(types, item.type?._id);
@@ -186,16 +185,7 @@ export const useEntryForm = ({ item, saveItem, cleanItem, types }: Params) => {
 			setSelectedType(typeFound);
 			setCategory(typeFound?.category ?? null);
 		},
-		[
-			setDescription,
-			setQuantity,
-			setPrice,
-			setTotal,
-			setCategory,
-			setError,
-			setSelectedType,
-			types,
-		],
+		[types],
 	);
 
 	return {
